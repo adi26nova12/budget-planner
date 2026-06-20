@@ -147,19 +147,23 @@ function updateNavbar(session) {
 // Router middleware / handler
 function handleRoute() {
   const routePath = window.location.pathname || '/';
+  console.log('[ROUTER] handleRoute path:', routePath);
   
   if (routePath === '/') {
+    console.log('[ROUTER] Redirecting root path to index.html');
     window.location.href = '/';
     return;
   }
   
   let route = routes[routePath];
   if (!route) {
+    console.log('[ROUTER] Route details not found direct, checking fallback for:', routePath);
     // Check if path is empty or has active tab fallback
     if (routePath === '/login' || routePath === '/register' || routePath === '/dashboard' || routePath === '/profile') {
       route = routes[routePath];
     } else {
       // Fallback
+      console.log('[ROUTER] Unknown path, fallback redirection. Authenticated:', !!currentSession);
       if (currentSession) {
         navigateTo('/dashboard');
       } else {
@@ -170,19 +174,23 @@ function handleRoute() {
   }
   
   const isAuthenticated = !!currentSession;
+  console.log('[ROUTER] Matched route:', route, 'Authenticated:', isAuthenticated);
   
   // Route guards
   if (route.private && !isAuthenticated) {
+    console.log('[ROUTER] Guard: private route and unauthenticated. Redirecting to /login');
     showToast('Please sign in to access your dashboard.', 'error');
     navigateTo('/login');
     return;
   }
   if (!route.private && isAuthenticated && (routePath === '/login' || routePath === '/register')) {
+    console.log('[ROUTER] Guard: public auth route but already authenticated. Redirecting to /dashboard');
     navigateTo('/dashboard');
     return;
   }
   
   // Switch view containers
+  console.log('[ROUTER] Toggling views. Hiding others, displaying:', route.viewId);
   document.querySelectorAll('.view-container').forEach(view => {
     view.classList.remove('active');
   });
@@ -190,6 +198,9 @@ function handleRoute() {
   const targetView = document.getElementById(route.viewId);
   if (targetView) {
     targetView.classList.add('active');
+    console.log('[ROUTER] Target view activated:', route.viewId, 'display status:', window.getComputedStyle(targetView).display);
+  } else {
+    console.error('[ROUTER] ERROR: Target view element not found in DOM:', route.viewId);
   }
   
   // Switch nav link active classes
