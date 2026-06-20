@@ -1,0 +1,569 @@
+/* ==========================================
+   COZY JOURNAL LANDING HOME PAGE STYLES
+   ========================================== */
+
+.journal-home-container {
+  background-color: #F7F3EC;
+  background-image: radial-gradient(#d5cab7 1.5px, transparent 1.5px);
+  background-size: 24px 24px;
+  color: #2B2118;
+  padding: 40px 16px;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 17px;
+}
+
+/* Journal Binder Book Wrap */
+.journal-paper {
+  background-color: #FAF8F5;
+  border: 3px solid #2B2118;
+  border-radius: 12px;
+  box-shadow: 6px 6px 0px #DAC0A3, 0 10px 25px rgba(0, 0, 0, 0.05);
+  max-width: 1200px;
+  width: 100%;
+  position: relative;
+  display: flex;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+/* Notebook Spiral Spine on the Left */
+.journal-spiral {
+  width: 48px;
+  background-color: #F0EDE6;
+  border-right: 3px solid #2B2118;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 24px 0;
+  user-select: none;
+}
+
+.spiral-loop {
+  width: 28px;
+  height: 12px;
+  background: linear-gradient(to bottom, #dcd7cd, #a8a092);
+  border: 2px solid #2B2118;
+  border-radius: 10px;
+  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.5), 2px 2px 2px rgba(0, 0, 0, 0.15);
+}
+
+.journal-content {
+  flex: 1;
+  padding: 48px 56px;
+}
+
+/* Handwritten Typography */
+.journal-title {
+  font-family: 'Kalam', cursive;
+  font-size: 42px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #1A120B;
+  margin-bottom: 24px;
+  position: relative;
+  display: inline-block;
+}
+
+.journal-title::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='10'><path d='M0 5 Q 25 1, 50 5 T 100 5' fill='none' stroke='%23ff85a2' stroke-width='3' stroke-linecap='round'/></svg>");
+  background-size: 80px 4px;
+}
+
+.journal-subtitle {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 21px;
+  line-height: 1.5;
+  color: #4D3E33;
+  margin-bottom: 36px;
+  max-width: 680px;
+}
+
+.journal-desc {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 19px;
+  color: #4D3E33;
+  margin-bottom: 32px;
+}
+
+.font-handwriting {
+  font-family: 'Kalam', cursive;
+}
+
+/* Hand-Drawn Sketchy Buttons */
+.btn-sketch {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 28px;
+  font-family: 'Kalam', cursive;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+  margin-right: 16px;
+}
+
+.btn-primary-sketch {
+  background-color: #ff85a2;
+  color: #1A120B;
+  border: 3px solid #2B2118;
+  box-shadow: 4px 4px 0px #2B2118;
+}
+
+.btn-primary-sketch:hover {
+  transform: translateY(-2px) rotate(-1deg);
+  box-shadow: 6px 6px 0px #2B2118;
+}
+
+.btn-primary-sketch:active {
+  transform: translateY(1px);
+  box-shadow: 2px 2px 0px #2B2118;
+}
+
+.btn-secondary-sketch {
+  background-color: #FAF8F5;
+  color: #2B2118;
+  border: 3px solid #2B2118;
+  box-shadow: 4px 4px 0px #2B2118;
+}
+
+.btn-secondary-sketch:hover {
+  transform: translateY(-2px) rotate(1deg);
+  box-shadow: 6px 6px 0px #2B2118;
+}
+
+.btn-secondary-sketch:active {
+  transform: translateY(1px);
+  box-shadow: 2px 2px 0px #2B2118;
+}
+
+/* Sections */
+.journal-section {
+  margin-top: 64px;
+  padding-top: 48px;
+  border-top: 2px dashed #D3C7B5;
+}
+
+.section-title-sketch {
+  font-family: 'Kalam', cursive;
+  font-size: 32px;
+  font-weight: 700;
+  color: #2B2118;
+  margin-bottom: 24px;
+  display: inline-block;
+  background: linear-gradient(180deg, transparent 65%, #FFF9DB 65%);
+  padding: 0 4px;
+}
+
+/* Overview Layout & Metric Cards */
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.paper-card {
+  background-color: #FFFDF9;
+  border: 2px solid #2B2118;
+  border-radius: 8px;
+  box-shadow: 4px 4px 0px #2B2118;
+  padding: 24px;
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.paper-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 6px 6px 0px #2B2118;
+}
+
+/* Card binder rings decoration */
+.card-binder-rings {
+  position: absolute;
+  top: -12px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-around;
+  padding: 0 20px;
+  pointer-events: none;
+}
+
+.binder-ring {
+  width: 10px;
+  height: 20px;
+  background: #ccd4dc;
+  border: 2px solid #2B2118;
+  border-radius: 50%;
+}
+
+.metric-handwriting .label {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 16px;
+  text-transform: uppercase;
+  color: #7A695C;
+  letter-spacing: 0.5px;
+  display: block;
+}
+
+.metric-handwriting .amount {
+  font-family: 'Kalam', cursive;
+  font-size: 26px;
+  font-weight: 700;
+  margin: 6px 0;
+}
+
+.metric-handwriting .desc {
+  font-size: 15px;
+  color: #8C7C6D;
+}
+
+.green-ink { color: #2e7d32; }
+.red-ink { color: #c62828; }
+.blue-ink { color: #1565c0; }
+
+/* Hand-Drawn Pie Chart Layout */
+.pie-chart-paper-card {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 32px;
+}
+
+.pie-layout {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.pie-chart-graphic {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sketch-pie-svg {
+  filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.05));
+}
+
+.pie-legend {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+
+.pie-legend li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  font-size: 18px;
+}
+
+.legend-box {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #2B2118;
+  border-radius: 3px;
+  display: inline-block;
+}
+
+.color-pink { background-color: #FFE3E3; }
+.color-green { background-color: #E3F9E5; }
+.color-purple { background-color: #F3E8FF; }
+.color-yellow { background-color: #FFF9DB; }
+.color-blue { background-color: #D0EBFF; }
+
+/* Sticky Notes Component */
+.sticky-notes-container {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+
+.sticky-note {
+  width: 180px;
+  min-height: 180px;
+  padding: 24px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 2px 8px 12px rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.02);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease;
+}
+
+.sticky-note:hover {
+  transform: scale(1.05) rotate(0deg) !important;
+  z-index: 10;
+}
+
+.note-pink { background-color: #FFE3E3; transform: rotate(-1.5deg); }
+.note-green { background-color: #E3F9E5; transform: rotate(1deg); }
+.note-blue { background-color: #E3FAF9; transform: rotate(-1deg); }
+.note-purple { background-color: #F3E8FF; transform: rotate(1.5deg); }
+.note-yellow { background-color: #FFF9DB; transform: rotate(-0.5deg); }
+
+/* Tape element holding sticky notes */
+.sticky-tape {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-4deg);
+  width: 70px;
+  height: 20px;
+  background-color: rgba(245, 240, 210, 0.45);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+  backdrop-filter: blur(0.5px);
+  border-left: 1px dashed rgba(0, 0, 0, 0.1);
+  border-right: 1px dashed rgba(0, 0, 0, 0.1);
+}
+
+.note-content {
+  text-align: left;
+}
+
+.note-title {
+  font-family: 'Kalam', cursive;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.note-amount {
+  font-family: 'Caveat', cursive;
+  font-size: 19px;
+  font-weight: 700;
+  color: #5C4A3A;
+  margin-bottom: 12px;
+}
+
+.note-body {
+  font-size: 15px;
+  line-height: 1.3;
+}
+
+/* Ruled Notebook Card Style */
+.ruled-paper-card {
+  background-color: #FFFDF9;
+  border: 3px solid #2B2118;
+  border-radius: 8px;
+  box-shadow: 5px 5px 0px #2B2118;
+  position: relative;
+  overflow: hidden;
+  padding: 32px 32px 32px 64px; /* leaves room for red line margin */
+}
+
+.ruled-margin-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 48px;
+  width: 2px;
+  background-color: #ff9aa2;
+}
+
+.ruled-title {
+  font-size: 28px;
+  margin-bottom: 24px;
+  color: #1A120B;
+}
+
+/* Notebook Table style */
+.notebook-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 19px;
+}
+
+.notebook-table th, .notebook-table td {
+  padding: 12px 8px;
+  text-align: left;
+  border-bottom: 2px solid #E6DEC9;
+}
+
+.notebook-table th {
+  font-family: 'Kalam', cursive;
+  font-size: 16px;
+  color: #8C7C6D;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* Savings Goals & Progress bars */
+.goals-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+}
+
+.goal-card {
+  padding: 24px;
+  text-align: left;
+}
+
+.goal-card .goal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.goal-card .goal-header h4 {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.goal-amount {
+  font-size: 18px;
+  color: #5C4A3A;
+}
+
+.goal-desc {
+  font-size: 14px;
+  color: #8C7C6D;
+  margin-bottom: 16px;
+}
+
+/* Custom Hand-Drawn Wavy Progress Bar */
+.sketchy-progress-outer {
+  height: 24px;
+  border: 3px solid #2B2118;
+  border-radius: 30px;
+  background-color: #FAF8F5;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.sketchy-progress-inner {
+  height: 100%;
+  border-right: 3px solid #2B2118;
+  border-radius: 20px 0 0 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.fill-blue { background-color: #D0EBFF; }
+.fill-green { background-color: #E3F9E5; }
+
+.sketchy-progress-scribble {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='24'><path d='M-2 28 L12 -4' stroke='%232B2118' stroke-width='1.2'/></svg>");
+  background-size: 8px 24px;
+  opacity: 0.15;
+}
+
+.goal-footer {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+}
+
+/* Testimonials Carousel/Grid */
+.testimonials-container {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+
+.testimonial-note {
+  width: 260px;
+  min-height: 180px;
+}
+
+.testimonial-content {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 18px;
+}
+
+.testimonial-content .quote {
+  font-style: italic;
+  line-height: 1.4;
+  margin-bottom: 12px;
+}
+
+.testimonial-content .author {
+  font-family: 'Kalam', cursive;
+  font-size: 15px;
+  text-align: right;
+  font-weight: 700;
+}
+
+.rotate-left { transform: rotate(-2deg); }
+.rotate-right { transform: rotate(2deg); }
+
+/* Journal Footer */
+.journal-footer {
+  margin-top: 80px;
+  text-align: center;
+}
+
+.footer-divider-sketch {
+  height: 8px;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='10'><path d='M0 5 Q 25 1, 50 8 T 100 5' fill='none' stroke='%232B2118' stroke-width='2' stroke-linecap='round'/></svg>");
+  background-size: 100px 8px;
+  margin-bottom: 24px;
+}
+
+.footer-content {
+  font-size: 18px;
+  color: #7A695C;
+}
+
+.footer-copyright {
+  font-size: 14px;
+  color: #aa9c8f;
+  margin-top: 8px;
+}
+
+/* Animations */
+.float-anim {
+  animation: floatEffect 6s ease-in-out infinite;
+}
+
+@keyframes floatEffect {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(-0.5deg); }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 900px) {
+  .journal-content {
+    padding: 32px 20px;
+  }
+  
+  .journal-spiral {
+    display: none;
+  }
+  
+  .overview-grid, .goals-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}

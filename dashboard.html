@@ -1,0 +1,578 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FinSprout - Finance Dashboard & Asset Allocation Wheel</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Kalam:wght@300;400;700&family=Patrick+Hand&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <!-- Persistent Navigation Bar -->
+    <nav class="app-navbar" id="app-navbar">
+      <div class="navbar-brand">
+        <svg class="brand-logo" viewBox="0 0 24 24" width="28" height="28">
+          <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.75z"/>
+        </svg>
+        <span class="brand-name">FinSprout</span>
+      </div>
+      <div class="navbar-links">
+        <a href="/" class="nav-link" id="nav-link-home">Home</a>
+        <a href="/dashboard" class="nav-link" id="nav-link-dashboard" style="display: none;">Dashboard</a>
+        <a href="/profile" class="nav-link" id="nav-link-profile" style="display: none;">Profile</a>
+        <a href="/login" class="nav-btn" id="nav-btn-login">Login</a>
+      </div>
+      <div class="navbar-actions">
+        <button id="theme-toggle-btn" class="theme-toggle-btn" title="Toggle Dark/Light Mode">
+          <!-- Moon icon -->
+          <svg class="theme-icon moon-icon" viewBox="0 0 24 24" width="20" height="20">
+            <path fill="currentColor" d="M12.3 22h-.1c-5.5 0-10-4.5-10-10 0-4.8 3.5-8.9 8.2-9.8.5-.1 1 .2 1.2.7.2.5 0 1.1-.4 1.4-2.8 2-3.8 5.7-2.2 8.7 1.6 3 4.9 4.7 8.2 4.1.5-.1 1 .2 1.2.7.2.5 0 1.1-.4 1.4-1.7 1.8-4 2.8-6.2 2.8zm-6-10c0 3.3 2.7 6 6 6 1.4 0 2.7-.5 3.8-1.4-2.5-.2-4.7-1.6-5.9-3.8-1.5-2.9-1.2-6.4.8-9-3 .8-4.7 3.6-4.7 6.8z"/>
+          </svg>
+          <!-- Sun icon -->
+          <svg class="theme-icon sun-icon" viewBox="0 0 24 24" width="20" height="20" style="display:none;">
+            <path fill="currentColor" d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zm1.06-12.37c-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.39.39-1.03 0-1.41zm-12.37 12.37c-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.39.39-1.03 0-1.41z"/>
+          </svg>
+        </button>
+        
+        <!-- Profile shortcut dropdown / avatar -->
+        <div class="nav-profile-dropdown" id="nav-profile-dropdown" style="display: none;">
+          <button class="nav-avatar-btn" id="nav-avatar-btn">
+            <span class="user-avatar-small" id="nav-user-avatar-img" style="display: none;"></span>
+            <span class="user-initials" id="nav-user-initials">U</span>
+          </button>
+          <div class="dropdown-menu" id="avatar-dropdown-menu">
+            <div class="dropdown-header">
+              <p class="dropdown-name" id="dropdown-user-name">User</p>
+              <p class="dropdown-email" id="dropdown-user-email">user@example.com</p>
+            </div>
+            <hr class="dropdown-divider">
+            <a href="/profile" class="dropdown-item">Profile Settings</a>
+            <a href="/dashboard" class="dropdown-item">Dashboard</a>
+            <button class="dropdown-item logout-btn" id="dropdown-logout-btn">Log Out</button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- VIEWS -->
+
+    <!-- 1. Authentication View (Login/Signup) -->
+    <div id="auth-view" class="view-container auth-view">
+      <div class="auth-card">
+        <div class="auth-tabs">
+          <button class="auth-tab-btn active" id="tab-login-btn">Login</button>
+          <button class="auth-tab-btn" id="tab-signup-btn">Sign Up</button>
+        </div>
+        
+        <!-- Login Form -->
+        <form id="login-form" class="auth-form active">
+          <h2>Welcome Back</h2>
+          <p class="auth-subtitle">Sign in to manage your budget and assets</p>
+          <div class="form-group">
+            <label for="login-email">Email Address</label>
+            <input type="email" id="login-email" required placeholder="name@example.com">
+          </div>
+          <div class="form-group">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" required placeholder="••••••••">
+          </div>
+          <button type="submit" class="btn btn-primary auth-submit-btn">
+            <span>Login</span>
+            <span class="spinner" style="display:none;"></span>
+          </button>
+          <p class="auth-switch">Don't have an account? <a href="/register" id="switch-to-signup">Sign up</a></p>
+        </form>
+
+        <!-- Signup Form -->
+        <form id="signup-form" class="auth-form">
+          <h2>Create Account</h2>
+          <p class="auth-subtitle">Get started with a free secure budget workspace</p>
+          <div class="form-group">
+            <label for="signup-name">Full Name</label>
+            <input type="text" id="signup-name" required placeholder="John Doe">
+          </div>
+          <div class="form-group">
+            <label for="signup-email">Email Address</label>
+            <input type="email" id="signup-email" required placeholder="name@example.com">
+          </div>
+          <div class="form-group">
+            <label for="signup-password">Password</label>
+            <input type="password" id="signup-password" required placeholder="••••••••" minlength="6">
+          </div>
+          <button type="submit" class="btn btn-primary auth-submit-btn">
+            <span>Create Account</span>
+            <span class="spinner" style="display:none;"></span>
+          </button>
+          <p class="auth-switch">Already have an account? <a href="/login" id="switch-to-login">Log in</a></p>
+        </form>
+      </div>
+    </div>
+
+    <!-- 2. Profile / Settings View -->
+    <div id="profile-view" class="view-container profile-view">
+      <div class="profile-layout">
+        <aside class="profile-sidebar">
+          <div class="profile-avatar-card">
+            <div class="avatar-upload-wrapper">
+              <span class="profile-avatar-large" id="profile-avatar-img" style="display: none;"></span>
+              <div class="avatar-placeholder-large" id="profile-avatar-placeholder">U</div>
+              <label for="avatar-file-input" class="avatar-edit-badge" title="Upload avatar">
+                <svg viewBox="0 0 24 24" width="16" height="16">
+                  <path fill="currentColor" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                </svg>
+              </label>
+              <input type="file" id="avatar-file-input" accept="image/*" style="display: none;">
+            </div>
+            <h3 id="profile-card-name">User Name</h3>
+            <p id="profile-card-email">user@example.com</p>
+          </div>
+          <button class="btn btn-outline logout-btn-full" id="profile-logout-btn">Sign Out</button>
+        </aside>
+
+        <main class="profile-main-content">
+          <!-- Profile Form -->
+          <section class="profile-section-card">
+            <h2>Personal Information</h2>
+            <form id="profile-info-form">
+              <div class="form-group">
+                <label for="profile-display-name">Display Name</label>
+                <input type="text" id="profile-display-name" required>
+              </div>
+              <button type="submit" class="btn btn-primary">Save Profile</button>
+            </form>
+          </section>
+
+          <!-- Password Reset Form -->
+          <section class="profile-section-card">
+            <h2>Security Settings</h2>
+            <form id="profile-password-form">
+              <div class="form-group">
+                <label for="profile-new-password">New Password</label>
+                <input type="password" id="profile-new-password" required placeholder="••••••••" minlength="6">
+              </div>
+              <div class="form-group">
+                <label for="profile-confirm-password">Confirm Password</label>
+                <input type="password" id="profile-confirm-password" required placeholder="••••••••" minlength="6">
+              </div>
+              <button type="submit" class="btn btn-primary">Update Password</button>
+            </form>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <!-- 3. Dashboard View -->
+    <div id="dashboard-view" class="view-container dashboard-view">
+      
+      <!-- Skeleton Loading for Metrics (to prevent layout flashing) -->
+      <div id="dashboard-skeleton" class="dashboard-skeleton">
+        <div class="skeleton-header">
+          <div class="skeleton-bar title-skeleton"></div>
+          <div class="skeleton-metrics-grid">
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+          </div>
+        </div>
+        <div class="skeleton-body-grid">
+          <div class="skeleton-column"></div>
+          <div class="skeleton-column"></div>
+          <div class="skeleton-column"></div>
+        </div>
+      </div>
+
+      <div class="app-container" id="dashboard-app-container" style="display: none;">
+        
+        <!-- Top Banner Summary -->
+        <header class="budget-header">
+          <div class="month-year-container">
+            <select class="month-select" id="month-select-input">
+              <option value="JANUARY">JANUARY</option>
+              <option value="FEBRUARY">FEBRUARY</option>
+              <option value="MARCH">MARCH</option>
+              <option value="APRIL">APRIL</option>
+              <option value="MAY">MAY</option>
+              <option value="JUNE">JUNE</option>
+              <option value="JULY">JULY</option>
+              <option value="AUGUST">AUGUST</option>
+              <option value="SEPTEMBER">SEPTEMBER</option>
+              <option value="OCTOBER">OCTOBER</option>
+              <option value="NOVEMBER">NOVEMBER</option>
+              <option value="DECEMBER">DECEMBER</option>
+            </select>
+            <input type="number" class="year-input" id="year-input-field" value="2026" min="1900" max="2100">
+            <button class="import-statement-btn" id="import-statement-btn" title="Import PDF transaction statement">
+              <svg class="import-btn-icon" viewBox="0 0 24 24" width="16" height="16">
+                <path fill="currentColor" d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+              </svg>
+              <span>Import PDF</span>
+            </button>
+            <input type="file" id="import-statement-file-input" accept="application/pdf" style="display: none;">
+            <button class="reset-month-btn" id="reset-month-btn" title="Reset this month's finances to default">
+              <svg class="reset-btn-icon" viewBox="0 0 24 24" width="16" height="16">
+                <path fill="currentColor" d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+              </svg>
+              <span>Reset Month</span>
+            </button>
+            <div class="imported-statements-list" id="imported-statements-list"></div>
+            <div class="sync-badge connecting" id="sync-status-badge">
+              <span class="sync-indicator-dot"></span>
+              <span class="sync-status-text" id="sync-status-text">Connecting...</span>
+            </div>
+          </div>
+          
+          <div class="header-metrics">
+            <div class="metric-card">
+              <span class="metric-label">Budgeted</span>
+              <span class="metric-value" id="header-budgeted">₹0.00</span>
+            </div>
+            
+            <div class="metric-card">
+              <span class="metric-label">Left to Budget</span>
+              <span class="metric-value" id="header-left-to-budget">₹0.00</span>
+            </div>
+            
+            <div class="metric-card">
+              <span class="metric-label">Income</span>
+              <span class="metric-value highlight-green" id="header-income">₹0.00</span>
+            </div>
+            
+            <div class="metric-card">
+              <span class="metric-label">Total Spent</span>
+              <span class="metric-value" id="header-total-spent">₹0.00</span>
+            </div>
+            
+            <div class="metric-card progress-container">
+              <span class="metric-label">Spent Ratio</span>
+              <div class="progress-info">
+                <span class="progress-text" id="header-progress-text">0%</span>
+                <div class="progress-bar-outer">
+                  <div class="progress-bar-inner" id="header-progress-bar"></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="metric-card">
+              <span class="metric-label">Savings</span>
+              <span class="metric-value highlight-green" id="header-savings">₹0.00</span>
+            </div>
+            
+            <div class="metric-card">
+              <span class="metric-label">Left Over</span>
+              <span class="metric-value" id="header-left-over">₹0.00</span>
+            </div>
+          </div>
+        </header>
+
+        <!-- Main Dashboard Grid -->
+        <main class="dashboard-grid">
+          
+          <!-- Left Column -->
+          <div class="dashboard-column">
+            
+            <!-- Overview Card -->
+            <section class="sheet-card">
+              <h2 class="sheet-card-title header-overview-style">Overview</h2>
+              <table class="spreadsheet-table" id="overview-table">
+                <tbody>
+                  <tr>
+                    <td>Currency</td>
+                    <td>
+                      <select class="select-input" id="setting-currency">
+                        <option value="₹" selected>₹ (INR)</option>
+                        <option value="$">$ (USD)</option>
+                        <option value="€">€ (EUR)</option>
+                        <option value="£">£ (GBP)</option>
+                        <option value="¥">¥ (JPY)</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Start Date</td>
+                    <td><input type="date" class="date-input" id="setting-start-date" value="2026-01-01"></td>
+                  </tr>
+                  <tr>
+                    <td>End Date</td>
+                    <td><input type="date" class="date-input" id="setting-end-date" value="2026-01-31"></td>
+                  </tr>
+                  <tr>
+                    <td>Start Balance</td>
+                    <td class="editable-cell" data-type="number" id="setting-start-balance">0.00</td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+
+            <!-- Cash Flow Summary -->
+            <section class="sheet-card">
+              <h2 class="sheet-card-title header-summary-style">Cash Flow Summary</h2>
+              <table class="spreadsheet-table" id="summary-table">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th class="align-right">Budget</th>
+                    <th class="align-right">Actual</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Debts</td>
+                    <td class="align-right" id="summary-debts-budget">₹0.00</td>
+                    <td class="align-right" id="summary-debts-actual">₹0.00</td>
+                  </tr>
+                  <tr>
+                    <td>Savings</td>
+                    <td class="align-right" id="summary-savings-budget">₹0.00</td>
+                    <td class="align-right" id="summary-savings-actual">₹0.00</td>
+                  </tr>
+                  <tr>
+                    <td>Bills</td>
+                    <td class="align-right" id="summary-bills-budget">₹0.00</td>
+                    <td class="align-right" id="summary-bills-actual">₹0.00</td>
+                  </tr>
+                  <tr>
+                    <td>Expenses</td>
+                    <td class="align-right" id="summary-expenses-budget">₹0.00</td>
+                    <td class="align-right" id="summary-expenses-actual">₹0.00</td>
+                  </tr>
+                  <tr class="totals-row">
+                    <td>Total</td>
+                    <td class="align-right" id="summary-total-budget">₹0.00</td>
+                    <td class="align-right" id="summary-total-actual">₹0.00</td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+
+            <!-- Income Table -->
+            <section class="sheet-card">
+              <h2 class="sheet-card-title header-income-style">Income</h2>
+              <table class="spreadsheet-table" id="income-table">
+                <thead>
+                  <tr>
+                    <th>Description</th>
+                    <th class="align-right">Expected</th>
+                    <th class="align-right">Amount</th>
+                  </tr>
+                </thead>
+                <tbody class="table-body">
+                  <!-- Rows injected dynamically -->
+                </tbody>
+                <tfoot>
+                  <tr class="totals-row">
+                    <td>Totals</td>
+                    <td class="align-right" id="income-total-expected">₹0.00</td>
+                    <td class="align-right" id="income-total-actual">₹0.00</td>
+                  </tr>
+                </tfoot>
+              </table>
+              <div class="table-actions">
+                <button class="action-btn" id="add-income-row">+ Add Row</button>
+                <button class="action-btn delete-btn" id="delete-income-row">- Remove Row</button>
+              </div>
+            </section>
+
+            <!-- Portfolio / Holdings Allocation Table (Feeds Hand-Drawn Wheel) -->
+            <section class="sheet-card">
+              <h2 class="sheet-card-title header-overview-style">Asset Allocation (Income Wheel Data)</h2>
+              <table class="spreadsheet-table" id="allocation-table">
+                <thead>
+                  <tr>
+                    <th>Asset / Class</th>
+                    <th class="align-right" style="width: 80px;">Share %</th>
+                    <th class="align-center" style="width: 70px;">Color</th>
+                    <th>Pattern Style</th>
+                  </tr>
+                </thead>
+                <tbody class="table-body">
+                  <!-- Rows injected dynamically -->
+                </tbody>
+                <tfoot>
+                  <tr class="totals-row">
+                    <td>Total</td>
+                    <td class="align-right" id="allocation-total-percent">0%</td>
+                    <td colspan="2" style="font-size: 11px; color: var(--text-muted); font-style: italic;">Must equal 100%</td>
+                  </tr>
+                </tfoot>
+              </table>
+              <div class="table-actions">
+                <button class="action-btn" id="add-allocation-row">+ Add Row</button>
+                <button class="action-btn delete-btn" id="delete-allocation-row">- Remove Row</button>
+              </div>
+            </section>
+
+          </div>
+
+          <!-- Middle Column -->
+          <div class="dashboard-column">
+            
+            <!-- Budget vs Actual Chart (Standard Bar Chart) -->
+            <section class="sheet-card">
+              <h2 class="sheet-card-title" style="background-color: #f8fafc;">Budget vs. Actual</h2>
+              <div class="chart-container">
+                <canvas id="budget-vs-actual-canvas" class="chart-canvas"></canvas>
+              </div>
+            </section>
+
+            <!-- Bills Table -->
+            <section class="sheet-card">
+              <h2 class="sheet-card-title header-bills-style">Bills</h2>
+              <table class="spreadsheet-table" id="bills-table">
+                <thead>
+                  <tr>
+                    <th style="width: 40px;" class="align-center">✔</th>
+                    <th>Description</th>
+                    <th>Due Date</th>
+                    <th class="align-right">Budget</th>
+                    <th class="align-right">Actual</th>
+                  </tr>
+                </thead>
+                <tbody class="table-body">
+                  <!-- Rows injected dynamically -->
+                </tbody>
+                <tfoot>
+                  <tr class="totals-row">
+                    <td colspan="3">Totals</td>
+                    <td class="align-right" id="bills-total-budget">₹0.00</td>
+                    <td class="align-right" id="bills-total-actual">₹0.00</td>
+                  </tr>
+                </tfoot>
+              </table>
+              <div class="table-actions">
+                <button class="action-btn" id="add-bills-row">+ Add Row</button>
+                <button class="action-btn delete-btn" id="delete-bills-row">- Remove Row</button>
+              </div>
+            </section>
+
+            <!-- Debt Table -->
+            <section class="sheet-card">
+              <h2 class="sheet-card-title header-debt-style">Debt</h2>
+              <table class="spreadsheet-table" id="debt-table">
+                <thead>
+                  <tr>
+                    <th>Description</th>
+                    <th>Due Date</th>
+                    <th class="align-right">Budget</th>
+                    <th class="align-right">Paid</th>
+                  </tr>
+                </thead>
+                <tbody class="table-body">
+                  <!-- Rows injected dynamically -->
+                </tbody>
+                <tfoot>
+                  <tr class="totals-row">
+                    <td colspan="2">Totals</td>
+                    <td class="align-right" id="debt-total-budget">₹0.00</td>
+                    <td class="align-right" id="debt-total-actual">₹0.00</td>
+                  </tr>
+                </tfoot>
+              </table>
+              <div class="table-actions">
+                <button class="action-btn" id="add-debt-row">+ Add Row</button>
+                <button class="action-btn delete-btn" id="delete-debt-row">- Remove Row</button>
+              </div>
+            </section>
+
+          </div>
+
+          <!-- Right Column -->
+          <div class="dashboard-column">
+            
+            <!-- Expense Category Breakdown (Standard Pie Chart) -->
+            <section class="sheet-card">
+              <h2 class="sheet-card-title" style="background-color: #f8fafc;">Expense Category Breakdown</h2>
+              <div class="chart-container">
+                <canvas id="expense-breakdown-canvas" class="chart-canvas"></canvas>
+              </div>
+            </section>
+
+            <!-- Expenses Table -->
+            <section class="sheet-card">
+              <h2 class="sheet-card-title header-expenses-style">Expenses</h2>
+              <table class="spreadsheet-table" id="expenses-table">
+                <thead>
+                  <tr>
+                    <th>Category</th>
+                    <th class="align-right">Budget</th>
+                    <th class="align-right">Actual</th>
+                    <th class="align-right">Remaining</th>
+                  </tr>
+                </thead>
+                <tbody class="table-body">
+                  <!-- Rows injected dynamically -->
+                </tbody>
+                <tfoot>
+                  <tr class="totals-row">
+                    <td>Totals</td>
+                    <td class="align-right" id="expenses-total-budget">₹0.00</td>
+                    <td class="align-right" id="expenses-total-actual">₹0.00</td>
+                    <td class="align-right" id="expenses-total-remaining">₹0.00</td>
+                  </tr>
+                </tfoot>
+              </table>
+              <div class="table-actions">
+                <button class="action-btn" id="add-expenses-row">+ Add Row</button>
+                <button class="action-btn delete-btn" id="delete-expenses-row">- Remove Row</button>
+              </div>
+            </section>
+
+            <!-- Hand-Drawn Income/Allocation Wheel Card -->
+            <div class="parchment-card">
+              <h2 class="parchment-title">Expense Chart</h2>
+              <div class="income-wheel-container">
+                <canvas id="income-wheel-canvas" style="width: 100%; height: 100%; display: block; cursor: pointer;"></canvas>
+              </div>
+            </div>
+
+          </div>
+
+        </main>
+
+      </div>
+    </div>
+
+    <!-- Statement Viewer Modal -->
+    <div id="statement-modal" class="modal-overlay">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 id="modal-statement-title">View PDF</h3>
+          <button class="modal-close-btn" id="modal-close-btn">&times;</button>
+        </div>
+        <div class="modal-body" id="modal-statement-body" style="gap: 16px;">
+          <!-- Accordion list will be injected here dynamically -->
+        </div>
+        <div class="modal-footer">
+          <button class="modal-btn" id="modal-close-footer-btn">Close</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Custom Confirm Dialog Modal -->
+    <div id="confirm-modal" class="modal-overlay">
+      <div class="modal-content confirm-modal-content">
+        <div class="modal-header confirm-modal-header">
+          <h3 id="confirm-modal-title">Confirm Action</h3>
+          <button class="modal-close-btn" id="confirm-modal-close-btn">&times;</button>
+        </div>
+        <div class="modal-body confirm-modal-body">
+          <p id="confirm-modal-message">Are you sure you want to proceed?</p>
+        </div>
+        <div class="modal-footer confirm-modal-footer">
+          <button class="modal-btn confirm-modal-btn-cancel" id="confirm-modal-cancel-btn">Cancel</button>
+          <button class="modal-btn confirm-modal-btn-confirm" id="confirm-modal-confirm-btn">Confirm</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container"></div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

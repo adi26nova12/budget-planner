@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FinSprout - Finance Dashboard & Asset Allocation Wheel</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Kalam:wght@300;400;700&family=Patrick+Hand&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <!-- Persistent Navigation Bar -->
+    <nav class="app-navbar" id="app-navbar">
+      <div class="navbar-brand">
+        <svg class="brand-logo" viewBox="0 0 24 24" width="28" height="28">
+          <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.75z"/>
+        </svg>
+        <span class="brand-name">FinSprout</span>
+      </div>
+      <div class="navbar-links">
+        <a href="/" class="nav-link active" id="nav-link-home">Home</a>
+        <a href="/dashboard" class="nav-link" id="nav-link-dashboard" style="display: none;">Dashboard</a>
+        <a href="/profile" class="nav-link" id="nav-link-profile" style="display: none;">Profile</a>
+        <a href="/login" class="nav-btn" id="nav-btn-login">Login</a>
+      </div>
+      <div class="navbar-actions">
+        <button id="theme-toggle-btn" class="theme-toggle-btn" title="Toggle Dark/Light Mode">
+          <!-- Moon icon -->
+          <svg class="theme-icon moon-icon" viewBox="0 0 24 24" width="20" height="20">
+            <path fill="currentColor" d="M12.3 22h-.1c-5.5 0-10-4.5-10-10 0-4.8 3.5-8.9 8.2-9.8.5-.1 1 .2 1.2.7.2.5 0 1.1-.4 1.4-2.8 2-3.8 5.7-2.2 8.7 1.6 3 4.9 4.7 8.2 4.1.5-.1 1 .2 1.2.7.2.5 0 1.1-.4 1.4-1.7 1.8-4 2.8-6.2 2.8zm-6-10c0 3.3 2.7 6 6 6 1.4 0 2.7-.5 3.8-1.4-2.5-.2-4.7-1.6-5.9-3.8-1.5-2.9-1.2-6.4.8-9-3 .8-4.7 3.6-4.7 6.8z"/>
+          </svg>
+          <!-- Sun icon -->
+          <svg class="theme-icon sun-icon" viewBox="0 0 24 24" width="20" height="20" style="display:none;">
+            <path fill="currentColor" d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zm1.06-12.37c-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.39.39-1.03 0-1.41zm-12.37 12.37c-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.39.39-1.03 0-1.41z"/>
+          </svg>
+        </button>
+        
+        <!-- Profile shortcut dropdown / avatar -->
+        <div class="nav-profile-dropdown" id="nav-profile-dropdown" style="display: none;">
+          <button class="nav-avatar-btn" id="nav-avatar-btn">
+            <span class="user-avatar-small" id="nav-user-avatar-img" style="display: none;"></span>
+            <span class="user-initials" id="nav-user-initials">U</span>
+          </button>
+          <div class="dropdown-menu" id="avatar-dropdown-menu">
+            <div class="dropdown-header">
+              <p class="dropdown-name" id="dropdown-user-name">User</p>
+              <p class="dropdown-email" id="dropdown-user-email">user@example.com</p>
+            </div>
+            <hr class="dropdown-divider">
+            <a href="/profile" class="dropdown-item">Profile Settings</a>
+            <a href="/dashboard" class="dropdown-item">Dashboard</a>
+            <button class="dropdown-item logout-btn" id="dropdown-logout-btn">Log Out</button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- VIEWS -->
+    
+    <!-- 1. Home / Landing Page View (Cozy Journal Theme) -->
+    <div id="home-view" class="view-container journal-home-container active">
+      <div class="journal-paper">
+        <!-- Spiral Spine on the left side of the journal page -->
+        <div class="journal-spiral">
+          <div class="spiral-loop"></div>
+          <div class="spiral-loop"></div>
+          <div class="spiral-loop"></div>
+          <div class="spiral-loop"></div>
+          <div class="spiral-loop"></div>
+          <div class="spiral-loop"></div>
+          <div class="spiral-loop"></div>
+          <div class="spiral-loop"></div>
+          <div class="spiral-loop"></div>
+          <div class="spiral-loop"></div>
+          <div class="spiral-loop"></div>
+          <div class="spiral-loop"></div>
+          <div class="spiral-loop"></div>
+          <div class="spiral-loop"></div>
+          <div class="spiral-loop"></div>
+        </div>
+
+        <div class="journal-content">
+          <!-- SECTION 1: HERO -->
+          <section class="hero-section float-anim">
+            <div class="hero-text-block">
+              <h1 class="journal-title">time for finances lil bro@[TerminalName: python, ProcessId: 43996]</h1>
+              <p class="journal-subtitle">Grab your favorite pen, cozy up, and let's organize your finances. No intimidating corporate spreadsheets here—just a simple, beautiful journal to track where your money goes.</p>
+              <div class="hero-actions">
+                <a href="/register" class="btn-sketch btn-primary-sketch">Open Your Journal</a>
+                <a href="/login" class="btn-sketch btn-secondary-sketch">Sign In</a>
+              </div>
+            </div>
+            
+            <div class="hero-illustration">
+              <!-- Inline sketchy Wallet SVG -->
+              <svg viewBox="0 0 240 200" class="sketch-wallet-svg" width="240" height="200">
+                <defs>
+                  <filter id="sketch-blur" x="-10%" y="-10%" width="120%" height="120%">
+                    <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" result="noise" />
+                    <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G" />
+                  </filter>
+                </defs>
+                <g filter="url(#sketch-blur)" stroke="#2B2118" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <!-- Sticking-out cash bills -->
+                  <path d="M 60 70 L 65 30 L 140 25 L 135 65 Z" fill="#E3F9E5" />
+                  <path d="M 62 38 L 80 34" stroke-dasharray="2 3" />
+                  <text x="90" y="52" font-family="Caveat" font-size="16" fill="#4b6b4e" stroke="none">₹ 500</text>
+                  
+                  <path d="M 90 70 L 105 20 L 175 15 L 160 65 Z" fill="#D0EBFF" />
+                  <text x="120" y="42" font-family="Caveat" font-size="16" fill="#32526e" stroke="none">₹ 2000</text>
+                  
+                  <!-- Wallet Back Cover -->
+                  <path d="M 40 70 L 200 60 C 210 60, 210 160, 200 165 L 45 175 C 35 175, 30 170, 30 160 L 30 80 C 30 70, 35 70, 40 70 Z" fill="#EADBC8" />
+                  <!-- Stitches -->
+                  <path d="M 45 78 L 195 68 C 198 68, 202 70, 202 78 L 202 153 C 202 158, 198 160, 195 160 L 45 168 C 40 168, 38 165, 38 158 L 38 88 C 38 82, 40 78, 45 78" stroke-dasharray="4 4" />
+                  
+                  <!-- Wallet Flap Pocket -->
+                  <path d="M 120 90 L 200 85 C 208 85, 208 140, 200 142 L 120 148 C 112 148, 110 142, 110 135 L 110 102 C 110 95, 112 90, 120 90 Z" fill="#DAC0A3" />
+                  <path d="M 110 115 L 80 117 C 78 117, 75 115, 75 110 C 75 105, 78 102, 80 102 L 110 102" />
+                  
+                  <!-- Snap Button -->
+                  <circle cx="95" cy="110" r="6" fill="#2B2118" />
+                  <circle cx="95" cy="110" r="3" fill="#FFF" stroke="none" />
+                  
+                  <!-- Pencil sketch highlight lines -->
+                  <path d="M 45 150 C 70 152, 110 148, 180 143" stroke="#aa9c8f" stroke-width="1.5" />
+                  <path d="M 50 120 C 80 122, 120 118, 160 115" stroke="#aa9c8f" stroke-width="1.5" />
+                </g>
+              </svg>
+            </div>
+          </section>
+
+          <!-- SECTION 2: SPENDING OVERVIEW -->
+          <section class="journal-section">
+            <h2 class="section-title-sketch">Monthly Spending Overview</h2>
+            <div class="overview-grid">
+              
+              <!-- Metric Cards with Binder Ring tops -->
+              <div class="paper-card metric-paper-card text-center">
+                <div class="card-binder-rings">
+                  <div class="binder-ring"></div>
+                  <div class="binder-ring"></div>
+                </div>
+                <div class="metric-handwriting">
+                  <span class="label">Total Expected Income</span>
+                  <h3 class="amount green-ink">₹85,000.00</h3>
+                  <p class="desc">Plan to earn this month</p>
+                </div>
+              </div>
+              
+              <div class="paper-card metric-paper-card text-center">
+                <div class="card-binder-rings">
+                  <div class="binder-ring"></div>
+                  <div class="binder-ring"></div>
+                </div>
+                <div class="metric-handwriting">
+                  <span class="label">Estimated Expenses</span>
+                  <h3 class="amount red-ink">₹42,500.00</h3>
+                  <p class="desc">Rent, food, travel, bills</p>
+                </div>
+              </div>
+              
+              <div class="paper-card metric-paper-card text-center">
+                <div class="card-binder-rings">
+                  <div class="binder-ring"></div>
+                  <div class="binder-ring"></div>
+                </div>
+                <div class="metric-handwriting">
+                  <span class="label">Target Monthly Savings</span>
+                  <h3 class="amount blue-ink">₹42,500.00</h3>
+                  <p class="desc">Leftover for future goals</p>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Hand-drawn Pie Chart Section -->
+            <div class="paper-card pie-chart-paper-card">
+              <div class="card-binder-rings">
+                <div class="binder-ring"></div>
+                <div class="binder-ring"></div>
+                <div class="binder-ring"></div>
+              </div>
+              <div class="pie-layout">
+                <div class="pie-chart-graphic">
+                  <!-- Large Custom hand-drawn style Pie Chart SVG -->
+                  <svg viewBox="0 0 200 200" width="220" height="220" class="sketch-pie-svg">
+                    <defs>
+                      <pattern id="diagonal-scribble" width="10" height="10" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+                        <line x1="0" y1="0" x2="0" y2="10" stroke="#2B2118" stroke-width="1.2" />
+                      </pattern>
+                      <pattern id="cross-scribble" width="8" height="8" patternUnits="userSpaceOnUse">
+                        <line x1="0" y1="0" x2="8" y2="8" stroke="#2B2118" stroke-width="1" />
+                        <line x1="8" y1="0" x2="0" y2="8" stroke="#2B2118" stroke-width="1" />
+                      </pattern>
+                      <pattern id="dot-scribble" width="8" height="8" patternUnits="userSpaceOnUse">
+                        <circle cx="4" cy="4" r="1.5" fill="#2B2118" />
+                      </pattern>
+                    </defs>
+                    
+                    <g filter="url(#sketch-blur)" stroke="#2B2118" stroke-width="2" fill="none">
+                      <!-- Center circle grid -->
+                      <circle cx="100" cy="100" r="82" stroke-dasharray="3 4" />
+                      
+                      <!-- Slices (drawn as paths representing slices with fills) -->
+                      <!-- Rent: 45% (approx 162 deg, from 0 to 162) -->
+                      <path d="M 100 100 L 180 90 A 80 80 0 0 1 65 172 Z" fill="#FFE3E3" />
+                      <path d="M 100 100 L 180 90 A 80 80 0 0 1 65 172 Z" fill="url(#diagonal-scribble)" opacity="0.3" />
+                      
+                      <!-- Food: 25% (approx 90 deg, from 162 to 252) -->
+                      <path d="M 100 100 L 65 172 A 80 80 0 0 1 23 75 Z" fill="#E3F9E5" />
+                      <path d="M 100 100 L 65 172 A 80 80 0 0 1 23 75 Z" fill="url(#cross-scribble)" opacity="0.25" />
+                      
+                      <!-- Bills: 15% (approx 54 deg, from 252 to 306) -->
+                      <path d="M 100 100 L 23 75 A 80 80 0 0 1 58 35 Z" fill="#F3E8FF" />
+                      <path d="M 100 100 L 23 75 A 80 80 0 0 1 58 35 Z" fill="url(#dot-scribble)" opacity="0.4" />
+                      
+                      <!-- Others: 15% (approx 54 deg, from 306 to 360) -->
+                      <path d="M 100 100 L 58 35 A 80 80 0 0 1 180 90 Z" fill="#FFF9DB" />
+                      
+                      <!-- Outline details of the wheel -->
+                      <circle cx="100" cy="100" r="80" />
+                      <path d="M 100 100 L 180 90" />
+                      <path d="M 100 100 L 65 172" />
+                      <path d="M 100 100 L 23 75" />
+                      <path d="M 100 100 L 58 35" />
+                    </g>
+                  </svg>
+                </div>
+                
+                <div class="pie-labels font-handwriting">
+                  <h4 style="font-family: 'Kalam', cursive; font-size: 20px; margin-bottom: 12px;">Allocations</h4>
+                  <ul class="pie-legend">
+                    <li><span class="legend-box color-pink"></span> <span class="legend-text">Rent / Living (45%)</span></li>
+                    <li><span class="legend-box color-green"></span> <span class="legend-text">Food & Groceries (25%)</span></li>
+                    <li><span class="legend-box color-purple"></span> <span class="legend-text">Bills & Utilities (15%)</span></li>
+                    <li><span class="legend-box color-yellow"></span> <span class="legend-text">Others & Entertainment (15%)</span></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- SECTION 3: BUDGET CATEGORIES -->
+          <section class="journal-section">
+            <h2 class="section-title-sketch">Handwritten Sticky-Note Categories</h2>
+            <p class="journal-desc">Your daily budget categories styled as vintage sticky planner notes. Each color highlights a different spending lane.</p>
+            
+            <div class="sticky-notes-container">
+              <!-- Note 1 -->
+              <div class="sticky-note note-pink">
+                <div class="sticky-tape"></div>
+                <div class="note-content">
+                  <h3 class="note-title">Bills</h3>
+                  <p class="note-amount">₹15,000 limit</p>
+                  <p class="note-body">Electricity, broadband, mobile, water, rent. Keep these constant.</p>
+                </div>
+              </div>
+              
+              <!-- Note 2 -->
+              <div class="sticky-note note-green">
+                <div class="sticky-tape"></div>
+                <div class="note-content">
+                  <h3 class="note-title">Food</h3>
+                  <p class="note-amount">₹12,000 limit</p>
+                  <p class="note-body">Zomato, Swiggy, grocery shopping, fresh veggies. Eat out less!</p>
+                </div>
+              </div>
+              
+              <!-- Note 3 -->
+              <div class="sticky-note note-blue">
+                <div class="sticky-tape"></div>
+                <div class="note-content">
+                  <h3 class="note-title">Travel</h3>
+                  <p class="note-amount">₹5,000 limit</p>
+                  <p class="note-body">Uber, auto rides, metro passes, train tickets, fuel. Walk when possible!</p>
+                </div>
+              </div>
+              
+              <!-- Note 4 -->
+              <div class="sticky-note note-purple">
+                <div class="sticky-tape"></div>
+                <div class="note-content">
+                  <h3 class="note-title">Entertainment</h3>
+                  <p class="note-amount">₹6,000 limit</p>
+                  <p class="note-body">Netflix, cinemas, cafe visits, weekend gig tickets, games.</p>
+                </div>
+              </div>
+              
+              <!-- Note 5 -->
+              <div class="sticky-note note-yellow">
+                <div class="sticky-tape"></div>
+                <div class="note-content">
+                  <h3 class="note-title">Shopping</h3>
+                  <p class="note-amount">₹4,500 limit</p>
+                  <p class="note-body">Clothes, gifts, home decor items, gadget upgrades.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- SECTION 4: EXPENSE TRACKING TABLE -->
+          <section class="journal-section">
+            <h2 class="section-title-sketch">Ruled Expense Journal</h2>
+            
+            <div class="ruled-paper-card">
+              <div class="ruled-margin-line"></div>
+              <div class="ruled-card-content">
+                <h3 class="ruled-title font-handwriting">Latest Journal Log</h3>
+                <table class="notebook-table">
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Description</th>
+                      <th>Category</th>
+                      <th class="align-right">Spent Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>June 19</td>
+                      <td>Weekly Grocery Run (Blinkit)</td>
+                      <td>Groceries</td>
+                      <td class="align-right red-ink">₹1,840.00</td>
+                    </tr>
+                    <tr>
+                      <td>June 18</td>
+                      <td>Metro Smartcard Recharge</td>
+                      <td>Travel</td>
+                      <td class="align-right red-ink">₹500.00</td>
+                    </tr>
+                    <tr>
+                      <td>June 16</td>
+                      <td>Netflix Subscription (Auto-paid)</td>
+                      <td>Bills</td>
+                      <td class="align-right red-ink">₹649.00</td>
+                    </tr>
+                    <tr>
+                      <td>June 15</td>
+                      <td>Cafe Outing w/ Friends</td>
+                      <td>Food</td>
+                      <td class="align-right red-ink">₹1,250.00</td>
+                    </tr>
+                    <tr>
+                      <td>June 12</td>
+                      <td>Broadband Bill</td>
+                      <td>Bills</td>
+                      <td class="align-right red-ink">₹999.00</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <!-- SECTION 5: SAVINGS GOALS -->
+          <section class="journal-section">
+            <h2 class="section-title-sketch">Savings & Dream Goals</h2>
+            
+            <div class="goals-grid">
+              
+              <!-- Goal Card 1 -->
+              <div class="paper-card goal-card">
+                <div class="goal-header font-handwriting">
+                  <h4>New Laptop Fund</h4>
+                  <span class="goal-amount">₹45k / ₹60k</span>
+                </div>
+                <p class="goal-desc">Target Date: December 2026</p>
+                
+                <!-- Hand-drawn progress bar -->
+                <div class="sketchy-progress-outer">
+                  <div class="sketchy-progress-inner fill-blue" style="width: 75%;">
+                    <div class="sketchy-progress-scribble"></div>
+                  </div>
+                </div>
+                <div class="goal-footer">
+                  <span>75% Saved</span>
+                  <span class="blue-ink">Almost there!</span>
+                </div>
+              </div>
+              
+              <!-- Goal Card 2 -->
+              <div class="paper-card goal-card">
+                <div class="goal-header font-handwriting">
+                  <h4>Emergency Safety Cushion</h4>
+                  <span class="goal-amount">₹50k / ₹100k</span>
+                </div>
+                <p class="goal-desc">Target Date: March 2027</p>
+                
+                <!-- Hand-drawn progress bar -->
+                <div class="sketchy-progress-outer">
+                  <div class="sketchy-progress-inner fill-green" style="width: 50%;">
+                    <div class="sketchy-progress-scribble"></div>
+                  </div>
+                </div>
+                <div class="goal-footer">
+                  <span>50% Saved</span>
+                  <span class="green-ink">Halfway point!</span>
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+          <!-- SECTION 6: TESTIMONIALS -->
+          <section class="journal-section">
+            <h2 class="section-title-sketch">Testimonials From Planner Friends</h2>
+            
+            <div class="testimonials-container">
+              <div class="sticky-note note-yellow testimonial-note rotate-left">
+                <div class="sticky-tape"></div>
+                <div class="note-content testimonial-content">
+                  <p class="quote">"I used to get overwhelmed by Excel budgeting, but this journal feel makes me want to log in every day. The PDF importer works like absolute magic!"</p>
+                  <p class="author">- Sarah M.</p>
+                </div>
+              </div>
+              
+              <div class="sticky-note note-pink testimonial-note rotate-right">
+                <div class="sticky-tape"></div>
+                <div class="note-content testimonial-content">
+                  <p class="quote">"Finally, a financial planner that doesn't feel like a cold bank dashboard. It's cozy, intuitive, and the custom hand-drawn pie chart is so beautiful."</p>
+                  <p class="author">- Dev K.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- SECTION 7: FOOTER -->
+          <footer class="journal-footer">
+            <div class="footer-divider-sketch"></div>
+            <div class="footer-content font-handwriting">
+              <p>Handcrafted with ♥ for a calmer financial life.</p>
+              <p class="footer-copyright">© 2026 FinSprout Journal. All rights sketched.</p>
+            </div>
+          </footer>
+
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="/src/home.js"></script>
+  </body>
+</html>
