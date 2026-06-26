@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -458,6 +458,21 @@
                   </div>
                 </div>
 
+
+                 <!-- Goals Summary Widget (shown on Home when logged in) -->
+                 <div id="home-goals-summary-card" class="summary-card" style="display: none; margin-bottom: 20px;">
+                   <div class="card-header-with-actions">
+                     <h3 class="card-title">Savings Goals</h3>
+                     <button class="view-all-link cta-btn" id="home-goto-goals-btn">View All Goals</button>
+                   </div>
+                   <div id="home-goals-summary-list" style="display: flex; flex-direction: column; gap: 14px; margin-top: 8px;">
+                     <!-- Populated by home.js renderHomeSummaryGoals() -->
+                     <div style="text-align: center; padding: 24px; font-family: 'Patrick Hand', cursive; color: #7A695C; font-size: 15px;">
+                       No goals yet. Add one in the Goals tab!
+                     </div>
+                   </div>
+                 </div>
+
                 <!-- Quick Actions & Tip of the Day Banner -->
                 <div style="display: grid; grid-template-columns: 53fr 47fr; gap: 20px; align-items: stretch;">
                   <!-- Quick Actions -->
@@ -596,261 +611,305 @@
                         <td>Bills & Utilities</td>
                         <td class="align-right red-ink">-₹649.00</td>
                       </tr>
-                      <tr>
-                        <td>May 12, 2024</td>
-                        <td>Clothing & Gadget Upgrades</td>
-                        <td>Shopping</td>
-                        <td class="align-right red-ink">-₹3,500.00</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-
-                <!-- CTA Overlay -->
-                <div class="preview-cta-overlay" style="position: absolute; inset: 0; background: rgba(250, 248, 245, 0.7); backdrop-filter: blur(2px); display: flex; align-items: center; justify-content: center;">
-                  <div class="summary-card text-center" style="max-width: 400px; padding: 28px; border: 2.5px solid #2B2118; box-shadow: 6px 6px 0px #2B2118; background-color: #FFFDF9;">
-                    <h4 style="font-family: 'CabinSketch', 'Kalam', cursive; font-size: 24px; color: #2B2118; margin: 0 0 10px 0;">Log Your Expenses</h4>
-                    <p style="font-family: 'Patrick Hand', cursive; font-size: 16px; color: #7A695C; margin: 0 0 20px 0; line-height: 1.4;">
-                      Cozy up your finances! Sign up or log in to import statements, edit ledger cells, and record daily transactions.
-                    </p>
-                    <a href="/register" class="btn-sketch btn-primary-sketch" style="margin: 0; padding: 10px 24px; font-size: 15px; width: 100%; box-sizing: border-box; text-align: center;">Get Started Now</a>
-                  </div>
-                </div>
-              </div>
-
-              <!-- ==========================================
                  TAB 3: BUDGET (PREVIEW)
                  ========================================== -->
-              <div id="tab-view-budget" class="dashboard-tab-view" style="position: relative;">
-                <div class="ruled-paper-card" style="padding: 24px 24px 24px 56px;">
-                  <div class="ruled-margin-line" style="left: 40px;"></div>
-                  <h3 class="ruled-title font-handwriting">Monthly Budget Envelope Sheets</h3>
-                  
-                  <div class="budget-status-row" style="margin-bottom: 16px; padding: 8px 12px; grid-template-columns: repeat(4, 1fr) !important;">
-                    <div class="status-card">
-                      <span class="status-label">Monthly Limit</span>
-                      <span class="status-value" id="home-budget-monthly-limit">₹50,000.00</span>
-                    </div>
-                    <div class="status-card">
-                      <span class="status-label">Total Spent</span>
-                      <span class="status-value red-ink" id="home-budget-total-spent">₹22,350.00</span>
-                    </div>
-                    <div class="status-card">
-                      <span class="status-label">Remaining limit</span>
-                      <span class="status-value green-ink" id="home-budget-remaining-limit">₹27,650.00</span>
-                    </div>
-                    <div class="status-card">
-                      <span class="status-label">Budget Progress</span>
-                      <span class="status-value" id="home-budget-progress-percent">45% Used</span>
-                    </div>
-                  </div>
-
-                  <table class="notebook-table">
-                    <thead>
-                      <tr>
-                        <th>Category Envelope</th>
-                        <th class="align-right">Budget Limit</th>
-                        <th class="align-right">Spent Actual</th>
-                        <th class="align-right">Remaining</th>
-                      </tr>
-                    </thead>
-                    <tbody id="home-budget-tbody">
-                      <tr>
-                        <td>Rent / Living</td>
-                        <td class="align-right">₹20,000.00</td>
-                        <td class="align-right red-ink">₹18,000.00</td>
-                        <td class="align-right green-ink">₹2,000.00</td>
-                      </tr>
-                      <tr>
-                        <td>Food & Groceries</td>
-                        <td class="align-right">₹12,000.00</td>
-                        <td class="align-right red-ink">₹10,625.00</td>
-                        <td class="align-right green-ink">₹1,375.00</td>
-                      </tr>
-                      <tr>
-                        <td>Bills & Utilities</td>
-                        <td class="align-right">₹8,000.00</td>
-                        <td class="align-right red-ink">₹8,525.00</td>
-                        <td class="align-right red-ink">-₹525.00</td>
-                      </tr>
-                      <tr>
-                        <td>Transport</td>
-                        <td class="align-right">₹5,000.00</td>
-                        <td class="align-right red-ink">₹4,250.00</td>
-                        <td class="align-right green-ink">₹750.00</td>
-                      </tr>
-                      <tr>
-                        <td>Others</td>
-                        <td class="align-right">₹5,000.00</td>
-                        <td class="align-right red-ink">₹2,125.00</td>
-                        <td class="align-right green-ink">₹2,875.00</td>
-                      </tr>
-                    </tbody>
-                  </table>
-
-                  <hr style="border: none; border-top: 2.5px dashed #2B2118; margin: 24px 0 20px 0;">
-                  
-                  <div id="home-budget-editor-section" style="display: none;">
-                    <h4 class="font-handwriting" style="font-size: 20px; color: #2B2118; margin: 0 0 12px 0;">Add / Update Budget Envelope</h4>
-                    <form id="home-budget-form" style="display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-end;">
-                      <div style="flex: 1.2; min-width: 160px; display: flex; flex-direction: column; gap: 4px;">
-                        <label for="home-budget-category" style="font-family: 'Patrick Hand', cursive; font-size: 14px; color: #7A695C; font-weight: 600;">Category Envelope</label>
-                        <select id="home-budget-category" style="width: 100%; padding: 8px 12px; font-family: 'Patrick Hand', cursive; font-size: 15px; border: 2.5px solid #2B2118; border-radius: 8px; background-color: #FFFDF9; box-shadow: 3px 3px 0 #2B2118; color: #2B2118; outline: none;" required>
-                          <option value="" disabled selected>Select category...</option>
-                        </select>
-                      </div>
-                      
-                      <div id="home-custom-category-wrapper" style="flex: 1.2; min-width: 160px; display: none; flex-direction: column; gap: 4px;">
-                        <label for="home-budget-custom-category" style="font-family: 'Patrick Hand', cursive; font-size: 14px; color: #7A695C; font-weight: 600;">Custom Envelope Name</label>
-                        <input type="text" id="home-budget-custom-category" placeholder="e.g. Shopping" style="width: 100%; padding: 8px 12px; font-family: 'Patrick Hand', cursive; font-size: 15px; border: 2.5px solid #2B2118; border-radius: 8px; background-color: #FFFDF9; box-shadow: 3px 3px 0 #2B2118; color: #2B2118; outline: none; box-sizing: border-box;">
-                      </div>
-
-                      <div style="flex: 1; min-width: 120px; display: flex; flex-direction: column; gap: 4px;">
-                        <label for="home-budget-limit" style="font-family: 'Patrick Hand', cursive; font-size: 14px; color: #7A695C; font-weight: 600;">Limit Target</label>
-                        <div style="position: relative; display: flex; align-items: center; width: 100%;">
-                          <span style="position: absolute; left: 10px; font-family: 'Patrick Hand', cursive; font-size: 16px; color: #2B2118; font-weight: 600;">₹</span>
-                          <input type="number" id="home-budget-limit" placeholder="0.00" min="0" step="0.01" style="width: 100%; padding: 8px 12px 8px 24px; font-family: 'Patrick Hand', cursive; font-size: 15px; border: 2.5px solid #2B2118; border-radius: 8px; background-color: #FFFDF9; box-shadow: 3px 3px 0 #2B2118; color: #2B2118; outline: none; box-sizing: border-box;" required>
-                        </div>
-                      </div>
-                      
-                      <button type="submit" class="btn-sketch btn-primary-sketch" style="margin: 0; padding: 8px 20px; font-size: 15px; height: 42px; cursor: pointer; box-shadow: 3px 3px 0px #2B2118; border: 2.5px solid #2B2118;">Save Envelope</button>
-                    </form>
-                  </div>
-                </div>
-
-                <!-- CTA Overlay -->
-                <div class="preview-cta-overlay" style="position: absolute; inset: 0; background: rgba(250, 248, 245, 0.7); backdrop-filter: blur(2px); display: flex; align-items: center; justify-content: center;">
-                  <div class="summary-card text-center" style="max-width: 400px; padding: 28px; border: 2.5px solid #2B2118; box-shadow: 6px 6px 0px #2B2118; background-color: #FFFDF9;">
-                    <h4 style="font-family: 'CabinSketch', 'Kalam', cursive; font-size: 24px; color: #2B2118; margin: 0 0 10px 0;">Create Cozy Budgets</h4>
-                    <p style="font-family: 'Patrick Hand', cursive; font-size: 16px; color: #7A695C; margin: 0 0 20px 0; line-height: 1.4;">
-                      Plan your expenses with absolute ease. Sign up to define custom category envelopes and save monthly budgets.
-                    </p>
-                    <a href="/register" class="btn-sketch btn-primary-sketch" style="margin: 0; padding: 10px 24px; font-size: 15px; width: 100%; box-sizing: border-box; text-align: center;">Get Started Now</a>
-                  </div>
-                </div>
-              </div>
-
               <!-- ==========================================
-                 TAB 4: GOALS (PREVIEW)
+                 TAB 3: BUDGET
                  ========================================== -->
-              <div id="tab-view-goals" class="dashboard-tab-view" style="position: relative;">
-                <div class="goals-grid" style="grid-template-columns: repeat(3, 1fr) !important;">
-                  <!-- Goal Card 1 -->
-                  <div class="summary-card goal-card">
-                    <div class="goal-header font-handwriting">
-                      <h4>New Laptop Fund</h4>
-                      <span class="goal-amount">₹45k / ₹60k</span>
-                    </div>
-                    <p class="goal-desc">Target Date: December 2026</p>
-                    <!-- Hand-drawn progress bar -->
-                    <div class="sketchy-progress-outer">
-                      <div class="sketchy-progress-inner fill-blue" style="width: 75%; height: 100%;">
-                        <div class="sketchy-progress-scribble" style="width:100%; height:100%;"></div>
-                      </div>
-                    </div>
-                    <div class="goal-footer">
-                      <span class="card-subtext">75% Saved</span>
-                      <span class="blue-ink card-comparison">Almost there!</span>
-                    </div>
-                  </div>
-                  
-                  <!-- Goal Card 2 -->
-                  <div class="summary-card goal-card">
-                    <div class="goal-header font-handwriting">
-                      <h4>Emergency Safety</h4>
-                      <span class="goal-amount">₹50k / ₹100k</span>
-                    </div>
-                    <p class="goal-desc">Target Date: March 2027</p>
-                    <!-- Hand-drawn progress bar -->
-                    <div class="sketchy-progress-outer">
-                      <div class="sketchy-progress-inner fill-green" style="width: 50%; height: 100%;">
-                        <div class="sketchy-progress-scribble" style="width:100%; height:100%;"></div>
-                      </div>
-                    </div>
-                    <div class="goal-footer">
-                      <span class="card-subtext">50% Saved</span>
-                      <span class="green-ink card-comparison">Halfway point!</span>
-                    </div>
-                  </div>
+               <div id="tab-view-budget" class="dashboard-tab-view" style="position: relative;">
+                 <div class="ruled-paper-card" style="padding: 24px 24px 24px 56px;">
+                   <div class="ruled-margin-line" style="left: 40px;"></div>
+                   <h3 class="ruled-title font-handwriting">Monthly Budget Envelope Sheets</h3>
 
-                  <!-- Goal Card 3 -->
-                  <div class="summary-card goal-card">
-                    <div class="goal-header font-handwriting">
-                      <h4>Japan Trip Fund</h4>
-                      <span class="goal-amount">₹20k / ₹150k</span>
-                    </div>
-                    <p class="goal-desc">Target Date: October 2027</p>
-                    <!-- Hand-drawn progress bar -->
-                    <div class="sketchy-progress-outer">
-                      <div class="sketchy-progress-inner fill-blue" style="width: 13%; height: 100%;">
-                        <div class="sketchy-progress-scribble" style="width:100%; height:100%;"></div>
-                      </div>
-                    </div>
-                    <div class="goal-footer">
-                      <span class="card-subtext">13% Saved</span>
-                      <span class="blue-ink card-comparison">Started!</span>
-                    </div>
-                  </div>
-                </div>
+                   <!-- Budget Status Bar -->
+                   <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;">
+                     <div class="status-item">
+                       <span class="status-label">Monthly Limit</span>
+                       <span class="status-value" id="home-budget-monthly-limit">&#8377;50,000.00</span>
+                     </div>
+                     <div class="status-item">
+                       <span class="status-label">Total Spent</span>
+                       <span class="status-value red-ink" id="home-budget-total-spent">&#8377;43,525.00</span>
+                     </div>
+                     <div class="status-item">
+                       <span class="status-label">Remaining Limit</span>
+                       <span class="status-value green-ink" id="home-budget-remaining-limit">&#8377;6,475.00</span>
+                     </div>
+                     <div class="status-item">
+                       <span class="status-label">Budget Progress</span>
+                       <span class="status-value" id="home-budget-progress-percent">45% Used</span>
+                     </div>
+                   </div>
 
-                <!-- CTA Overlay -->
-                <div class="preview-cta-overlay" style="position: absolute; inset: 0; background: rgba(250, 248, 245, 0.7); backdrop-filter: blur(2px); display: flex; align-items: center; justify-content: center;">
-                  <div class="summary-card text-center" style="max-width: 400px; padding: 28px; border: 2.5px solid #2B2118; box-shadow: 6px 6px 0px #2B2118; background-color: #FFFDF9;">
-                    <h4 style="font-family: 'CabinSketch', 'Kalam', cursive; font-size: 24px; color: #2B2118; margin: 0 0 10px 0;">Reach Savings Goals</h4>
-                    <p style="font-family: 'Patrick Hand', cursive; font-size: 16px; color: #7A695C; margin: 0 0 20px 0; line-height: 1.4;">
-                      Set goals and stay motivated. Sign up to build your custom milestone cards, add items, and track your visual progress.
-                    </p>
-                    <a href="/register" class="btn-sketch btn-primary-sketch" style="margin: 0; padding: 10px 24px; font-size: 15px; width: 100%; box-sizing: border-box; text-align: center;">Get Started Now</a>
-                  </div>
-                </div>
-              </div>
+                   <table class="notebook-table">
+                     <thead>
+                       <tr>
+                         <th>Category Envelope</th>
+                         <th class="align-right">Budget Limit</th>
+                         <th class="align-right">Spent Actual</th>
+                         <th class="align-right">Remaining</th>
+                       </tr>
+                     </thead>
+                     <tbody id="home-budget-tbody">
+                       <tr>
+                         <td>Rent / Living</td>
+                         <td class="align-right">&#8377;20,000.00</td>
+                         <td class="align-right red-ink">&#8377;18,000.00</td>
+                         <td class="align-right green-ink">&#8377;2,000.00</td>
+                       </tr>
+                       <tr>
+                         <td>Food &amp; Groceries</td>
+                         <td class="align-right">&#8377;12,000.00</td>
+                         <td class="align-right red-ink">&#8377;10,625.00</td>
+                         <td class="align-right green-ink">&#8377;1,375.00</td>
+                       </tr>
+                       <tr>
+                         <td>Bills &amp; Utilities</td>
+                         <td class="align-right">&#8377;8,000.00</td>
+                         <td class="align-right red-ink">&#8377;8,525.00</td>
+                         <td class="align-right red-ink">-&#8377;525.00</td>
+                       </tr>
+                       <tr>
+                         <td>Transport</td>
+                         <td class="align-right">&#8377;5,000.00</td>
+                         <td class="align-right red-ink">&#8377;4,250.00</td>
+                         <td class="align-right green-ink">&#8377;750.00</td>
+                       </tr>
+                       <tr>
+                         <td>Others</td>
+                         <td class="align-right">&#8377;5,000.00</td>
+                         <td class="align-right red-ink">&#8377;2,125.00</td>
+                         <td class="align-right green-ink">&#8377;2,875.00</td>
+                       </tr>
+                     </tbody>
+                   </table>
 
-              <!-- ==========================================
-                 TAB 5: REPORTS (PREVIEW)
-                 ========================================== -->
-              <div id="tab-view-reports" class="dashboard-tab-view" style="position: relative;">
-                <div class="ruled-paper-card" style="padding: 24px; min-height: 250px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                  <h3 class="ruled-title font-handwriting" style="margin-bottom: 20px;">Category Breakdown Report</h3>
-                  <!-- Simple CSS Mock Bar Chart -->
-                  <div style="display: flex; gap: 24px; align-items: flex-end; width: 80%; height: 160px; border-bottom: 2px solid #2B2118; padding-bottom: 12px; margin-bottom: 16px;">
-                    <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
-                      <div style="width: 32px; height: 140px; background-color: #ffe3e3; border: 2px solid #2B2118; border-radius: 4px; box-shadow: 2px 2px #2B2118;"></div>
-                      <span style="font-family: 'Patrick Hand', cursive; font-size: 13px; margin-top: 6px;">Rent (45%)</span>
-                    </div>
-                    <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
-                      <div style="width: 32px; height: 80px; background-color: #fbcfe8; border: 2px solid #2B2118; border-radius: 4px; box-shadow: 2px 2px #2B2118;"></div>
-                      <span style="font-family: 'Patrick Hand', cursive; font-size: 13px; margin-top: 6px;">Food (25%)</span>
-                    </div>
-                    <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
-                      <div style="width: 32px; height: 50px; background-color: #e9d5ff; border: 2px solid #2B2118; border-radius: 4px; box-shadow: 2px 2px #2B2118;"></div>
-                      <span style="font-family: 'Patrick Hand', cursive; font-size: 13px; margin-top: 6px;">Bills (15%)</span>
-                    </div>
-                    <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
-                      <div style="width: 32px; height: 35px; background-color: #dcfce7; border: 2px solid #2B2118; border-radius: 4px; box-shadow: 2px 2px #2B2118;"></div>
-                      <span style="font-family: 'Patrick Hand', cursive; font-size: 13px; margin-top: 6px;">Travel (10%)</span>
-                    </div>
-                    <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
-                      <div style="width: 32px; height: 18px; background-color: #ffedd5; border: 2px solid #2B2118; border-radius: 4px; box-shadow: 2px 2px #2B2118;"></div>
-                      <span style="font-family: 'Patrick Hand', cursive; font-size: 13px; margin-top: 6px;">Other (5%)</span>
-                    </div>
-                  </div>
-                </div>
+                   <hr style="border: none; border-top: 2.5px dashed #2B2118; margin: 24px 0 20px 0;">
 
-                <!-- CTA Overlay -->
-                <div class="preview-cta-overlay" style="position: absolute; inset: 0; background: rgba(250, 248, 245, 0.7); backdrop-filter: blur(2px); display: flex; align-items: center; justify-content: center;">
-                  <div class="summary-card text-center" style="max-width: 400px; padding: 28px; border: 2.5px solid #2B2118; box-shadow: 6px 6px 0px #2B2118; background-color: #FFFDF9;">
-                    <h4 style="font-family: 'CabinSketch', 'Kalam', cursive; font-size: 24px; color: #2B2118; margin: 0 0 10px 0;">Cozy Finance Analytics</h4>
-                    <p style="font-family: 'Patrick Hand', cursive; font-size: 16px; color: #7A695C; margin: 0 0 20px 0; line-height: 1.4;">
-                      Visualize your financial habits. Sign up to gain insights, generate reports, and watch custom hand-drawn summaries.
-                    </p>
-                    <a href="/register" class="btn-sketch btn-primary-sketch" style="margin: 0; padding: 10px 24px; font-size: 15px; width: 100%; box-sizing: border-box; text-align: center;">Get Started Now</a>
-                  </div>
-                </div>
-              </div>
+                   <div id="home-budget-editor-section" style="display: none;">
+                     <h4 class="font-handwriting" style="font-size: 20px; color: #2B2118; margin: 0 0 12px 0;">Add / Update Budget Envelope</h4>
+                     <form id="home-budget-form" style="display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-end;">
+                       <div style="flex: 1.2; min-width: 160px; display: flex; flex-direction: column; gap: 4px;">
+                         <label for="home-budget-category" style="font-family: 'Patrick Hand', cursive; font-size: 14px; color: #7A695C; font-weight: 600;">Category Envelope</label>
+                         <select id="home-budget-category" style="width: 100%; padding: 8px 12px; font-family: 'Patrick Hand', cursive; font-size: 15px; border: 2.5px solid #2B2118; border-radius: 8px; background-color: #FFFDF9; box-shadow: 3px 3px 0 #2B2118; color: #2B2118; outline: none;" required>
+                           <option value="" disabled selected>Select category...</option>
+                         </select>
+                       </div>
 
-              <!-- ==========================================
-                 TAB 6: CATEGORIES (PREVIEW)
-                 ========================================== -->
+                       <div id="home-custom-category-wrapper" style="flex: 1.2; min-width: 160px; display: none; flex-direction: column; gap: 4px;">
+                         <label for="home-budget-custom-category" style="font-family: 'Patrick Hand', cursive; font-size: 14px; color: #7A695C; font-weight: 600;">Custom Envelope Name</label>
+                         <input type="text" id="home-budget-custom-category" placeholder="e.g. Shopping" style="width: 100%; padding: 8px 12px; font-family: 'Patrick Hand', cursive; font-size: 15px; border: 2.5px solid #2B2118; border-radius: 8px; background-color: #FFFDF9; box-shadow: 3px 3px 0 #2B2118; color: #2B2118; outline: none; box-sizing: border-box;">
+                       </div>
+
+                       <div style="flex: 1; min-width: 120px; display: flex; flex-direction: column; gap: 4px;">
+                         <label for="home-budget-limit" style="font-family: 'Patrick Hand', cursive; font-size: 14px; color: #7A695C; font-weight: 600;">Limit Target</label>
+                         <div style="position: relative; display: flex; align-items: center; width: 100%;">
+                           <span style="position: absolute; left: 10px; font-family: 'Patrick Hand', cursive; font-size: 16px; color: #2B2118; font-weight: 600;">&#8377;</span>
+                           <input type="number" id="home-budget-limit" placeholder="0.00" min="0" step="0.01" style="width: 100%; padding: 8px 12px 8px 24px; font-family: 'Patrick Hand', cursive; font-size: 15px; border: 2.5px solid #2B2118; border-radius: 8px; background-color: #FFFDF9; box-shadow: 3px 3px 0 #2B2118; color: #2B2118; outline: none; box-sizing: border-box;" required>
+                         </div>
+                       </div>
+
+                       <button type="submit" class="btn-sketch btn-primary-sketch" style="margin: 0; padding: 8px 20px; font-size: 15px; height: 42px; cursor: pointer; box-shadow: 3px 3px 0px #2B2118; border: 2.5px solid #2B2118;">Save Envelope</button>
+                     </form>
+                   </div>
+                 </div>
+
+                 <!-- Budget Guest Overlay (hidden when logged in) -->
+                 <div id="budget-guest-overlay" class="preview-cta-overlay" style="position: absolute; inset: 0; background: rgba(250, 248, 245, 0.7); backdrop-filter: blur(2px); display: flex; align-items: center; justify-content: center;">
+                   <div class="summary-card text-center" style="max-width: 400px; padding: 28px; border: 2.5px solid #2B2118; box-shadow: 6px 6px 0px #2B2118; background-color: #FFFDF9;">
+                     <h4 style="font-family: 'CabinSketch', 'Kalam', cursive; font-size: 24px; color: #2B2118; margin: 0 0 10px 0;">Create Cozy Budgets</h4>
+                     <p style="font-family: 'Patrick Hand', cursive; font-size: 16px; color: #7A695C; margin: 0 0 20px 0; line-height: 1.4;">
+                       Plan your expenses with ease. Sign up to define custom category envelopes and save monthly budgets.
+                     </p>
+                     <a href="/login" class="btn-sketch btn-primary-sketch" style="margin: 0; padding: 10px 24px; font-size: 15px; width: 100%; box-sizing: border-box; text-align: center;">Sign In to Get Started</a>
+                   </div>
+                 </div>
+               </div>
+
+               <!-- ==========================================
+                  TAB 4: GOALS
+                  ========================================== -->
+               <div id="tab-view-goals" class="dashboard-tab-view" style="position: relative;">
+
+                 <!-- Dynamic goal cards rendered by JS when logged in -->
+                 <div id="home-goals-grid" class="goals-grid" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important; margin-bottom: 28px; min-height: 60px;">
+                   <!-- Populated by home.js renderGoalsTab() -->
+                 </div>
+
+                 <!-- Guest CTA Overlay (hidden when logged in) -->
+                 <div id="goals-guest-overlay" class="preview-cta-overlay" style="position: absolute; inset: 0; background: rgba(250, 248, 245, 0.75); backdrop-filter: blur(3px); display: flex; align-items: center; justify-content: center;">
+                   <!-- Background preview cards -->
+                   <div class="goals-grid" style="grid-template-columns: repeat(3, 1fr) !important; position: absolute; inset: 0; padding: 24px; pointer-events: none; z-index: 0; opacity: 0.55;">
+                     <div class="summary-card goal-card">
+                       <div class="goal-header font-handwriting"><h4>New Laptop Fund</h4><span class="goal-amount">&#8377;45k / &#8377;60k</span></div>
+                       <p class="goal-desc">Target Date: December 2026</p>
+                       <div class="sketchy-progress-outer"><div class="sketchy-progress-inner fill-blue" style="width:75%;height:100%;"><div class="sketchy-progress-scribble" style="width:100%;height:100%;"></div></div></div>
+                       <div class="goal-footer"><span class="card-subtext">75% Saved</span><span class="blue-ink card-comparison">Almost there!</span></div>
+                     </div>
+                     <div class="summary-card goal-card">
+                       <div class="goal-header font-handwriting"><h4>Emergency Safety</h4><span class="goal-amount">&#8377;50k / &#8377;100k</span></div>
+                       <p class="goal-desc">Target Date: March 2027</p>
+                       <div class="sketchy-progress-outer"><div class="sketchy-progress-inner fill-green" style="width:50%;height:100%;"><div class="sketchy-progress-scribble" style="width:100%;height:100%;"></div></div></div>
+                       <div class="goal-footer"><span class="card-subtext">50% Saved</span><span class="green-ink card-comparison">Halfway point!</span></div>
+                     </div>
+                     <div class="summary-card goal-card">
+                       <div class="goal-header font-handwriting"><h4>Japan Trip Fund</h4><span class="goal-amount">&#8377;20k / &#8377;150k</span></div>
+                       <p class="goal-desc">Target Date: October 2027</p>
+                       <div class="sketchy-progress-outer"><div class="sketchy-progress-inner fill-blue" style="width:13%;height:100%;"><div class="sketchy-progress-scribble" style="width:100%;height:100%;"></div></div></div>
+                       <div class="goal-footer"><span class="card-subtext">13% Saved</span><span class="blue-ink card-comparison">Started!</span></div>
+                     </div>
+                   </div>
+                   <!-- Sign-in CTA card -->
+                   <div class="summary-card text-center" style="max-width: 400px; padding: 28px; border: 2.5px solid #2B2118; box-shadow: 6px 6px 0px #2B2118; background-color: #FFFDF9; position: relative; z-index: 1;">
+                     <h4 style="font-family: 'CabinSketch', 'Kalam', cursive; font-size: 24px; color: #2B2118; margin: 0 0 10px 0;">Reach Savings Goals</h4>
+                     <p style="font-family: 'Patrick Hand', cursive; font-size: 16px; color: #7A695C; margin: 0 0 20px 0; line-height: 1.4;">
+                       Set goals and stay motivated. Sign up to build your custom milestone cards and track visual progress.
+                     </p>
+                     <a href="/login" class="btn-sketch btn-primary-sketch" style="margin: 0; padding: 10px 24px; font-size: 15px; width: 100%; box-sizing: border-box; text-align: center;">Sign In to Get Started</a>
+                   </div>
+                 </div>
+
+                 <!-- Add Goal Form (shown when logged in) -->
+                 <div id="home-goals-editor-section" style="display: none;">
+                   <div class="ruled-paper-card" style="padding: 24px; margin-top: 4px;">
+                     <h3 class="ruled-title font-handwriting" style="margin-bottom: 20px;">&#10022; Add a New Savings Goal</h3>
+                     <form id="home-goal-form" class="goal-add-form">
+                       <div class="goal-form-row">
+                         <div class="goal-form-field">
+                           <label class="goal-form-label" for="goal-name">Goal Name</label>
+                           <input type="text" id="goal-name" class="goal-form-input" placeholder="e.g. Japan Trip Fund" required maxlength="60" />
+                         </div>
+                         <div class="goal-form-field">
+                           <label class="goal-form-label" for="goal-target">Target Amount (&#8377;)</label>
+                           <input type="number" id="goal-target" class="goal-form-input" placeholder="e.g. 150000" min="1" step="1" required />
+                         </div>
+                         <div class="goal-form-field">
+                           <label class="goal-form-label" for="goal-saved">Saved So Far (&#8377;)</label>
+                           <input type="number" id="goal-saved" class="goal-form-input" placeholder="e.g. 20000" min="0" step="1" value="0" />
+                         </div>
+                         <div class="goal-form-field">
+                           <label class="goal-form-label" for="goal-date">Target Date</label>
+                           <input type="date" id="goal-date" class="goal-form-input" />
+                         </div>
+                         <div class="goal-form-field">
+                           <label class="goal-form-label" for="goal-color">Color</label>
+                           <select id="goal-color" class="goal-form-input">
+                             <option value="fill-blue">Blue</option>
+                             <option value="fill-green">Green</option>
+                             <option value="fill-pink">Pink</option>
+                             <option value="fill-yellow">Yellow</option>
+                             <option value="fill-purple">Purple</option>
+                           </select>
+                         </div>
+                         <div class="goal-form-field" style="align-self: flex-end;">
+                           <button type="submit" id="home-goal-submit-btn" class="btn-sketch btn-primary-sketch" style="width: 100%; padding: 10px 16px; font-size: 15px;">+ Add Goal</button>
+                         </div>
+                       </div>
+                     </form>
+                   </div>
+                 </div>
+
+               </div>
+
+               <!-- ==========================================
+                  TAB 5: REPORTS
+                  ========================================== -->
+               <div id="tab-view-reports" class="dashboard-tab-view" style="position: relative;">
+
+                 <!-- KPI row -->
+                 <div class="reports-kpi-row" id="reports-kpi-row">
+                   <div class="reports-kpi-card">
+                     <div class="reports-kpi-icon" style="background-color:#dcfce7;">&#8593;</div>
+                     <div>
+                       <div class="reports-kpi-label">Total Income</div>
+                       <div class="reports-kpi-value green-ink" id="rpt-total-income">&#8377;0</div>
+                     </div>
+                   </div>
+                   <div class="reports-kpi-card">
+                     <div class="reports-kpi-icon" style="background-color:#fce7f3;">&#8595;</div>
+                     <div>
+                       <div class="reports-kpi-label">Total Spent</div>
+                       <div class="reports-kpi-value red-ink" id="rpt-total-spent">&#8377;0</div>
+                     </div>
+                   </div>
+                   <div class="reports-kpi-card">
+                     <div class="reports-kpi-icon" style="background-color:#fef9c3;">&#9749;</div>
+                     <div>
+                       <div class="reports-kpi-label">Savings Rate</div>
+                       <div class="reports-kpi-value" id="rpt-savings-rate">0%</div>
+                     </div>
+                   </div>
+                   <div class="reports-kpi-card">
+                     <div class="reports-kpi-icon" style="background-color:#e0e7ff;">&#9733;</div>
+                     <div>
+                       <div class="reports-kpi-label">Top Category</div>
+                       <div class="reports-kpi-value" id="rpt-top-category" style="font-size:14px;">—</div>
+                     </div>
+                   </div>
+                 </div>
+
+                 <!-- Two-column layout: Bar chart + Suggestions -->
+                 <div class="reports-main-grid">
+
+                   <!-- LEFT: Category Bar Chart + Budget vs Actual -->
+                   <div style="display: flex; flex-direction: column; gap: 20px;">
+
+                     <!-- Hand-drawn Category Bar Chart -->
+                     <div class="summary-card" style="padding: 20px;">
+                       <h3 class="card-title" style="margin-bottom: 16px;">Category Spending Breakdown</h3>
+                       <div id="rpt-bar-chart-container" class="rpt-bar-chart">
+                         <div class="rpt-empty-state">No spending data for this month yet.</div>
+                       </div>
+                     </div>
+
+                     <!-- Budget vs Actual Progress Bars -->
+                     <div class="summary-card" style="padding: 20px;">
+                       <h3 class="card-title" style="margin-bottom: 16px;">Budget vs. Actual</h3>
+                       <div id="rpt-budget-vs-actual">
+                         <div class="rpt-empty-state">No budget envelopes set up yet.</div>
+                       </div>
+                     </div>
+
+                   </div>
+
+                   <!-- RIGHT: Smart Suggestions + Spending Share -->
+                   <div style="display: flex; flex-direction: column; gap: 20px;">
+
+                     <!-- Smart Suggestions -->
+                     <div class="summary-card" style="padding: 20px;">
+                       <h3 class="card-title" style="margin-bottom: 4px;">
+                         &#9889; Smart Suggestions
+                       </h3>
+                       <p style="font-family:'Patrick Hand',cursive; font-size:13px; color:#9A8578; margin:0 0 14px 0;">Based on your spending this month</p>
+                       <div id="rpt-suggestions-list" style="display:flex; flex-direction:column; gap:12px;">
+                         <div class="rpt-empty-state">Add transactions to get personalised suggestions.</div>
+                       </div>
+                     </div>
+
+                     <!-- Spending by Type donut ring (CSS) -->
+                     <div class="summary-card" style="padding: 20px;">
+                       <h3 class="card-title" style="margin-bottom: 16px;">Spending by Type</h3>
+                       <div id="rpt-donut-wrap" class="rpt-donut-wrap">
+                         <div class="rpt-empty-state">No data yet.</div>
+                       </div>
+                       <div id="rpt-donut-legend" style="margin-top:14px; display:flex; flex-direction:column; gap:6px;"></div>
+                     </div>
+
+                   </div>
+                 </div>
+
+                 <!-- Guest overlay -->
+                 <div id="reports-guest-overlay" class="preview-cta-overlay" style="position: absolute; inset: 0; background: rgba(250,248,245,0.78); backdrop-filter: blur(3px); display: flex; align-items: center; justify-content: center;">
+                   <div class="summary-card text-center" style="max-width: 400px; padding: 28px; border: 2.5px solid #2B2118; box-shadow: 6px 6px 0px #2B2118; background-color: #FFFDF9;">
+                     <h4 style="font-family:'CabinSketch','Kalam',cursive; font-size: 24px; color: #2B2118; margin: 0 0 10px 0;">Cozy Finance Analytics</h4>
+                     <p style="font-family:'Patrick Hand',cursive; font-size: 16px; color: #7A695C; margin: 0 0 20px 0; line-height: 1.4;">
+                       Visualize your financial habits. Sign in to gain insights, generate reports, and get smart suggestions.
+                     </p>
+                     <a href="/login" class="btn-sketch btn-primary-sketch" style="margin: 0; padding: 10px 24px; font-size: 15px; width: 100%; box-sizing: border-box; text-align: center;">Sign In to Get Started</a>
+                   </div>
+                 </div>
+               </div>
+
               <div id="tab-view-categories" class="dashboard-tab-view" style="position: relative;">
                 <div class="ruled-paper-card" style="padding: 24px; min-height: 260px; display: flex; flex-direction: column; align-items: center;">
                   <h3 class="ruled-title font-handwriting">Handwritten Sticky-Note Envelopes</h3>

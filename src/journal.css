@@ -921,3 +921,394 @@
     padding-right: 0;
   }
 }
+
+/* ==========================================
+   GOALS SECTION STYLES
+   ========================================== */
+
+/* Extra progress fill colors */
+.fill-pink { background-color: #fce7f3; }
+.fill-yellow { background-color: #fef9c3; }
+.fill-purple { background-color: #ede9fe; }
+.fill-orange { background-color: #ffedd5; }
+
+/* Goal Add Form */
+.goal-add-form {
+  width: 100%;
+}
+
+.goal-form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: flex-end;
+}
+
+.goal-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1;
+  min-width: 140px;
+}
+
+.goal-form-label {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 14px;
+  color: #7A695C;
+  font-weight: 600;
+}
+
+.goal-form-input {
+  width: 100%;
+  padding: 8px 12px;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 15px;
+  border: 2.5px solid #2B2118;
+  border-radius: 8px;
+  background-color: #FFFDF9;
+  box-shadow: 3px 3px 0 #2B2118;
+  color: #2B2118;
+  outline: none;
+  box-sizing: border-box;
+  transition: box-shadow 0.15s ease, transform 0.1s ease;
+}
+
+.goal-form-input:focus {
+  box-shadow: 4px 4px 0 #ff85a2;
+  transform: translateY(-1px);
+}
+
+/* Goal Card Delete Button */
+.goal-delete-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #C0392B;
+  font-size: 16px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  opacity: 0.6;
+  transition: opacity 0.15s, background-color 0.15s;
+  font-family: 'Patrick Hand', cursive;
+  line-height: 1;
+}
+
+.goal-delete-btn:hover {
+  opacity: 1;
+  background-color: #ffe3e3;
+}
+
+/* Goal card no-goals placeholder */
+.goals-empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 48px 24px;
+  font-family: 'Patrick Hand', cursive;
+  color: #8C7C6D;
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+.goals-empty-state .empty-icon {
+  font-size: 36px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* Home Goals Summary mini-bar */
+.home-goal-mini-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.home-goal-mini-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 14px;
+  color: #2B2118;
+}
+
+.home-goal-mini-name {
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 55%;
+}
+
+.home-goal-mini-pct {
+  font-size: 13px;
+  color: #5C4A3A;
+}
+
+.home-goal-mini-bar-outer {
+  height: 14px;
+  border: 2px solid #2B2118;
+  border-radius: 20px;
+  background-color: #FAF8F5;
+  overflow: hidden;
+}
+
+.home-goal-mini-bar-inner {
+  height: 100%;
+  border-radius: 16px;
+  transition: width 0.5s ease;
+  min-width: 4px;
+}
+
+.home-goal-mini-date {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 12px;
+  color: #9A8578;
+}
+
+/* Goal card animation */
+.goal-card {
+  animation: goalCardIn 0.35s ease both;
+}
+
+@keyframes goalCardIn {
+  from { opacity: 0; transform: translateY(10px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.goal-card:nth-child(2) { animation-delay: 0.06s; }
+.goal-card:nth-child(3) { animation-delay: 0.12s; }
+.goal-card:nth-child(4) { animation-delay: 0.18s; }
+.goal-card:nth-child(5) { animation-delay: 0.24s; }
+.goal-card:nth-child(6) { animation-delay: 0.30s; }
+
+/* Reports Visual Analytics tab layout */
+.reports-kpi-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.reports-kpi-card {
+  flex: 1 1 200px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background-color: #FFFDF9;
+  border: 2.5px solid #2B2118;
+  border-radius: 8px;
+  box-shadow: 4px 4px 0px #2B2118;
+  font-family: 'Patrick Hand', cursive;
+}
+
+.reports-kpi-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2.5px solid #2B2118;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.reports-kpi-label {
+  font-size: 14px;
+  color: #7A695C;
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.reports-kpi-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #2B2118;
+}
+
+.reports-main-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 8px;
+}
+
+@media (max-width: 900px) {
+  .reports-main-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Category Spending Vertical Bar Chart */
+.rpt-bar-chart {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  gap: 12px;
+  height: 250px;
+  padding: 24px 12px 12px 12px;
+  border-bottom: 3px solid #2B2118;
+  box-sizing: border-box;
+}
+
+.rpt-bar-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: flex-end;
+  position: relative;
+  min-width: 40px;
+}
+
+.rpt-bar-inner {
+  width: 70%;
+  max-width: 36px;
+  border: 2.5px solid #2B2118;
+  border-bottom: none;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  transition: height 0.5s ease-out;
+  min-height: 4px;
+  box-shadow: inset -2px 0 0 rgba(0,0,0,0.06);
+}
+
+.rpt-bar-value {
+  position: absolute;
+  top: -24px;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: 'Patrick Hand', cursive;
+  color: #2B2118;
+  white-space: nowrap;
+}
+
+.rpt-bar-label {
+  margin-top: 8px;
+  font-size: 13px;
+  font-family: 'Patrick Hand', cursive;
+  color: #2B2118;
+  text-align: center;
+  font-weight: 600;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rpt-empty-state {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 15px;
+  color: #8C7C6D;
+  text-align: center;
+  padding: 48px 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Donut chart wrap */
+.rpt-donut-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 180px;
+  padding: 8px;
+}
+
+.rpt-donut-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+  font-family: 'Patrick Hand', cursive;
+}
+
+.rpt-donut-legend-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #2B2118;
+}
+
+.rpt-donut-color-box {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 1.5px solid #2B2118;
+  border-radius: 3px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+/* Budget vs Actual styles */
+.rpt-budget-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+  font-family: 'Patrick Hand', cursive;
+}
+
+.rpt-budget-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #2B2118;
+  font-weight: 700;
+}
+
+.rpt-budget-bar-outer {
+  height: 14px;
+  border: 2px solid #2B2118;
+  border-radius: 8px;
+  background-color: #FAF8F5;
+  overflow: hidden;
+  position: relative;
+}
+
+.rpt-budget-bar-inner {
+  height: 100%;
+  border-radius: 6px;
+  transition: width 0.4s ease-out;
+  min-width: 4px;
+}
+
+/* Smart Suggestions Card */
+.rpt-suggestion-item {
+  padding: 12px 16px;
+  background-color: #FFFDF9;
+  border: 2px solid #2B2118;
+  border-radius: 8px;
+  box-shadow: 3px 3px 0px #2B2118;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 14.5px;
+  line-height: 1.45;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  transition: transform 0.15s ease;
+}
+
+.rpt-suggestion-item:hover {
+  transform: translateY(-2px);
+}
+
+.rpt-suggestion-icon {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.rpt-suggestion-content {
+  flex: 1;
+}
+
+.rpt-suggestion-text {
+  color: #5C4A3A;
+  margin: 0;
+}
+
+
