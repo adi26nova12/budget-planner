@@ -983,12 +983,22 @@ body {
 .modal-table-container {
   border: 1px solid var(--border-color);
   border-radius: 8px;
-  overflow-y: auto;
-  max-height: 360px;
+  max-height: 340px; /* Fits comfortably inside the accordion content height limit */
+  overflow: auto; /* Enable both vertical and horizontal scrollbars */
 }
 
 .modal-table-container .spreadsheet-table {
   margin-bottom: 0;
+  width: 100%;
+  min-width: 620px; /* Prevent column squishing */
+  table-layout: auto;
+}
+
+.modal-table-container .spreadsheet-table td {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 250px; /* Truncate description if exceptionally long */
 }
 
 .modal-footer {
@@ -1265,9 +1275,9 @@ body {
 }
 
 .accordion-item.expanded .accordion-content {
-  max-height: 320px;
+  max-height: 420px; /* Taller than table container max-height to avoid overlap clipping */
   border-top-color: var(--border-color);
-  overflow-y: auto;
+  overflow: hidden; /* Prevent parent-level double scrollbars */
 }
 
 .accordion-item.expanded .accordion-header {
