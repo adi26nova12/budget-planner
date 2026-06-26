@@ -59,7 +59,7 @@
 
 /* Handwritten Typography */
 .journal-title {
-  font-family: 'Kalam', cursive;
+  font-family: 'CabinSketch', 'Kalam', cursive;
   font-size: 42px;
   font-weight: 700;
   line-height: 1.2;
@@ -97,7 +97,7 @@
 }
 
 .font-handwriting {
-  font-family: 'Kalam', cursive;
+  font-family: 'CabinSketch', 'Kalam', cursive;
 }
 
 /* Hand-Drawn Sketchy Buttons */
@@ -106,7 +106,7 @@
   align-items: center;
   justify-content: center;
   padding: 12px 28px;
-  font-family: 'Kalam', cursive;
+  font-family: 'CabinSketch', 'Kalam', cursive;
   font-size: 16px;
   font-weight: 700;
   text-decoration: none;
@@ -158,7 +158,7 @@
 }
 
 .section-title-sketch {
-  font-family: 'Kalam', cursive;
+  font-family: 'CabinSketch', 'Kalam', cursive;
   font-size: 32px;
   font-weight: 700;
   color: #2B2118;
@@ -221,7 +221,7 @@
 }
 
 .metric-handwriting .amount {
-  font-family: 'Kalam', cursive;
+  font-family: 'CabinSketch', 'Kalam', cursive;
   font-size: 26px;
   font-weight: 700;
   margin: 6px 0;
@@ -342,7 +342,7 @@
 }
 
 .note-title {
-  font-family: 'Kalam', cursive;
+  font-family: 'CabinSketch', 'Kalam', cursive;
   font-size: 20px;
   font-weight: 700;
   margin-bottom: 4px;
@@ -402,7 +402,7 @@
 }
 
 .notebook-table th {
-  font-family: 'Kalam', cursive;
+  font-family: 'CabinSketch', 'Kalam', cursive;
   font-size: 16px;
   color: #8C7C6D;
   font-weight: 700;
@@ -509,7 +509,7 @@
 }
 
 .testimonial-content .author {
-  font-family: 'Kalam', cursive;
+  font-family: 'CabinSketch', 'Kalam', cursive;
   font-size: 15px;
   text-align: right;
   font-weight: 700;
@@ -565,5 +565,359 @@
   .overview-grid, .goals-grid {
     grid-template-columns: 1fr;
     gap: 20px;
+  }
+}
+
+/* ==========================================
+   COZY LOGIN & SIGNUP STYLES
+   ========================================== */
+
+.login-layout {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 40px;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.login-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-right: 20px;
+}
+
+.login-left h1 {
+  font-family: 'CabinSketch', 'Kalam', cursive;
+  font-size: 46px;
+  color: #1A120B;
+  margin-bottom: 12px;
+  position: relative;
+  display: inline-block;
+}
+
+.login-left h1::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='10'><path d='M0 5 Q 25 1, 50 5 T 100 5' fill='none' stroke='%23ff85a2' stroke-width='3' stroke-linecap='round'/></svg>");
+  background-size: 80px 4px;
+}
+
+.login-left .subtitle {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 20px;
+  color: #5C4A3A;
+  margin-bottom: 32px;
+}
+
+.login-illustration-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+/* Hanging paper card */
+.login-card-paper {
+  background-color: #FFFDF9;
+  border: 2px solid #2B2118;
+  border-radius: 4px;
+  box-shadow: 4px 6px 0px #DAC0A3, 0 10px 25px rgba(0, 0, 0, 0.03);
+  padding: 32px 36px;
+  width: 100%;
+  max-width: 440px;
+  position: relative;
+  margin-top: 24px;
+}
+
+.login-card-paper,
+.login-card-paper * {
+  color: #2B2118 !important;
+}
+
+.login-card-paper .auth-subtitle,
+.login-card-paper .sketch-separator,
+.login-card-paper .auth-switch-link {
+  color: #7A695C !important;
+}
+
+.login-card-paper .forgot-password-link,
+.login-card-paper .auth-switch-link a {
+  color: #1565c0 !important;
+}
+
+/* Notebook Binder Rings (top) */
+.login-rings-header {
+  position: absolute;
+  top: -16px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-around;
+  padding: 0 40px;
+  pointer-events: none;
+}
+
+.login-ring {
+  width: 12px;
+  height: 24px;
+  background: linear-gradient(to bottom, #dcd7cd, #a8a092);
+  border: 2px solid #2B2118;
+  border-radius: 10px;
+  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.5), 1px 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+.login-card-paper h2 {
+  font-family: 'CabinSketch', 'Kalam', cursive;
+  font-size: 32px;
+  color: #1A120B;
+  margin-bottom: 8px;
+}
+
+.login-card-paper .auth-subtitle {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 17px;
+  color: #7A695C;
+  margin-bottom: 24px;
+}
+
+/* Forms show/hide transition */
+.auth-form-container {
+  position: relative;
+}
+
+.auth-form-login,
+.auth-form-signup {
+  display: none;
+}
+
+.auth-form-login.active,
+.auth-form-signup.active {
+  display: block;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Input Styles */
+.sketch-input-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.sketch-input-group label {
+  display: block;
+  font-family: 'CabinSketch', 'Kalam', cursive;
+  font-size: 16px;
+  font-weight: bold;
+  color: #2B2118;
+  margin-bottom: 6px;
+}
+
+.sketch-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.sketch-input-icon {
+  position: absolute;
+  left: 12px;
+  color: #7A695C;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+
+.sketch-input {
+  width: 100%;
+  padding: 12px 14px 12px 38px;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 18px;
+  background-color: transparent !important;
+  color: #2B2118 !important;
+  border: 2px solid #2B2118;
+  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.sketch-input::placeholder {
+  color: rgba(43, 33, 24, 0.45) !important;
+}
+
+.sketch-input:focus {
+  border-color: #ff85a2;
+  box-shadow: 0 0 0 1px #ff85a2;
+}
+
+.sketch-input-toggle {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  color: #7A695C;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+}
+
+.sketch-input-toggle:hover {
+  color: #2B2118;
+}
+
+.forgot-password-link {
+  display: block;
+  text-align: right;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 15px;
+  color: #1565c0;
+  text-decoration: underline;
+  margin-top: -12px;
+  margin-bottom: 24px;
+}
+
+.forgot-password-link:hover {
+  color: #0d47a1;
+}
+
+/* Green Hatched Button */
+.btn-sketch-green {
+  width: 100%;
+  padding: 12px;
+  font-family: 'CabinSketch', 'Kalam', cursive;
+  font-size: 20px;
+  font-weight: bold;
+  color: #2B2118;
+  background: repeating-linear-gradient(
+    -45deg,
+    #e8f5e9,
+    #e8f5e9 4px,
+    #c8e6c9 4px,
+    #c8e6c9 8px
+  );
+  border: 2px solid #2B2118;
+  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+  cursor: pointer;
+  box-shadow: 2px 3px 0px #2B2118;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.btn-sketch-green:hover {
+  transform: translateY(-1px);
+  box-shadow: 3px 4px 0px #2B2118;
+}
+
+.btn-sketch-green:active {
+  transform: translateY(1px);
+  box-shadow: 1px 1px 0px #2B2118;
+}
+
+/* Separator Line */
+.sketch-separator {
+  position: relative;
+  text-align: center;
+  margin: 20px 0;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 16px;
+  color: #7A695C;
+}
+
+.sketch-separator::before,
+.sketch-separator::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 42%;
+  height: 1px;
+  background-color: #E6DEC9;
+}
+
+.sketch-separator::before { left: 0; }
+.sketch-separator::after { right: 0; }
+
+/* Google Button */
+.btn-google-sketch {
+  width: 100%;
+  padding: 10px;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 18px;
+  color: #2B2118;
+  background-color: #ffffff;
+  border: 2px solid #2B2118;
+  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+  cursor: pointer;
+  box-shadow: 2px 3px 0px #2B2118;
+  transition: all 0.1s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.btn-google-sketch:hover {
+  background-color: #FAF8F5;
+  transform: translateY(-1px);
+  box-shadow: 3px 4px 0px #2B2118;
+}
+
+.btn-google-sketch:active {
+  transform: translateY(1px);
+  box-shadow: 1px 1px 0px #2B2118;
+}
+
+.google-icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* Switch link */
+.auth-switch-link {
+  margin-top: 24px;
+  text-align: center;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 16px;
+  color: #7A695C;
+}
+
+.auth-switch-link a {
+  color: #1565c0;
+  text-decoration: underline;
+}
+
+.auth-switch-link a:hover {
+  color: #0d47a1;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .login-layout {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  
+  .login-left {
+    align-items: center;
+    text-align: center;
+    padding-right: 0;
   }
 }

@@ -1,10 +1,14 @@
 import os
 import json
 import base64
+import time
+from collections import defaultdict
 from typing import Dict, Any
-from fastapi import FastAPI, HTTPException, UploadFile, Form, File, Depends
+from fastapi import FastAPI, HTTPException, UploadFile, Form, File, Depends, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from fastapi.responses import JSONResponse
+from starlette.middleware.base import BaseHTTPMiddleware
 from pydantic import BaseModel
 from dotenv import load_dotenv
 
@@ -112,6 +116,47 @@ def save_local_db(data: Dict[str, Any]):
         except Exception as e:
             print(f"[LOCAL DB] Error writing to local db file: {e}")
 
+# Rate Limiting Middleware
+class RateLimitMiddleware(BaseHTTPMiddleware):
+    def __init__(self, app, max_requests: int = 60, window_seconds: int = 60):
+        super().__init__(app)
+        self.max_requests = max_requests
+        self.window_seconds = window_seconds
+        # Key: (client_ip, path) -> list of timestamps
+        self.request_history = defaultdict(list)
+        # Custom limits per path: (limit, window_seconds)
+        self.path_limits = {
+            "/api/import-statement": (5, 60),  # Max 5 uploads/min
+            "/api/log-error": (30, 60),        # Max 30 logs/min
+        }
+
+    async def dispatch(self, request: Request, call_next):
+        client_ip = request.client.host if request.client else "unknown"
+        path = request.url.path
+        
+        # Don't rate limit OPTIONS requests (CORS preflight)
+        if request.method == "OPTIONS":
+            return await call_next(request)
+
+        # Get limit for this path
+        limit, window = self.path_limits.get(path, (self.max_requests, self.window_seconds))
+        
+        now = time.time()
+        key = (client_ip, path)
+        
+        # Clean history for this key
+        history = self.request_history[key]
+        self.request_history[key] = [ts for ts in history if now - ts < window]
+        
+        if len(self.request_history[key]) >= limit:
+            return JSONResponse(
+                status_code=429,
+                content={"detail": "Too many requests. Please try again later."}
+            )
+            
+        self.request_history[key].append(now)
+        return await call_next(request)
+
 # FastAPI setup
 app = FastAPI(title="Finance Dashboard Backend API")
 
@@ -132,6 +177,12 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+)
+
+app.add_middleware(
+    RateLimitMiddleware,
+    max_requests=60,
+    window_seconds=60
 )
 
 

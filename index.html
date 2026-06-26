@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FinSprout - Finance Dashboard & Asset Allocation Wheel</title>
+    <title>Piggy Planner - Finance Dashboard & Asset Allocation Wheel</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,7 +16,7 @@
         <svg class="brand-logo" viewBox="0 0 24 24" width="28" height="28">
           <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.75z"/>
         </svg>
-        <span class="brand-name">FinSprout</span>
+        <span class="brand-name">Piggy Planner</span>
       </div>
       <div class="navbar-links">
         <a href="/" class="nav-link active" id="nav-link-home">Home</a>
@@ -59,383 +59,909 @@
     <!-- VIEWS -->
     
     <!-- 1. Home / Landing Page View (Cozy Journal Theme) -->
-    <div id="home-view" class="view-container journal-home-container active">
-      <div class="journal-paper">
-        <!-- Spiral Spine on the left side of the journal page -->
-        <div class="journal-spiral">
-          <div class="spiral-loop"></div>
-          <div class="spiral-loop"></div>
-          <div class="spiral-loop"></div>
-          <div class="spiral-loop"></div>
-          <div class="spiral-loop"></div>
-          <div class="spiral-loop"></div>
-          <div class="spiral-loop"></div>
-          <div class="spiral-loop"></div>
-          <div class="spiral-loop"></div>
-          <div class="spiral-loop"></div>
-          <div class="spiral-loop"></div>
-          <div class="spiral-loop"></div>
-          <div class="spiral-loop"></div>
-          <div class="spiral-loop"></div>
-          <div class="spiral-loop"></div>
+    <div id="home-view" class="view-container journal-home-container active" style="padding-top: 10px; padding-bottom: 40px; display: flex; flex-direction: column; align-items: center; justify-content: flex-start;">
+      
+      <!-- Notebook Binder Container -->
+      <div class="dashboard-paper" style="position: relative; overflow: visible; background-color: #FAF8F5; max-width: 1300px; width: 100%;">
+        
+        <!-- Sidebar Binder Metal Loops (Mocking the notebook spine rings on the vertical split) -->
+        <div class="notebook-binder-strip" style="position: absolute; left: 215px; top: 0; bottom: 0; width: 30px; display: flex; flex-direction: column; justify-content: space-around; align-items: center; z-index: 100; pointer-events: none; padding: 40px 0;">
+          <div class="sidebar-binder-loop" style="width: 24px; height: 12px; background: linear-gradient(to bottom, #dcd7cd, #a8a092); border: 2.5px solid #2B2118; border-radius: 6px; box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.5), 1px 1px 2px rgba(0, 0, 0, 0.15);"></div>
+          <div class="sidebar-binder-loop" style="width: 24px; height: 12px; background: linear-gradient(to bottom, #dcd7cd, #a8a092); border: 2.5px solid #2B2118; border-radius: 6px; box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.5), 1px 1px 2px rgba(0, 0, 0, 0.15);"></div>
+          <div class="sidebar-binder-loop" style="width: 24px; height: 12px; background: linear-gradient(to bottom, #dcd7cd, #a8a092); border: 2.5px solid #2B2118; border-radius: 6px; box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.5), 1px 1px 2px rgba(0, 0, 0, 0.15);"></div>
+          <div class="sidebar-binder-loop" style="width: 24px; height: 12px; background: linear-gradient(to bottom, #dcd7cd, #a8a092); border: 2.5px solid #2B2118; border-radius: 6px; box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.5), 1px 1px 2px rgba(0, 0, 0, 0.15);"></div>
+          <div class="sidebar-binder-loop" style="width: 24px; height: 12px; background: linear-gradient(to bottom, #dcd7cd, #a8a092); border: 2.5px solid #2B2118; border-radius: 6px; box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.5), 1px 1px 2px rgba(0, 0, 0, 0.15);"></div>
+          <div class="sidebar-binder-loop" style="width: 24px; height: 12px; background: linear-gradient(to bottom, #dcd7cd, #a8a092); border: 2.5px solid #2B2118; border-radius: 6px; box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.5), 1px 1px 2px rgba(0, 0, 0, 0.15);"></div>
+          <div class="sidebar-binder-loop" style="width: 24px; height: 12px; background: linear-gradient(to bottom, #dcd7cd, #a8a092); border: 2.5px solid #2B2118; border-radius: 6px; box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.5), 1px 1px 2px rgba(0, 0, 0, 0.15);"></div>
+          <div class="sidebar-binder-loop" style="width: 24px; height: 12px; background: linear-gradient(to bottom, #dcd7cd, #a8a092); border: 2.5px solid #2B2118; border-radius: 6px; box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.5), 1px 1px 2px rgba(0, 0, 0, 0.15);"></div>
+          <div class="sidebar-binder-loop" style="width: 24px; height: 12px; background: linear-gradient(to bottom, #dcd7cd, #a8a092); border: 2.5px solid #2B2118; border-radius: 6px; box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.5), 1px 1px 2px rgba(0, 0, 0, 0.15);"></div>
+          <div class="sidebar-binder-loop" style="width: 24px; height: 12px; background: linear-gradient(to bottom, #dcd7cd, #a8a092); border: 2.5px solid #2B2118; border-radius: 6px; box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.5), 1px 1px 2px rgba(0, 0, 0, 0.15);"></div>
         </div>
 
-        <div class="journal-content">
-          <!-- SECTION 1: HERO -->
-          <section class="hero-section float-anim">
-            <div class="hero-text-block">
-              <h1 class="journal-title">time for finances lil bro@[TerminalName: python, ProcessId: 43996]</h1>
-              <p class="journal-subtitle">Grab your favorite pen, cozy up, and let's organize your finances. No intimidating corporate spreadsheets here—just a simple, beautiful journal to track where your money goes.</p>
-              <div class="hero-actions">
-                <a href="/register" class="btn-sketch btn-primary-sketch">Open Your Journal</a>
-                <a href="/login" class="btn-sketch btn-secondary-sketch">Sign In</a>
-              </div>
-            </div>
-            
-            <div class="hero-illustration">
-              <!-- Inline sketchy Wallet SVG -->
-              <svg viewBox="0 0 240 200" class="sketch-wallet-svg" width="240" height="200">
-                <defs>
-                  <filter id="sketch-blur" x="-10%" y="-10%" width="120%" height="120%">
-                    <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" result="noise" />
-                    <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G" />
-                  </filter>
-                </defs>
-                <g filter="url(#sketch-blur)" stroke="#2B2118" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                  <!-- Sticking-out cash bills -->
-                  <path d="M 60 70 L 65 30 L 140 25 L 135 65 Z" fill="#E3F9E5" />
-                  <path d="M 62 38 L 80 34" stroke-dasharray="2 3" />
-                  <text x="90" y="52" font-family="Caveat" font-size="16" fill="#4b6b4e" stroke="none">₹ 500</text>
-                  
-                  <path d="M 90 70 L 105 20 L 175 15 L 160 65 Z" fill="#D0EBFF" />
-                  <text x="120" y="42" font-family="Caveat" font-size="16" fill="#32526e" stroke="none">₹ 2000</text>
-                  
-                  <!-- Wallet Back Cover -->
-                  <path d="M 40 70 L 200 60 C 210 60, 210 160, 200 165 L 45 175 C 35 175, 30 170, 30 160 L 30 80 C 30 70, 35 70, 40 70 Z" fill="#EADBC8" />
-                  <!-- Stitches -->
-                  <path d="M 45 78 L 195 68 C 198 68, 202 70, 202 78 L 202 153 C 202 158, 198 160, 195 160 L 45 168 C 40 168, 38 165, 38 158 L 38 88 C 38 82, 40 78, 45 78" stroke-dasharray="4 4" />
-                  
-                  <!-- Wallet Flap Pocket -->
-                  <path d="M 120 90 L 200 85 C 208 85, 208 140, 200 142 L 120 148 C 112 148, 110 142, 110 135 L 110 102 C 110 95, 112 90, 120 90 Z" fill="#DAC0A3" />
-                  <path d="M 110 115 L 80 117 C 78 117, 75 115, 75 110 C 75 105, 78 102, 80 102 L 110 102" />
-                  
-                  <!-- Snap Button -->
-                  <circle cx="95" cy="110" r="6" fill="#2B2118" />
-                  <circle cx="95" cy="110" r="3" fill="#FFF" stroke="none" />
-                  
-                  <!-- Pencil sketch highlight lines -->
-                  <path d="M 45 150 C 70 152, 110 148, 180 143" stroke="#aa9c8f" stroke-width="1.5" />
-                  <path d="M 50 120 C 80 122, 120 118, 160 115" stroke="#aa9c8f" stroke-width="1.5" />
-                </g>
+        <div class="dashboard-split-layout">
+          
+          <!-- SIDEBAR NAV -->
+          <aside class="dashboard-sidebar" style="width: 230px; padding: 24px 12px;">
+            <!-- Brand / Logo as custom SVG Notebook -->
+            <div class="sidebar-logo" style="margin-bottom: 20px; border-bottom: 2px dashed #D3C7B5; padding-bottom: 16px; flex-direction: column; align-items: center; gap: 8px;">
+              <svg viewBox="0 0 80 90" width="70" height="80" stroke="#2B2118" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" class="sidebar-logo-svg">
+                <!-- Outer notebook border -->
+                <path d="M 20 10 L 70 10 A 5 5 0 0 1 75 15 L 75 80 A 5 5 0 0 1 70 85 L 20 85 C 17 85, 15 83, 15 80 L 15 15 C 15 12, 17 10, 20 10 Z" fill="#FFFDF9" />
+                <path d="M 15 20 L 75 20" stroke-dasharray="2 3" />
+                <!-- Rupee Circle -->
+                <circle cx="47" cy="52" r="14" stroke="#2B2118" stroke-width="2" />
+                <text x="47" y="58" font-family="'CabinSketch', cursive" font-size="18" font-weight="bold" fill="#2B2118" stroke="none" text-anchor="middle">₹</text>
+                <!-- Notebook writing Lines -->
+                <line x1="22" y1="28" x2="38" y2="28" stroke-width="1.5" />
+                <line x1="22" y1="36" x2="32" y2="36" stroke-width="1.5" />
+                <!-- Spiral loops on left -->
+                <path d="M 15 16 C 8 16, 8 20, 15 20" />
+                <path d="M 15 28 C 8 28, 8 32, 15 32" />
+                <path d="M 15 40 C 8 40, 8 44, 15 44" />
+                <path d="M 15 52 C 8 52, 8 56, 15 56" />
+                <path d="M 15 64 C 8 64, 8 68, 15 68" />
+                <path d="M 15 76 C 8 76, 8 80, 15 80" />
+                <!-- Text on cover -->
+                <text x="47" y="32" font-family="'CabinSketch', cursive" font-size="10" font-weight="bold" fill="#2B2118" stroke="none" text-anchor="middle">BUDGET</text>
               </svg>
-            </div>
-          </section>
-
-          <!-- SECTION 2: SPENDING OVERVIEW -->
-          <section class="journal-section">
-            <h2 class="section-title-sketch">Monthly Spending Overview</h2>
-            <div class="overview-grid">
-              
-              <!-- Metric Cards with Binder Ring tops -->
-              <div class="paper-card metric-paper-card text-center">
-                <div class="card-binder-rings">
-                  <div class="binder-ring"></div>
-                  <div class="binder-ring"></div>
-                </div>
-                <div class="metric-handwriting">
-                  <span class="label">Total Expected Income</span>
-                  <h3 class="amount green-ink">₹85,000.00</h3>
-                  <p class="desc">Plan to earn this month</p>
-                </div>
-              </div>
-              
-              <div class="paper-card metric-paper-card text-center">
-                <div class="card-binder-rings">
-                  <div class="binder-ring"></div>
-                  <div class="binder-ring"></div>
-                </div>
-                <div class="metric-handwriting">
-                  <span class="label">Estimated Expenses</span>
-                  <h3 class="amount red-ink">₹42,500.00</h3>
-                  <p class="desc">Rent, food, travel, bills</p>
-                </div>
-              </div>
-              
-              <div class="paper-card metric-paper-card text-center">
-                <div class="card-binder-rings">
-                  <div class="binder-ring"></div>
-                  <div class="binder-ring"></div>
-                </div>
-                <div class="metric-handwriting">
-                  <span class="label">Target Monthly Savings</span>
-                  <h3 class="amount blue-ink">₹42,500.00</h3>
-                  <p class="desc">Leftover for future goals</p>
-                </div>
-              </div>
-
+              <span class="sidebar-brand-name" style="font-size: 18px; margin-top: 4px;">Piggy Planner</span>
             </div>
 
-            <!-- Hand-drawn Pie Chart Section -->
-            <div class="paper-card pie-chart-paper-card">
-              <div class="card-binder-rings">
-                <div class="binder-ring"></div>
-                <div class="binder-ring"></div>
-                <div class="binder-ring"></div>
+            <!-- Menu list -->
+            <nav class="sidebar-menu">
+              <button class="menu-item active" data-tab="home">
+                <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                  <polyline points="9 22 9 12 15 12 15 22"/>
+                </svg>
+                <span>Home</span>
+              </button>
+              <button class="menu-item" data-tab="transactions">
+                <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="8" y1="6" x2="21" y2="6"/>
+                  <line x1="8" y1="12" x2="21" y2="12"/>
+                  <line x1="8" y1="18" x2="21" y2="18"/>
+                  <line x1="3" y1="6" x2="3.01" y2="6"/>
+                  <line x1="3" y1="12" x2="3.01" y2="12"/>
+                  <line x1="3" y1="18" x2="3.01" y2="18"/>
+                </svg>
+                <span>Transactions</span>
+              </button>
+              <button class="menu-item" data-tab="budget">
+                <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <ellipse cx="12" cy="5" rx="9" ry="3"/>
+                  <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+                  <path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3"/>
+                </svg>
+                <span>Budget</span>
+              </button>
+              <button class="menu-item" data-tab="goals">
+                <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"/>
+                  <circle cx="12" cy="12" r="6"/>
+                  <circle cx="12" cy="12" r="2"/>
+                </svg>
+                <span>Goals</span>
+              </button>
+              <button class="menu-item" data-tab="reports">
+                <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="20" x2="18" y2="10"/>
+                  <line x1="12" y1="20" x2="12" y2="4"/>
+                  <line x1="6" y1="20" x2="6" y2="14"/>
+                </svg>
+                <span>Reports</span>
+              </button>
+              <button class="menu-item" data-tab="categories">
+                <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/>
+                  <line x1="7" y1="7" x2="7.01" y2="7"/>
+                </svg>
+                <span>Categories</span>
+              </button>
+              <button class="menu-item" data-tab="settings">
+                <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="3"/>
+                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                </svg>
+                <span>Settings</span>
+              </button>
+            </nav>
+
+            <!-- Sidebar Plant Card at Bottom -->
+            <div class="sidebar-plant-card" style="margin-top: auto; padding: 8px 10px; background-color: #FFFDF9; border: 2px solid #2B2118; border-radius: 8px; display: flex; align-items: center; gap: 8px; box-shadow: 2px 2px 0px #2B2118; position: relative;">
+              <!-- Custom Plant SVG -->
+              <svg viewBox="0 0 40 50" width="30" height="38" stroke="#2B2118" stroke-width="2" fill="none" class="sidebar-plant-svg">
+                <!-- Pot -->
+                <path d="M12 36 L28 36 L25 46 L15 46 Z" fill="#fff" />
+                <!-- Stem -->
+                <path d="M20 36 L20 15" />
+                <!-- Leaves -->
+                <path d="M20 30 C15 30 11 27 11 24 C11 21 15 24 20 27" />
+                <path d="M20 25 C25 25 29 22 29 19 C29 16 25 19 20 22" />
+                <path d="M20 18 C15 18 11 15 11 12 C11 9 15 12 20 15" />
+              </svg>
+              <div class="plant-card-content" style="flex: 1;">
+                <p class="plant-card-text" style="font-family: 'Patrick Hand', cursive; font-size: 12px; line-height: 1.2; margin: 0; color: #4D3E33;">
+                  Good habits build great futures.
+                </p>
               </div>
-              <div class="pie-layout">
-                <div class="pie-chart-graphic">
-                  <!-- Large Custom hand-drawn style Pie Chart SVG -->
-                  <svg viewBox="0 0 200 200" width="220" height="220" class="sketch-pie-svg">
-                    <defs>
-                      <pattern id="diagonal-scribble" width="10" height="10" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
-                        <line x1="0" y1="0" x2="0" y2="10" stroke="#2B2118" stroke-width="1.2" />
-                      </pattern>
-                      <pattern id="cross-scribble" width="8" height="8" patternUnits="userSpaceOnUse">
-                        <line x1="0" y1="0" x2="8" y2="8" stroke="#2B2118" stroke-width="1" />
-                        <line x1="8" y1="0" x2="0" y2="8" stroke="#2B2118" stroke-width="1" />
-                      </pattern>
-                      <pattern id="dot-scribble" width="8" height="8" patternUnits="userSpaceOnUse">
-                        <circle cx="4" cy="4" r="1.5" fill="#2B2118" />
-                      </pattern>
-                    </defs>
-                    
-                    <g filter="url(#sketch-blur)" stroke="#2B2118" stroke-width="2" fill="none">
-                      <!-- Center circle grid -->
-                      <circle cx="100" cy="100" r="82" stroke-dasharray="3 4" />
-                      
-                      <!-- Slices (drawn as paths representing slices with fills) -->
-                      <!-- Rent: 45% (approx 162 deg, from 0 to 162) -->
-                      <path d="M 100 100 L 180 90 A 80 80 0 0 1 65 172 Z" fill="#FFE3E3" />
-                      <path d="M 100 100 L 180 90 A 80 80 0 0 1 65 172 Z" fill="url(#diagonal-scribble)" opacity="0.3" />
-                      
-                      <!-- Food: 25% (approx 90 deg, from 162 to 252) -->
-                      <path d="M 100 100 L 65 172 A 80 80 0 0 1 23 75 Z" fill="#E3F9E5" />
-                      <path d="M 100 100 L 65 172 A 80 80 0 0 1 23 75 Z" fill="url(#cross-scribble)" opacity="0.25" />
-                      
-                      <!-- Bills: 15% (approx 54 deg, from 252 to 306) -->
-                      <path d="M 100 100 L 23 75 A 80 80 0 0 1 58 35 Z" fill="#F3E8FF" />
-                      <path d="M 100 100 L 23 75 A 80 80 0 0 1 58 35 Z" fill="url(#dot-scribble)" opacity="0.4" />
-                      
-                      <!-- Others: 15% (approx 54 deg, from 306 to 360) -->
-                      <path d="M 100 100 L 58 35 A 80 80 0 0 1 180 90 Z" fill="#FFF9DB" />
-                      
-                      <!-- Outline details of the wheel -->
-                      <circle cx="100" cy="100" r="80" />
-                      <path d="M 100 100 L 180 90" />
-                      <path d="M 100 100 L 65 172" />
-                      <path d="M 100 100 L 23 75" />
-                      <path d="M 100 100 L 58 35" />
-                    </g>
+              <span style="position: absolute; bottom: 3px; right: 6px; color: #ff85a2; font-size: 10px;">♥</span>
+            </div>
+          </aside>
+
+          <!-- MAIN NOTEBOOK CONTENT AREA -->
+          <main class="dashboard-main-area" style="background-color: #FAF8F5;">
+            
+            <!-- HEADER BAR -->
+            <header class="dashboard-shared-header" style="border-bottom: 2px dashed #D3C7B5; padding: 16px 24px;">
+              <div class="header-tab-title-group">
+                <h1 class="header-tab-title" id="header-tab-title" style="font-family: 'CabinSketch', 'Kalam', cursive; font-size: 26px; font-weight: 700; color: #2B2118; margin: 0; display: inline-block; position: relative;">
+                  Good Morning!
+                  <span class="highlight-stroke" style="position: absolute; left: 0; bottom: 0; width: 100%; height: 8px; background-color: rgba(255, 249, 219, 0.7); z-index: -1; border-radius: 4px;"></span>
+                </h1>
+                <p class="header-tab-subtitle" id="header-tab-subtitle" style="font-family: 'Patrick Hand', cursive; font-size: 15px; color: #7A695C; margin: 2px 0 0 0;">
+                  Here's your financial snapshot for today.
+                </p>
+              </div>
+
+              <div class="header-selectors-group">
+                <!-- Calendar box -->
+                <div class="calendar-selector-container">
+                  <svg class="calendar-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                    <line x1="16" y1="2" x2="16" y2="6"/>
+                    <line x1="8" y1="2" x2="8" y2="6"/>
+                    <line x1="3" y1="10" x2="21" y2="10"/>
                   </svg>
+                  <select class="month-select" id="home-month-select">
+                    <option value="JANUARY">JANUARY</option>
+                    <option value="FEBRUARY">FEBRUARY</option>
+                    <option value="MARCH">MARCH</option>
+                    <option value="APRIL">APRIL</option>
+                    <option value="MAY" selected>MAY</option>
+                    <option value="JUNE">JUNE</option>
+                    <option value="JULY">JULY</option>
+                    <option value="AUGUST">AUGUST</option>
+                    <option value="SEPTEMBER">SEPTEMBER</option>
+                    <option value="OCTOBER">OCTOBER</option>
+                    <option value="NOVEMBER">NOVEMBER</option>
+                    <option value="DECEMBER">DECEMBER</option>
+                  </select>
+                  <input type="number" class="year-input" id="home-year-input" value="2026" min="1900" max="2100" style="color: #2b2118; background: transparent; border: none; outline: none; width: 60px; font-family: CabinSketch, Kalam, cursive; font-size: 15px; font-weight: 700; margin-left: 4px;">
                 </div>
+
+                <!-- Bell icon -->
+                <div class="notification-bell-container" id="home-bell-btn">
+                  <svg class="bell-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                    <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                  </svg>
+                  <span class="bell-badge"></span>
+                </div>
+              </div>
+            </header>
+
+            <!-- TAB VIEWS CONTAINER -->
+            <div class="dashboard-tab-container" style="padding: 24px; display: flex; flex-direction: column; gap: 20px;">
+              
+              <!-- ==========================================
+                 TAB 1: HOME
+                 ========================================== -->
+              <div id="tab-view-home" class="dashboard-tab-view active">
                 
-                <div class="pie-labels font-handwriting">
-                  <h4 style="font-family: 'Kalam', cursive; font-size: 20px; margin-bottom: 12px;">Allocations</h4>
-                  <ul class="pie-legend">
-                    <li><span class="legend-box color-pink"></span> <span class="legend-text">Rent / Living (45%)</span></li>
-                    <li><span class="legend-box color-green"></span> <span class="legend-text">Food & Groceries (25%)</span></li>
-                    <li><span class="legend-box color-purple"></span> <span class="legend-text">Bills & Utilities (15%)</span></li>
-                    <li><span class="legend-box color-yellow"></span> <span class="legend-text">Others & Entertainment (15%)</span></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </section>
+                <!-- 3 Metric Cards Row -->
+                <div class="summary-cards-grid">
+                  <!-- Income Card -->
+                  <div class="summary-card">
+                    <div class="summary-card-header">
+                      <div class="icon-circle circle-green">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                          <rect x="2" y="4" width="20" height="16" rx="2"/>
+                          <line x1="12" y1="10" x2="12" y2="10"/>
+                          <circle cx="12" cy="12" r="2"/>
+                        </svg>
+                      </div>
+                      <div class="card-title-group">
+                        <span class="card-label">Total Income</span>
+                        <h3 class="card-amount green-ink" id="home-total-income">₹85,000.00</h3>
+                      </div>
+                    </div>
+                    <div class="summary-card-footer">
+                      <span class="card-subtext">This Month</span>
+                      <span class="card-comparison comparison-green">↗ 12% vs last month</span>
+                    </div>
+                  </div>
 
-          <!-- SECTION 3: BUDGET CATEGORIES -->
-          <section class="journal-section">
-            <h2 class="section-title-sketch">Handwritten Sticky-Note Categories</h2>
-            <p class="journal-desc">Your daily budget categories styled as vintage sticky planner notes. Each color highlights a different spending lane.</p>
-            
-            <div class="sticky-notes-container">
-              <!-- Note 1 -->
-              <div class="sticky-note note-pink">
-                <div class="sticky-tape"></div>
-                <div class="note-content">
-                  <h3 class="note-title">Bills</h3>
-                  <p class="note-amount">₹15,000 limit</p>
-                  <p class="note-body">Electricity, broadband, mobile, water, rent. Keep these constant.</p>
-                </div>
-              </div>
-              
-              <!-- Note 2 -->
-              <div class="sticky-note note-green">
-                <div class="sticky-tape"></div>
-                <div class="note-content">
-                  <h3 class="note-title">Food</h3>
-                  <p class="note-amount">₹12,000 limit</p>
-                  <p class="note-body">Zomato, Swiggy, grocery shopping, fresh veggies. Eat out less!</p>
-                </div>
-              </div>
-              
-              <!-- Note 3 -->
-              <div class="sticky-note note-blue">
-                <div class="sticky-tape"></div>
-                <div class="note-content">
-                  <h3 class="note-title">Travel</h3>
-                  <p class="note-amount">₹5,000 limit</p>
-                  <p class="note-body">Uber, auto rides, metro passes, train tickets, fuel. Walk when possible!</p>
-                </div>
-              </div>
-              
-              <!-- Note 4 -->
-              <div class="sticky-note note-purple">
-                <div class="sticky-tape"></div>
-                <div class="note-content">
-                  <h3 class="note-title">Entertainment</h3>
-                  <p class="note-amount">₹6,000 limit</p>
-                  <p class="note-body">Netflix, cinemas, cafe visits, weekend gig tickets, games.</p>
-                </div>
-              </div>
-              
-              <!-- Note 5 -->
-              <div class="sticky-note note-yellow">
-                <div class="sticky-tape"></div>
-                <div class="note-content">
-                  <h3 class="note-title">Shopping</h3>
-                  <p class="note-amount">₹4,500 limit</p>
-                  <p class="note-body">Clothes, gifts, home decor items, gadget upgrades.</p>
-                </div>
-              </div>
-            </div>
-          </section>
+                  <!-- Expenses Card -->
+                  <div class="summary-card">
+                    <div class="summary-card-header">
+                      <div class="icon-circle circle-red">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6z"/>
+                          <polyline points="14 2 14 8 20 8"/>
+                          <line x1="16" y1="13" x2="8" y2="13"/>
+                          <line x1="16" y1="17" x2="8" y2="17"/>
+                          <polyline points="10 9 9 9 8 9"/>
+                        </svg>
+                      </div>
+                      <div class="card-title-group">
+                        <span class="card-label">Total Expenses</span>
+                        <h3 class="card-amount red-ink" id="home-total-expenses">₹42,500.00</h3>
+                      </div>
+                    </div>
+                    <div class="summary-card-footer">
+                      <span class="card-subtext">This Month</span>
+                      <span class="card-comparison comparison-red">↗ 8% vs last month</span>
+                    </div>
+                  </div>
 
-          <!-- SECTION 4: EXPENSE TRACKING TABLE -->
-          <section class="journal-section">
-            <h2 class="section-title-sketch">Ruled Expense Journal</h2>
-            
-            <div class="ruled-paper-card">
-              <div class="ruled-margin-line"></div>
-              <div class="ruled-card-content">
-                <h3 class="ruled-title font-handwriting">Latest Journal Log</h3>
-                <table class="notebook-table">
-                  <thead>
-                    <tr>
-                      <th>Date</th>
-                      <th>Description</th>
-                      <th>Category</th>
-                      <th class="align-right">Spent Amount</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>June 19</td>
-                      <td>Weekly Grocery Run (Blinkit)</td>
-                      <td>Groceries</td>
-                      <td class="align-right red-ink">₹1,840.00</td>
-                    </tr>
-                    <tr>
-                      <td>June 18</td>
-                      <td>Metro Smartcard Recharge</td>
-                      <td>Travel</td>
-                      <td class="align-right red-ink">₹500.00</td>
-                    </tr>
-                    <tr>
-                      <td>June 16</td>
-                      <td>Netflix Subscription (Auto-paid)</td>
-                      <td>Bills</td>
-                      <td class="align-right red-ink">₹649.00</td>
-                    </tr>
-                    <tr>
-                      <td>June 15</td>
-                      <td>Cafe Outing w/ Friends</td>
-                      <td>Food</td>
-                      <td class="align-right red-ink">₹1,250.00</td>
-                    </tr>
-                    <tr>
-                      <td>June 12</td>
-                      <td>Broadband Bill</td>
-                      <td>Bills</td>
-                      <td class="align-right red-ink">₹999.00</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </section>
-
-          <!-- SECTION 5: SAVINGS GOALS -->
-          <section class="journal-section">
-            <h2 class="section-title-sketch">Savings & Dream Goals</h2>
-            
-            <div class="goals-grid">
-              
-              <!-- Goal Card 1 -->
-              <div class="paper-card goal-card">
-                <div class="goal-header font-handwriting">
-                  <h4>New Laptop Fund</h4>
-                  <span class="goal-amount">₹45k / ₹60k</span>
-                </div>
-                <p class="goal-desc">Target Date: December 2026</p>
-                
-                <!-- Hand-drawn progress bar -->
-                <div class="sketchy-progress-outer">
-                  <div class="sketchy-progress-inner fill-blue" style="width: 75%;">
-                    <div class="sketchy-progress-scribble"></div>
+                  <!-- Savings Card -->
+                  <div class="summary-card">
+                    <div class="summary-card-header">
+                      <div class="icon-circle circle-blue">
+                        <!-- Piggy Bank Icon -->
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M19 9a7 7 0 1 1-14 0 1 1 0 0 1 2 0 5 5 0 0 0 10 0 1 1 0 0 1 2 0Z"/>
+                          <circle cx="12" cy="12" r="3"/>
+                          <path d="M12 2a10 10 0 0 1 10 10c0 5.5-4.5 10-10 10S2 17.5 2 12A10 10 0 0 1 12 2Z" stroke-dasharray="2 2" />
+                        </svg>
+                      </div>
+                      <div class="card-title-group">
+                        <span class="card-label">Remaining to Save</span>
+                        <h3 class="card-amount blue-ink" id="home-total-savings">₹42,500.00</h3>
+                      </div>
+                    </div>
+                    <div class="summary-card-footer">
+                      <span class="card-subtext">Left for your goals</span>
+                      <span class="card-comparison comparison-blue">♡ On track!</span>
+                    </div>
                   </div>
                 </div>
-                <div class="goal-footer">
-                  <span>75% Saved</span>
-                  <span class="blue-ink">Almost there!</span>
-                </div>
-              </div>
-              
-              <!-- Goal Card 2 -->
-              <div class="paper-card goal-card">
-                <div class="goal-header font-handwriting">
-                  <h4>Emergency Safety Cushion</h4>
-                  <span class="goal-amount">₹50k / ₹100k</span>
-                </div>
-                <p class="goal-desc">Target Date: March 2027</p>
-                
-                <!-- Hand-drawn progress bar -->
-                <div class="sketchy-progress-outer">
-                  <div class="sketchy-progress-inner fill-green" style="width: 50%;">
-                    <div class="sketchy-progress-scribble"></div>
+
+                <!-- Split Main Home Row -->
+                <div class="home-content-grid">
+                  <!-- Left: Spending Overview Pie Chart Card -->
+                  <div class="home-column">
+                    <div class="summary-card" style="flex: 1; min-height: 290px;">
+                      <div class="card-header-with-actions">
+                        <h3 class="card-title">Spending Overview</h3>
+                        <span class="card-header-badge cta-btn">This Month ∨</span>
+                      </div>
+                      <div class="home-pie-layout">
+                        <!-- Chart Canvas container -->
+                        <div class="home-pie-chart-graphic">
+                          <canvas id="home-spending-pie-canvas" style="width: 100%; height: 100%; display: block;"></canvas>
+                        </div>
+                        <!-- Legend container -->
+                        <div class="home-pie-labels">
+                          <ul class="home-pie-legend">
+                            <li><span class="home-legend-box" style="background-color: #fef08a;"></span> <span>Rent / Living (45%)</span></li>
+                            <li><span class="home-legend-box" style="background-color: #fbcfe8;"></span> <span>Food & Groceries (25%)</span></li>
+                            <li><span class="home-legend-box" style="background-color: #e9d5ff;"></span> <span>Bills & Utilities (15%)</span></li>
+                            <li><span class="home-legend-box" style="background-color: #dcfce7;"></span> <span>Transport (10%)</span></li>
+                            <li><span class="home-legend-box" style="background-color: #ffedd5;"></span> <span>Others (5%)</span></li>
+                          </ul>
+                        </div>
+                      </div>
+                      
+                      <!-- Alert Banner -->
+                      <div class="star-alert-banner">
+                        <span class="star-icon">★</span>
+                        <span class="star-alert-text">You're spending 5% less than last month. Great job! 😊</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Right: Recent Transactions List Card -->
+                  <div class="home-column">
+                    <div class="summary-card recent-transactions-card" style="flex: 1;">
+                      <div class="card-header-with-actions">
+                        <h3 class="card-title">Recent Transactions</h3>
+                        <button class="view-all-link cta-btn">View All</button>
+                      </div>
+                      <ul class="recent-transactions-list" id="home-recent-transactions-list">
+                        <li class="transaction-item">
+                          <div class="transaction-item-left">
+                            <div class="tx-icon-circle circle-pink">
+                              <!-- Home icon -->
+                              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                              </svg>
+                            </div>
+                            <div class="tx-details">
+                              <span class="tx-title">House Rent</span>
+                              <span class="tx-category">Rent / Living</span>
+                            </div>
+                          </div>
+                          <div class="transaction-item-right">
+                            <span class="tx-amount red-ink">-₹18,000.00</span>
+                            <span class="tx-date">May 20, 2024</span>
+                          </div>
+                        </li>
+                        <li class="transaction-item">
+                          <div class="transaction-item-left">
+                            <div class="tx-icon-circle circle-green">
+                              <!-- Cart icon -->
+                              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="9" cy="21" r="1"/>
+                                <circle cx="20" cy="21" r="1"/>
+                                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                              </svg>
+                            </div>
+                            <div class="tx-details">
+                              <span class="tx-title">BigBasket</span>
+                              <span class="tx-category">Food & Groceries</span>
+                            </div>
+                          </div>
+                          <div class="transaction-item-right">
+                            <span class="tx-amount red-ink">-₹1,250.00</span>
+                            <span class="tx-date">May 19, 2024</span>
+                          </div>
+                        </li>
+                        <li class="transaction-item">
+                          <div class="transaction-item-left">
+                            <div class="tx-icon-circle circle-purple">
+                              <!-- Bolt icon -->
+                              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                              </svg>
+                            </div>
+                            <div class="tx-details">
+                              <span class="tx-title">Electricity Bill</span>
+                              <span class="tx-category">Bills & Utilities</span>
+                            </div>
+                          </div>
+                          <div class="transaction-item-right">
+                            <span class="tx-amount red-ink">-₹2,150.00</span>
+                            <span class="tx-date">May 18, 2024</span>
+                          </div>
+                        </li>
+                        <li class="transaction-item">
+                          <div class="transaction-item-left">
+                            <div class="tx-icon-circle circle-yellow">
+                              <!-- Car/Gas icon -->
+                              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 18h18V6H3v12z M12 6v12 M3 12h18"/>
+                              </svg>
+                            </div>
+                            <div class="tx-details">
+                              <span class="tx-title">Uber Ride</span>
+                              <span class="tx-category">Transport</span>
+                            </div>
+                          </div>
+                          <div class="transaction-item-right">
+                            <span class="tx-amount red-ink">-₹450.00</span>
+                            <span class="tx-date">May 17, 2024</span>
+                          </div>
+                        </li>
+                        <li class="transaction-item">
+                          <div class="transaction-item-left">
+                            <div class="tx-icon-circle circle-blue-grey">
+                              <!-- Briefcase icon -->
+                              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                              </svg>
+                            </div>
+                            <div class="tx-details">
+                              <span class="tx-title">Freelance Work</span>
+                              <span class="tx-category">Income</span>
+                            </div>
+                          </div>
+                          <div class="transaction-item-right">
+                            <span class="tx-amount green-ink">+₹25,000.00</span>
+                            <span class="tx-date">May 16, 2024</span>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
-                <div class="goal-footer">
-                  <span>50% Saved</span>
-                  <span class="green-ink">Halfway point!</span>
+
+                <!-- Quick Actions & Tip of the Day Banner -->
+                <div style="display: grid; grid-template-columns: 53fr 47fr; gap: 20px; align-items: stretch;">
+                  <!-- Quick Actions -->
+                  <div class="summary-card">
+                    <h3 class="card-title" style="margin-bottom: 12px; border-bottom: 2px dashed #D3C7B5; padding-bottom: 6px;">Quick Actions</h3>
+                    <div class="quick-actions-grid">
+                      <button class="quick-action-btn cta-btn">
+                        <div class="action-icon-wrapper circle-green">
+                          <span class="action-icon">+</span>
+                        </div>
+                        <span class="action-label">Add Transaction</span>
+                      </button>
+                      <button class="quick-action-btn cta-btn">
+                        <div class="action-icon-wrapper circle-purple">
+                          <!-- Pie chart icon -->
+                          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" style="margin-top:2px;">
+                            <path d="M21.21 15.89A10 10 0 1 1 8 2.83"/>
+                            <path d="M22 12A10 10 0 0 0 12 2v10z"/>
+                          </svg>
+                        </div>
+                        <span class="action-label">Set Budget</span>
+                      </button>
+                      <button class="quick-action-btn cta-btn">
+                        <div class="action-icon-wrapper circle-red">
+                          <!-- Target icon -->
+                          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <circle cx="12" cy="12" r="6"/>
+                          </svg>
+                        </div>
+                        <span class="action-label">Add Goal</span>
+                      </button>
+                      <button class="quick-action-btn cta-btn">
+                        <div class="action-icon-wrapper circle-blue">
+                          <!-- Doc lines icon -->
+                          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="8" y1="6" x2="21" y2="6"/>
+                            <line x1="8" y1="12" x2="21" y2="12"/>
+                            <line x1="8" y1="18" x2="21" y2="18"/>
+                          </svg>
+                        </div>
+                        <span class="action-label">View Reports</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Budgeting tip of the day -->
+                  <div class="tip-of-the-day-banner" style="margin-top: 0 !important; display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+                    <div style="display: flex; align-items: center; gap: 12px; flex: 1;">
+                      <div class="tip-left-icon">
+                        <!-- Lightbulb SVG -->
+                        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#2B2118" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .5 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/>
+                          <line x1="9" y1="18" x2="15" y2="18"/>
+                          <line x1="10" y1="22" x2="14" y2="22"/>
+                        </svg>
+                      </div>
+                      <div class="tip-text-content">
+                        <h4 class="tip-title" style="font-family: 'CabinSketch', 'Kalam', cursive; font-size: 16px; margin: 0; color: #2B2118;">Budgeting tip of the day</h4>
+                        <p class="tip-desc" style="font-family: 'Patrick Hand', cursive; font-size: 14px; margin: 2px 0 0 0; color: #4D3E33; line-height: 1.3;">
+                          Track your small expenses—they make a big difference!
+                        </p>
+                      </div>
+                    </div>
+                    <!-- Small drawing of notebook / sketch on bottom right -->
+                    <div class="tip-right-illustration">
+                      <svg viewBox="0 0 40 40" width="36" height="36" stroke="#2B2118" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <!-- Tiny notebook sheet -->
+                        <path d="M 8 6 L 30 6 L 34 10 L 34 34 L 8 34 Z" fill="#fff" />
+                        <!-- lines -->
+                        <line x1="12" y1="12" x2="26" y2="12" />
+                        <line x1="12" y1="18" x2="28" y2="18" />
+                        <line x1="12" y1="24" x2="22" y2="24" />
+                        <!-- Tiny pencil -->
+                        <g transform="rotate(35, 32, 28)">
+                          <path d="M 28 20 L 32 20 L 32 34 L 28 34 Z" fill="#d5cab7" />
+                          <polygon points="28,34 32,34 30,38" fill="#2b2118" />
+                        </g>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- ==========================================
+                 TAB 2: TRANSACTIONS (PREVIEW)
+                 ========================================== -->
+              <div id="tab-view-transactions" class="dashboard-tab-view" style="position: relative;">
+                <div class="ruled-paper-card" style="padding: 24px 24px 24px 56px;">
+                  <div class="ruled-margin-line" style="left: 40px;"></div>
+                  <h3 class="ruled-title font-handwriting">Expense & Income Journal Logs</h3>
+                  <table class="notebook-table">
+                    <thead>
+                      <tr>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                        <th class="align-right">Amount</th>
+                      </tr>
+                    </thead>
+                    <tbody id="home-transactions-tbody">
+                      <tr>
+                        <td>May 20, 2024</td>
+                        <td>House Rent (May)</td>
+                        <td>Rent / Living</td>
+                        <td class="align-right red-ink">-₹18,000.00</td>
+                      </tr>
+                      <tr>
+                        <td>May 19, 2024</td>
+                        <td>Groceries (BigBasket)</td>
+                        <td>Food & Groceries</td>
+                        <td class="align-right red-ink">-₹1,250.00</td>
+                      </tr>
+                      <tr>
+                        <td>May 18, 2024</td>
+                        <td>Electricity Bill</td>
+                        <td>Bills & Utilities</td>
+                        <td class="align-right red-ink">-₹2,150.00</td>
+                      </tr>
+                      <tr>
+                        <td>May 17, 2024</td>
+                        <td>Auto ride to work</td>
+                        <td>Transport</td>
+                        <td class="align-right red-ink">-₹450.00</td>
+                      </tr>
+                      <tr>
+                        <td>May 16, 2024</td>
+                        <td>Freelance Design Work</td>
+                        <td>Income</td>
+                        <td class="align-right green-ink">+₹25,000.00</td>
+                      </tr>
+                      <tr>
+                        <td>May 14, 2024</td>
+                        <td>Netflix Standard Subscription</td>
+                        <td>Bills & Utilities</td>
+                        <td class="align-right red-ink">-₹649.00</td>
+                      </tr>
+                      <tr>
+                        <td>May 12, 2024</td>
+                        <td>Clothing & Gadget Upgrades</td>
+                        <td>Shopping</td>
+                        <td class="align-right red-ink">-₹3,500.00</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <!-- CTA Overlay -->
+                <div class="preview-cta-overlay" style="position: absolute; inset: 0; background: rgba(250, 248, 245, 0.7); backdrop-filter: blur(2px); display: flex; align-items: center; justify-content: center;">
+                  <div class="summary-card text-center" style="max-width: 400px; padding: 28px; border: 2.5px solid #2B2118; box-shadow: 6px 6px 0px #2B2118; background-color: #FFFDF9;">
+                    <h4 style="font-family: 'CabinSketch', 'Kalam', cursive; font-size: 24px; color: #2B2118; margin: 0 0 10px 0;">Log Your Expenses</h4>
+                    <p style="font-family: 'Patrick Hand', cursive; font-size: 16px; color: #7A695C; margin: 0 0 20px 0; line-height: 1.4;">
+                      Cozy up your finances! Sign up or log in to import statements, edit ledger cells, and record daily transactions.
+                    </p>
+                    <a href="/register" class="btn-sketch btn-primary-sketch" style="margin: 0; padding: 10px 24px; font-size: 15px; width: 100%; box-sizing: border-box; text-align: center;">Get Started Now</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ==========================================
+                 TAB 3: BUDGET (PREVIEW)
+                 ========================================== -->
+              <div id="tab-view-budget" class="dashboard-tab-view" style="position: relative;">
+                <div class="ruled-paper-card" style="padding: 24px 24px 24px 56px;">
+                  <div class="ruled-margin-line" style="left: 40px;"></div>
+                  <h3 class="ruled-title font-handwriting">Monthly Budget Envelope Sheets</h3>
+                  
+                  <div class="budget-status-row" style="margin-bottom: 16px; padding: 8px 12px; grid-template-columns: repeat(4, 1fr) !important;">
+                    <div class="status-card">
+                      <span class="status-label">Monthly Limit</span>
+                      <span class="status-value" id="home-budget-monthly-limit">₹50,000.00</span>
+                    </div>
+                    <div class="status-card">
+                      <span class="status-label">Total Spent</span>
+                      <span class="status-value red-ink" id="home-budget-total-spent">₹22,350.00</span>
+                    </div>
+                    <div class="status-card">
+                      <span class="status-label">Remaining limit</span>
+                      <span class="status-value green-ink" id="home-budget-remaining-limit">₹27,650.00</span>
+                    </div>
+                    <div class="status-card">
+                      <span class="status-label">Budget Progress</span>
+                      <span class="status-value" id="home-budget-progress-percent">45% Used</span>
+                    </div>
+                  </div>
+
+                  <table class="notebook-table">
+                    <thead>
+                      <tr>
+                        <th>Category Envelope</th>
+                        <th class="align-right">Budget Limit</th>
+                        <th class="align-right">Spent Actual</th>
+                        <th class="align-right">Remaining</th>
+                      </tr>
+                    </thead>
+                    <tbody id="home-budget-tbody">
+                      <tr>
+                        <td>Rent / Living</td>
+                        <td class="align-right">₹20,000.00</td>
+                        <td class="align-right red-ink">₹18,000.00</td>
+                        <td class="align-right green-ink">₹2,000.00</td>
+                      </tr>
+                      <tr>
+                        <td>Food & Groceries</td>
+                        <td class="align-right">₹12,000.00</td>
+                        <td class="align-right red-ink">₹10,625.00</td>
+                        <td class="align-right green-ink">₹1,375.00</td>
+                      </tr>
+                      <tr>
+                        <td>Bills & Utilities</td>
+                        <td class="align-right">₹8,000.00</td>
+                        <td class="align-right red-ink">₹8,525.00</td>
+                        <td class="align-right red-ink">-₹525.00</td>
+                      </tr>
+                      <tr>
+                        <td>Transport</td>
+                        <td class="align-right">₹5,000.00</td>
+                        <td class="align-right red-ink">₹4,250.00</td>
+                        <td class="align-right green-ink">₹750.00</td>
+                      </tr>
+                      <tr>
+                        <td>Others</td>
+                        <td class="align-right">₹5,000.00</td>
+                        <td class="align-right red-ink">₹2,125.00</td>
+                        <td class="align-right green-ink">₹2,875.00</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <hr style="border: none; border-top: 2.5px dashed #2B2118; margin: 24px 0 20px 0;">
+                  
+                  <div id="home-budget-editor-section" style="display: none;">
+                    <h4 class="font-handwriting" style="font-size: 20px; color: #2B2118; margin: 0 0 12px 0;">Add / Update Budget Envelope</h4>
+                    <form id="home-budget-form" style="display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-end;">
+                      <div style="flex: 1.2; min-width: 160px; display: flex; flex-direction: column; gap: 4px;">
+                        <label for="home-budget-category" style="font-family: 'Patrick Hand', cursive; font-size: 14px; color: #7A695C; font-weight: 600;">Category Envelope</label>
+                        <select id="home-budget-category" style="width: 100%; padding: 8px 12px; font-family: 'Patrick Hand', cursive; font-size: 15px; border: 2.5px solid #2B2118; border-radius: 8px; background-color: #FFFDF9; box-shadow: 3px 3px 0 #2B2118; color: #2B2118; outline: none;" required>
+                          <option value="" disabled selected>Select category...</option>
+                        </select>
+                      </div>
+                      
+                      <div id="home-custom-category-wrapper" style="flex: 1.2; min-width: 160px; display: none; flex-direction: column; gap: 4px;">
+                        <label for="home-budget-custom-category" style="font-family: 'Patrick Hand', cursive; font-size: 14px; color: #7A695C; font-weight: 600;">Custom Envelope Name</label>
+                        <input type="text" id="home-budget-custom-category" placeholder="e.g. Shopping" style="width: 100%; padding: 8px 12px; font-family: 'Patrick Hand', cursive; font-size: 15px; border: 2.5px solid #2B2118; border-radius: 8px; background-color: #FFFDF9; box-shadow: 3px 3px 0 #2B2118; color: #2B2118; outline: none; box-sizing: border-box;">
+                      </div>
+
+                      <div style="flex: 1; min-width: 120px; display: flex; flex-direction: column; gap: 4px;">
+                        <label for="home-budget-limit" style="font-family: 'Patrick Hand', cursive; font-size: 14px; color: #7A695C; font-weight: 600;">Limit Target</label>
+                        <div style="position: relative; display: flex; align-items: center; width: 100%;">
+                          <span style="position: absolute; left: 10px; font-family: 'Patrick Hand', cursive; font-size: 16px; color: #2B2118; font-weight: 600;">₹</span>
+                          <input type="number" id="home-budget-limit" placeholder="0.00" min="0" step="0.01" style="width: 100%; padding: 8px 12px 8px 24px; font-family: 'Patrick Hand', cursive; font-size: 15px; border: 2.5px solid #2B2118; border-radius: 8px; background-color: #FFFDF9; box-shadow: 3px 3px 0 #2B2118; color: #2B2118; outline: none; box-sizing: border-box;" required>
+                        </div>
+                      </div>
+                      
+                      <button type="submit" class="btn-sketch btn-primary-sketch" style="margin: 0; padding: 8px 20px; font-size: 15px; height: 42px; cursor: pointer; box-shadow: 3px 3px 0px #2B2118; border: 2.5px solid #2B2118;">Save Envelope</button>
+                    </form>
+                  </div>
+                </div>
+
+                <!-- CTA Overlay -->
+                <div class="preview-cta-overlay" style="position: absolute; inset: 0; background: rgba(250, 248, 245, 0.7); backdrop-filter: blur(2px); display: flex; align-items: center; justify-content: center;">
+                  <div class="summary-card text-center" style="max-width: 400px; padding: 28px; border: 2.5px solid #2B2118; box-shadow: 6px 6px 0px #2B2118; background-color: #FFFDF9;">
+                    <h4 style="font-family: 'CabinSketch', 'Kalam', cursive; font-size: 24px; color: #2B2118; margin: 0 0 10px 0;">Create Cozy Budgets</h4>
+                    <p style="font-family: 'Patrick Hand', cursive; font-size: 16px; color: #7A695C; margin: 0 0 20px 0; line-height: 1.4;">
+                      Plan your expenses with absolute ease. Sign up to define custom category envelopes and save monthly budgets.
+                    </p>
+                    <a href="/register" class="btn-sketch btn-primary-sketch" style="margin: 0; padding: 10px 24px; font-size: 15px; width: 100%; box-sizing: border-box; text-align: center;">Get Started Now</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ==========================================
+                 TAB 4: GOALS (PREVIEW)
+                 ========================================== -->
+              <div id="tab-view-goals" class="dashboard-tab-view" style="position: relative;">
+                <div class="goals-grid" style="grid-template-columns: repeat(3, 1fr) !important;">
+                  <!-- Goal Card 1 -->
+                  <div class="summary-card goal-card">
+                    <div class="goal-header font-handwriting">
+                      <h4>New Laptop Fund</h4>
+                      <span class="goal-amount">₹45k / ₹60k</span>
+                    </div>
+                    <p class="goal-desc">Target Date: December 2026</p>
+                    <!-- Hand-drawn progress bar -->
+                    <div class="sketchy-progress-outer">
+                      <div class="sketchy-progress-inner fill-blue" style="width: 75%; height: 100%;">
+                        <div class="sketchy-progress-scribble" style="width:100%; height:100%;"></div>
+                      </div>
+                    </div>
+                    <div class="goal-footer">
+                      <span class="card-subtext">75% Saved</span>
+                      <span class="blue-ink card-comparison">Almost there!</span>
+                    </div>
+                  </div>
+                  
+                  <!-- Goal Card 2 -->
+                  <div class="summary-card goal-card">
+                    <div class="goal-header font-handwriting">
+                      <h4>Emergency Safety</h4>
+                      <span class="goal-amount">₹50k / ₹100k</span>
+                    </div>
+                    <p class="goal-desc">Target Date: March 2027</p>
+                    <!-- Hand-drawn progress bar -->
+                    <div class="sketchy-progress-outer">
+                      <div class="sketchy-progress-inner fill-green" style="width: 50%; height: 100%;">
+                        <div class="sketchy-progress-scribble" style="width:100%; height:100%;"></div>
+                      </div>
+                    </div>
+                    <div class="goal-footer">
+                      <span class="card-subtext">50% Saved</span>
+                      <span class="green-ink card-comparison">Halfway point!</span>
+                    </div>
+                  </div>
+
+                  <!-- Goal Card 3 -->
+                  <div class="summary-card goal-card">
+                    <div class="goal-header font-handwriting">
+                      <h4>Japan Trip Fund</h4>
+                      <span class="goal-amount">₹20k / ₹150k</span>
+                    </div>
+                    <p class="goal-desc">Target Date: October 2027</p>
+                    <!-- Hand-drawn progress bar -->
+                    <div class="sketchy-progress-outer">
+                      <div class="sketchy-progress-inner fill-blue" style="width: 13%; height: 100%;">
+                        <div class="sketchy-progress-scribble" style="width:100%; height:100%;"></div>
+                      </div>
+                    </div>
+                    <div class="goal-footer">
+                      <span class="card-subtext">13% Saved</span>
+                      <span class="blue-ink card-comparison">Started!</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- CTA Overlay -->
+                <div class="preview-cta-overlay" style="position: absolute; inset: 0; background: rgba(250, 248, 245, 0.7); backdrop-filter: blur(2px); display: flex; align-items: center; justify-content: center;">
+                  <div class="summary-card text-center" style="max-width: 400px; padding: 28px; border: 2.5px solid #2B2118; box-shadow: 6px 6px 0px #2B2118; background-color: #FFFDF9;">
+                    <h4 style="font-family: 'CabinSketch', 'Kalam', cursive; font-size: 24px; color: #2B2118; margin: 0 0 10px 0;">Reach Savings Goals</h4>
+                    <p style="font-family: 'Patrick Hand', cursive; font-size: 16px; color: #7A695C; margin: 0 0 20px 0; line-height: 1.4;">
+                      Set goals and stay motivated. Sign up to build your custom milestone cards, add items, and track your visual progress.
+                    </p>
+                    <a href="/register" class="btn-sketch btn-primary-sketch" style="margin: 0; padding: 10px 24px; font-size: 15px; width: 100%; box-sizing: border-box; text-align: center;">Get Started Now</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ==========================================
+                 TAB 5: REPORTS (PREVIEW)
+                 ========================================== -->
+              <div id="tab-view-reports" class="dashboard-tab-view" style="position: relative;">
+                <div class="ruled-paper-card" style="padding: 24px; min-height: 250px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                  <h3 class="ruled-title font-handwriting" style="margin-bottom: 20px;">Category Breakdown Report</h3>
+                  <!-- Simple CSS Mock Bar Chart -->
+                  <div style="display: flex; gap: 24px; align-items: flex-end; width: 80%; height: 160px; border-bottom: 2px solid #2B2118; padding-bottom: 12px; margin-bottom: 16px;">
+                    <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
+                      <div style="width: 32px; height: 140px; background-color: #ffe3e3; border: 2px solid #2B2118; border-radius: 4px; box-shadow: 2px 2px #2B2118;"></div>
+                      <span style="font-family: 'Patrick Hand', cursive; font-size: 13px; margin-top: 6px;">Rent (45%)</span>
+                    </div>
+                    <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
+                      <div style="width: 32px; height: 80px; background-color: #fbcfe8; border: 2px solid #2B2118; border-radius: 4px; box-shadow: 2px 2px #2B2118;"></div>
+                      <span style="font-family: 'Patrick Hand', cursive; font-size: 13px; margin-top: 6px;">Food (25%)</span>
+                    </div>
+                    <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
+                      <div style="width: 32px; height: 50px; background-color: #e9d5ff; border: 2px solid #2B2118; border-radius: 4px; box-shadow: 2px 2px #2B2118;"></div>
+                      <span style="font-family: 'Patrick Hand', cursive; font-size: 13px; margin-top: 6px;">Bills (15%)</span>
+                    </div>
+                    <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
+                      <div style="width: 32px; height: 35px; background-color: #dcfce7; border: 2px solid #2B2118; border-radius: 4px; box-shadow: 2px 2px #2B2118;"></div>
+                      <span style="font-family: 'Patrick Hand', cursive; font-size: 13px; margin-top: 6px;">Travel (10%)</span>
+                    </div>
+                    <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
+                      <div style="width: 32px; height: 18px; background-color: #ffedd5; border: 2px solid #2B2118; border-radius: 4px; box-shadow: 2px 2px #2B2118;"></div>
+                      <span style="font-family: 'Patrick Hand', cursive; font-size: 13px; margin-top: 6px;">Other (5%)</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- CTA Overlay -->
+                <div class="preview-cta-overlay" style="position: absolute; inset: 0; background: rgba(250, 248, 245, 0.7); backdrop-filter: blur(2px); display: flex; align-items: center; justify-content: center;">
+                  <div class="summary-card text-center" style="max-width: 400px; padding: 28px; border: 2.5px solid #2B2118; box-shadow: 6px 6px 0px #2B2118; background-color: #FFFDF9;">
+                    <h4 style="font-family: 'CabinSketch', 'Kalam', cursive; font-size: 24px; color: #2B2118; margin: 0 0 10px 0;">Cozy Finance Analytics</h4>
+                    <p style="font-family: 'Patrick Hand', cursive; font-size: 16px; color: #7A695C; margin: 0 0 20px 0; line-height: 1.4;">
+                      Visualize your financial habits. Sign up to gain insights, generate reports, and watch custom hand-drawn summaries.
+                    </p>
+                    <a href="/register" class="btn-sketch btn-primary-sketch" style="margin: 0; padding: 10px 24px; font-size: 15px; width: 100%; box-sizing: border-box; text-align: center;">Get Started Now</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ==========================================
+                 TAB 6: CATEGORIES (PREVIEW)
+                 ========================================== -->
+              <div id="tab-view-categories" class="dashboard-tab-view" style="position: relative;">
+                <div class="ruled-paper-card" style="padding: 24px; min-height: 260px; display: flex; flex-direction: column; align-items: center;">
+                  <h3 class="ruled-title font-handwriting">Handwritten Sticky-Note Envelopes</h3>
+                  
+                  <div class="sticky-notes-container" style="margin-top: 10px; gap: 16px; display: flex; justify-content: center; flex-wrap: wrap;">
+                    <div class="sticky-note note-pink" style="width: 140px; min-height: 140px; padding: 14px;">
+                      <div class="sticky-tape"></div>
+                      <div class="note-content">
+                        <h3 class="note-title" style="font-size: 16px;">Bills</h3>
+                        <p class="note-amount" style="font-size: 15px; margin-bottom: 6px;">₹15,000 limit</p>
+                        <p class="note-body" style="font-size: 12px; line-height: 1.2;">Electricity, broadband, mobile, water, rent.</p>
+                      </div>
+                    </div>
+                    <div class="sticky-note note-green" style="width: 140px; min-height: 140px; padding: 14px;">
+                      <div class="sticky-tape"></div>
+                      <div class="note-content">
+                        <h3 class="note-title" style="font-size: 16px;">Food</h3>
+                        <p class="note-amount" style="font-size: 15px; margin-bottom: 6px;">₹12,000 limit</p>
+                        <p class="note-body" style="font-size: 12px; line-height: 1.2;">Fresh veggies, Blinkit runs, cafe dining.</p>
+                      </div>
+                    </div>
+                    <div class="sticky-note note-blue" style="width: 140px; min-height: 140px; padding: 14px;">
+                      <div class="sticky-tape"></div>
+                      <div class="note-content">
+                        <h3 class="note-title" style="font-size: 16px;">Travel</h3>
+                        <p class="note-amount" style="font-size: 15px; margin-bottom: 6px;">₹5,000 limit</p>
+                        <p class="note-body" style="font-size: 12px; line-height: 1.2;">Uber, metro card, bus fares, auto rides.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- CTA Overlay -->
+                <div class="preview-cta-overlay" style="position: absolute; inset: 0; background: rgba(250, 248, 245, 0.7); backdrop-filter: blur(2px); display: flex; align-items: center; justify-content: center;">
+                  <div class="summary-card text-center" style="max-width: 400px; padding: 28px; border: 2.5px solid #2B2118; box-shadow: 6px 6px 0px #2B2118; background-color: #FFFDF9;">
+                    <h4 style="font-family: 'CabinSketch', 'Kalam', cursive; font-size: 24px; color: #2B2118; margin: 0 0 10px 0;">Configure Custom Envelopes</h4>
+                    <p style="font-family: 'Patrick Hand', cursive; font-size: 16px; color: #7A695C; margin: 0 0 20px 0; line-height: 1.4;">
+                      Create custom budget envelopes. Sign up to drag-and-drop notes, define limit targets, and color-code categories.
+                    </p>
+                    <a href="/register" class="btn-sketch btn-primary-sketch" style="margin: 0; padding: 10px 24px; font-size: 15px; width: 100%; box-sizing: border-box; text-align: center;">Get Started Now</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ==========================================
+                 TAB 7: SETTINGS (PREVIEW)
+                 ========================================== -->
+              <div id="tab-view-settings" class="dashboard-tab-view" style="position: relative;">
+                <div class="ruled-paper-card" style="padding: 24px 24px 24px 56px; max-width: 500px; margin: 0 auto;">
+                  <div class="ruled-margin-line" style="left: 40px;"></div>
+                  <h3 class="ruled-title font-handwriting">Cozy Settings Sheet</h3>
+                  
+                  <div class="sketch-input-group" style="margin-bottom: 16px;">
+                    <label>Workspace Theme</label>
+                    <div style="display: flex; gap: 12px; margin-top: 6px;">
+                      <button class="btn-sketch btn-secondary-sketch" style="margin:0; padding: 6px 16px; font-size: 14px; flex: 1;" disabled>Cozy Light</button>
+                      <button class="btn-sketch btn-secondary-sketch" style="margin:0; padding: 6px 16px; font-size: 14px; flex: 1;" disabled>Cozy Dark</button>
+                    </div>
+                  </div>
+                  
+                  <div class="sketch-input-group" style="margin-bottom: 16px;">
+                    <label>Preferred Currency</label>
+                    <select class="sketch-input" style="padding: 8px 14px; background: transparent; pointer-events: none;" disabled>
+                      <option>₹ (INR)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- CTA Overlay -->
+                <div class="preview-cta-overlay" style="position: absolute; inset: 0; background: rgba(250, 248, 245, 0.7); backdrop-filter: blur(2px); display: flex; align-items: center; justify-content: center;">
+                  <div class="summary-card text-center" style="max-width: 400px; padding: 28px; border: 2.5px solid #2B2118; box-shadow: 6px 6px 0px #2B2118; background-color: #FFFDF9;">
+                    <h4 style="font-family: 'CabinSketch', 'Kalam', cursive; font-size: 24px; color: #2B2118; margin: 0 0 10px 0;">Save Your Preferences</h4>
+                    <p style="font-family: 'Patrick Hand', cursive; font-size: 16px; color: #7A695C; margin: 0 0 20px 0; line-height: 1.4;">
+                      Personalize your Piggy Planner settings. Sign up to toggle dark mode, choose currencies, and upload profile avatars.
+                    </p>
+                    <a href="/register" class="btn-sketch btn-primary-sketch" style="margin: 0; padding: 10px 24px; font-size: 15px; width: 100%; box-sizing: border-box; text-align: center;">Get Started Now</a>
+                  </div>
                 </div>
               </div>
 
             </div>
-          </section>
-
-          <!-- SECTION 6: TESTIMONIALS -->
-          <section class="journal-section">
-            <h2 class="section-title-sketch">Testimonials From Planner Friends</h2>
-            
-            <div class="testimonials-container">
-              <div class="sticky-note note-yellow testimonial-note rotate-left">
-                <div class="sticky-tape"></div>
-                <div class="note-content testimonial-content">
-                  <p class="quote">"I used to get overwhelmed by Excel budgeting, but this journal feel makes me want to log in every day. The PDF importer works like absolute magic!"</p>
-                  <p class="author">- Sarah M.</p>
-                </div>
-              </div>
-              
-              <div class="sticky-note note-pink testimonial-note rotate-right">
-                <div class="sticky-tape"></div>
-                <div class="note-content testimonial-content">
-                  <p class="quote">"Finally, a financial planner that doesn't feel like a cold bank dashboard. It's cozy, intuitive, and the custom hand-drawn pie chart is so beautiful."</p>
-                  <p class="author">- Dev K.</p>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <!-- SECTION 7: FOOTER -->
-          <footer class="journal-footer">
-            <div class="footer-divider-sketch"></div>
-            <div class="footer-content font-handwriting">
-              <p>Handcrafted with ♥ for a calmer financial life.</p>
-              <p class="footer-copyright">© 2026 FinSprout Journal. All rights sketched.</p>
-            </div>
-          </footer>
+          </main>
 
         </div>
+      </div>
+      
+    </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Custom Sticky Note Modal Overlay -->
+    <div id="sticky-note-modal" style="display: none; position: fixed; inset: 0; background: rgba(30, 20, 10, 0.4); backdrop-filter: blur(4px); z-index: 9999; justify-content: center; align-items: center;">
+      <div class="sticky-note-card" style="position: relative; background: #FFF9DB; border: 2.5px solid #2B2118; box-shadow: 6px 6px 0px #2B2118; width: 320px; padding: 24px; font-family: 'Patrick Hand', cursive; transform: rotate(-1deg); display: flex; flex-direction: column; gap: 16px; border-radius: 4px;">
+        <!-- Pushpin icon -->
+        <div style="position: absolute; top: -14px; left: 50%; transform: translateX(-50%); z-index: 10;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2B2118" stroke-width="2.5">
+            <line x1="12" y1="2" x2="12" y2="12" stroke-linecap="round"/>
+            <circle cx="12" cy="14" r="3" fill="#ff4d6d" stroke="#2B2118" stroke-width="2.5"/>
+            <line x1="8" y1="8" x2="16" y2="8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        
+        <h4 style="font-family: 'CabinSketch', cursive; font-size: 22px; color: #2B2118; margin: 8px 0 0 0; text-align: center; border-bottom: 2.5px dashed rgba(43, 33, 24, 0.2); padding-bottom: 8px; letter-spacing: 0.5px;">Message!</h4>
+        
+        <p id="sticky-note-message" style="font-size: 16px; color: #4D3E33; line-height: 1.4; text-align: center; margin: 0; white-space: pre-wrap; font-weight: 500;">
+          Your budget envelope has been successfully saved.
+        </p>
+        
+        <button id="sticky-note-close-btn" class="btn-sketch btn-primary-sketch" style="margin: 0 auto; padding: 6px 20px; font-size: 14px; cursor: pointer; box-shadow: 3px 3px 0px #2B2118; border: 2.5px solid #2B2118; width: fit-content; align-self: center;">OK</button>
       </div>
     </div>
 

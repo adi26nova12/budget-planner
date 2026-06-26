@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FinSprout - Finance Dashboard & Asset Allocation Wheel</title>
+    <title>Piggy Planner - Finance Dashboard & Asset Allocation Wheel</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,7 +16,7 @@
         <svg class="brand-logo" viewBox="0 0 24 24" width="28" height="28">
           <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.75z"/>
         </svg>
-        <span class="brand-name">FinSprout</span>
+        <span class="brand-name">Piggy Planner</span>
       </div>
       <div class="navbar-links">
         <a href="/" class="nav-link" id="nav-link-home">Home</a>
@@ -207,6 +207,13 @@
               <option value="DECEMBER">DECEMBER</option>
             </select>
             <input type="number" class="year-input" id="year-input-field" value="2026" min="1900" max="2100">
+            <a href="/" class="go-home-btn" id="go-home-btn" title="Go back to homepage">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                <polyline points="9 22 9 12 15 12 15 22"/>
+              </svg>
+              <span>Home</span>
+            </a>
             <button class="import-statement-btn" id="import-statement-btn" title="Import PDF transaction statement">
               <svg class="import-btn-icon" viewBox="0 0 24 24" width="16" height="16">
                 <path fill="currentColor" d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>

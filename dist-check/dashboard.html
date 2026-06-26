@@ -1,0 +1,1028 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Piggy Planner - Finance Dashboard & Asset Allocation Wheel</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Kalam:wght@300;400;700&family=Patrick+Hand&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script type="module" crossorigin src="/assets/dashboard-BMQYanmf.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/supabase-DbIv53Qc.js">
+    <link rel="stylesheet" crossorigin href="/assets/supabase-v3atpj0t.css">
+  </head>
+  <body>
+    <!-- Persistent Navigation Bar -->
+    <nav class="app-navbar" id="app-navbar">
+      <div class="navbar-brand">
+        <svg class="brand-logo" viewBox="0 0 24 24" width="28" height="28">
+          <path fill="currentColor" fill-rule="evenodd" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-3 8a1.5 2 0 1 0 0 4 1.5 2 0 0 0 0-4zm6 0a1.5 2 0 1 0 0 4 1.5 2 0 0 0 0-4z"/>
+        </svg>
+        <span class="brand-name">Piggy Planner</span>
+      </div>
+      <div class="navbar-links">
+        <a href="/" class="nav-link" id="nav-link-home">Home</a>
+        <a href="/dashboard" class="nav-link" id="nav-link-dashboard" style="display: none;">Dashboard</a>
+        <a href="/profile" class="nav-link" id="nav-link-profile" style="display: none;">Profile</a>
+        <a href="/login" class="nav-btn" id="nav-btn-login">Login</a>
+      </div>
+      <div class="navbar-actions">
+        <button id="theme-toggle-btn" class="theme-toggle-btn" title="Toggle Dark/Light Mode">
+          <!-- Moon icon -->
+          <svg class="theme-icon moon-icon" viewBox="0 0 24 24" width="20" height="20">
+            <path fill="currentColor" d="M12.3 22h-.1c-5.5 0-10-4.5-10-10 0-4.8 3.5-8.9 8.2-9.8.5-.1 1 .2 1.2.7.2.5 0 1.1-.4 1.4-2.8 2-3.8 5.7-2.2 8.7 1.6 3 4.9 4.7 8.2 4.1.5-.1 1 .2 1.2.7.2.5 0 1.1-.4 1.4-1.7 1.8-4 2.8-6.2 2.8zm-6-10c0 3.3 2.7 6 6 6 1.4 0 2.7-.5 3.8-1.4-2.5-.2-4.7-1.6-5.9-3.8-1.5-2.9-1.2-6.4.8-9-3 .8-4.7 3.6-4.7 6.8z"/>
+          </svg>
+          <!-- Sun icon -->
+          <svg class="theme-icon sun-icon" viewBox="0 0 24 24" width="20" height="20" style="display:none;">
+            <path fill="currentColor" d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zm1.06-12.37c-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.39.39-1.03 0-1.41zm-12.37 12.37c-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.39.39-1.03 0-1.41z"/>
+          </svg>
+        </button>
+        
+        <!-- Profile shortcut dropdown / avatar -->
+        <div class="nav-profile-dropdown" id="nav-profile-dropdown" style="display: none;">
+          <button class="nav-avatar-btn" id="nav-avatar-btn">
+            <span class="user-avatar-small" id="nav-user-avatar-img" style="display: none;"></span>
+            <span class="user-initials" id="nav-user-initials">U</span>
+          </button>
+          <div class="dropdown-menu" id="avatar-dropdown-menu">
+            <div class="dropdown-header">
+              <p class="dropdown-name" id="dropdown-user-name">User</p>
+              <p class="dropdown-email" id="dropdown-user-email">user@example.com</p>
+            </div>
+            <hr class="dropdown-divider">
+            <a href="/profile" class="dropdown-item">Profile Settings</a>
+            <a href="/dashboard" class="dropdown-item">Dashboard</a>
+            <button class="dropdown-item logout-btn" id="dropdown-logout-btn">Log Out</button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- VIEWS -->
+
+    <!-- 1. Authentication View (Login/Signup) -->
+    <div id="auth-view" class="view-container auth-view">
+      <div class="auth-card">
+        <div class="auth-tabs">
+          <button class="auth-tab-btn active" id="tab-login-btn">Login</button>
+          <button class="auth-tab-btn" id="tab-signup-btn">Sign Up</button>
+        </div>
+        
+        <!-- Login Form -->
+        <form id="login-form" class="auth-form active">
+          <h2>Welcome Back</h2>
+          <p class="auth-subtitle">Sign in to manage your budget and assets</p>
+          <div class="form-group">
+            <label for="login-email">Email Address</label>
+            <input type="email" id="login-email" required placeholder="name@example.com">
+          </div>
+          <div class="form-group">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" required placeholder="••••••••">
+          </div>
+          <button type="submit" class="btn btn-primary auth-submit-btn">
+            <span>Login</span>
+            <span class="spinner" style="display:none;"></span>
+          </button>
+          <p class="auth-switch">Don't have an account? <a href="/register" id="switch-to-signup">Sign up</a></p>
+        </form>
+
+        <!-- Signup Form -->
+        <form id="signup-form" class="auth-form">
+          <h2>Create Account</h2>
+          <p class="auth-subtitle">Get started with a free secure budget workspace</p>
+          <div class="form-group">
+            <label for="signup-name">Full Name</label>
+            <input type="text" id="signup-name" required placeholder="John Doe">
+          </div>
+          <div class="form-group">
+            <label for="signup-email">Email Address</label>
+            <input type="email" id="signup-email" required placeholder="name@example.com">
+          </div>
+          <div class="form-group">
+            <label for="signup-password">Password</label>
+            <input type="password" id="signup-password" required placeholder="••••••••" minlength="6">
+          </div>
+          <button type="submit" class="btn btn-primary auth-submit-btn">
+            <span>Create Account</span>
+            <span class="spinner" style="display:none;"></span>
+          </button>
+          <p class="auth-switch">Already have an account? <a href="/login" id="switch-to-login">Log in</a></p>
+        </form>
+      </div>
+    </div>
+
+    <!-- 2. Profile / Settings View -->
+    <div id="profile-view" class="view-container profile-view">
+      <div class="profile-layout">
+        <aside class="profile-sidebar">
+          <div class="profile-avatar-card">
+            <div class="avatar-upload-wrapper">
+              <span class="profile-avatar-large" id="profile-avatar-img" style="display: none;"></span>
+              <div class="avatar-placeholder-large" id="profile-avatar-placeholder">U</div>
+              <label for="avatar-file-input" class="avatar-edit-badge" title="Upload avatar">
+                <svg viewBox="0 0 24 24" width="16" height="16">
+                  <path fill="currentColor" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                </svg>
+              </label>
+              <input type="file" id="avatar-file-input" accept="image/*" style="display: none;">
+            </div>
+            <h3 id="profile-card-name">User Name</h3>
+            <p id="profile-card-email">user@example.com</p>
+          </div>
+          <button class="btn btn-outline logout-btn-full" id="profile-logout-btn">Sign Out</button>
+        </aside>
+
+        <main class="profile-main-content">
+          <!-- Profile Form -->
+          <section class="profile-section-card">
+            <h2>Personal Information</h2>
+            <form id="profile-info-form">
+              <div class="form-group">
+                <label for="profile-display-name">Display Name</label>
+                <input type="text" id="profile-display-name" required>
+              </div>
+              <button type="submit" class="btn btn-primary">Save Profile</button>
+            </form>
+          </section>
+
+          <!-- Password Reset Form -->
+          <section class="profile-section-card">
+            <h2>Security Settings</h2>
+            <form id="profile-password-form">
+              <div class="form-group">
+                <label for="profile-new-password">New Password</label>
+                <input type="password" id="profile-new-password" required placeholder="••••••••" minlength="6">
+              </div>
+              <div class="form-group">
+                <label for="profile-confirm-password">Confirm Password</label>
+                <input type="password" id="profile-confirm-password" required placeholder="••••••••" minlength="6">
+              </div>
+              <button type="submit" class="btn btn-primary">Update Password</button>
+            </form>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <!-- 3. Dashboard View -->
+    <div id="dashboard-view" class="view-container dashboard-view">
+      
+      <!-- Skeleton Loading for Metrics (to prevent layout flashing) -->
+      <div id="dashboard-skeleton" class="dashboard-skeleton">
+        <div class="skeleton-header">
+          <div class="skeleton-bar title-skeleton"></div>
+          <div class="skeleton-metrics-grid">
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+          </div>
+        </div>
+        <div class="skeleton-body-grid">
+          <div class="skeleton-column"></div>
+          <div class="skeleton-column"></div>
+        </div>
+      </div>
+
+      <div class="journal-home-container dashboard-journal-container" id="dashboard-app-container" style="display: none;">
+        <div class="journal-paper dashboard-paper">
+          <!-- Notebook Spiral Spine on the Left -->
+          <div class="journal-spiral">
+            <div class="spiral-loop"></div>
+            <div class="spiral-loop"></div>
+            <div class="spiral-loop"></div>
+            <div class="spiral-loop"></div>
+            <div class="spiral-loop"></div>
+            <div class="spiral-loop"></div>
+            <div class="spiral-loop"></div>
+            <div class="spiral-loop"></div>
+            <div class="spiral-loop"></div>
+            <div class="spiral-loop"></div>
+            <div class="spiral-loop"></div>
+            <div class="spiral-loop"></div>
+            <div class="spiral-loop"></div>
+            <div class="spiral-loop"></div>
+            <div class="spiral-loop"></div>
+          </div>
+          
+          <div class="journal-content dashboard-journal-content">
+            <div class="dashboard-split-layout">
+              <!-- Left Sidebar Navigation -->
+              <aside class="dashboard-sidebar">
+                <div class="sidebar-logo">
+                  <svg class="sidebar-logo-svg" viewBox="0 0 100 100" width="50" height="50">
+                    <g filter="url(#sketch-blur)" stroke="#2B2118" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                      <!-- Notebook Outline -->
+                      <path d="M 25 15 L 75 15 C 80 15, 80 85, 75 85 L 25 85 Z" fill="#FFFDF9" />
+                      <!-- Notebook lines -->
+                      <path d="M 35 25 L 65 25" stroke="#aa9c8f" stroke-dasharray="2 3" />
+                      <path d="M 35 35 L 65 35" stroke="#aa9c8f" stroke-dasharray="2 3" />
+                      <!-- Budget Coin -->
+                      <circle cx="50" cy="55" r="16" fill="#FFF9DB" />
+                      <text x="50" y="61" font-family="CabinSketch" font-size="18" font-weight="bold" text-anchor="middle" fill="#1A120B" stroke="none">₹</text>
+                      <!-- Binder Spiral rings -->
+                      <path d="M 18 25 L 26 25" stroke="#2B2118" stroke-width="3" />
+                      <path d="M 18 45 L 26 45" stroke="#2B2118" stroke-width="3" />
+                      <path d="M 18 65 L 26 65" stroke="#2B2118" stroke-width="3" />
+                    </g>
+                  </svg>
+                  <span class="sidebar-brand-name">Piggy Planner</span>
+                </div>
+                
+                <nav class="sidebar-menu">
+                  <button class="menu-item active" data-tab="home">
+                    <svg class="menu-icon" viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                    <span>Home</span>
+                  </button>
+                  <button class="menu-item" data-tab="transactions">
+                    <svg class="menu-icon" viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10H7v-2h10v2z"/></svg>
+                    <span>Transactions</span>
+                  </button>
+                  <button class="menu-item" data-tab="budget">
+                    <svg class="menu-icon" viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14H7v-2h5v2zm5-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                    <span>Budget</span>
+                  </button>
+                  <button class="menu-item" data-tab="goals">
+                    <svg class="menu-icon" viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z"/></svg>
+                    <span>Goals</span>
+                  </button>
+                  <button class="menu-item" data-tab="reports">
+                    <svg class="menu-icon" viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg>
+                    <span>Reports</span>
+                  </button>
+                  <button class="menu-item" data-tab="categories">
+                    <svg class="menu-icon" viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10H7v-2h10v2zm-5 4H7v-2h5v2z"/></svg>
+                    <span>Categories</span>
+                  </button>
+                  <button class="menu-item" data-tab="settings">
+                    <svg class="menu-icon" viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3-1.07-3-3s1.07-3 3-3 3 1.07 3 3-1.07 3-3 3z"/></svg>
+                    <span>Settings</span>
+                  </button>
+                </nav>
+                
+                <div class="sidebar-footer">
+                  <div class="sync-badge connecting" id="sync-status-badge">
+                    <span class="sync-indicator-dot"></span>
+                    <span class="sync-status-text" id="sync-status-text">Connecting...</span>
+                  </div>
+                  <div class="sidebar-plant-card">
+                    <svg viewBox="0 0 100 100" class="sidebar-plant-svg" width="40" height="40">
+                      <g filter="url(#sketch-blur)" stroke="#2B2118" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M 38 72 L 62 72 L 58 88 L 42 88 Z" fill="#EADBC8" />
+                        <path d="M 50 72 L 50 40" stroke="#2B2118" />
+                        <path d="M 50 58 C 40 55, 40 47, 50 52" fill="#c7e9c0" />
+                        <path d="M 50 48 C 60 45, 60 37, 50 42" fill="#c7e9c0" />
+                        <path d="M 50 40 C 42 30, 58 30, 50 40" fill="#c7e9c0" />
+                      </g>
+                    </svg>
+                    <p class="plant-card-text">Good habits build great futures. <span style="color: #ff85a2;">♡</span></p>
+                  </div>
+                </div>
+              </aside>
+              
+              <!-- Right Content Area -->
+              <main class="dashboard-main-area">
+                <!-- Shared Header for all Tab Views -->
+                <header class="dashboard-shared-header">
+                  <div class="header-title-group">
+                    <h2 class="header-tab-title font-handwriting" id="header-tab-title">Good Morning!</h2>
+                  </div>
+                  
+                  <div class="header-selectors-group">
+                    <!-- Month/Year Input Fields -->
+                    <div class="calendar-selector-container">
+                      <svg class="calendar-icon" viewBox="0 0 24 24" width="16" height="16">
+                        <path fill="currentColor" d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zm-7 5H7v2h5v-2z"/>
+                      </svg>
+                      <select class="month-select" id="month-select-input">
+                        <option value="JANUARY">JANUARY</option>
+                        <option value="FEBRUARY">FEBRUARY</option>
+                        <option value="MARCH">MARCH</option>
+                        <option value="APRIL">APRIL</option>
+                        <option value="MAY">MAY</option>
+                        <option value="JUNE">JUNE</option>
+                        <option value="JULY">JULY</option>
+                        <option value="AUGUST">AUGUST</option>
+                        <option value="SEPTEMBER">SEPTEMBER</option>
+                        <option value="OCTOBER">OCTOBER</option>
+                        <option value="NOVEMBER">NOVEMBER</option>
+                        <option value="DECEMBER">DECEMBER</option>
+                      </select>
+                      <input type="number" class="year-input" id="year-input-field" value="2026" min="1900" max="2100">
+                    </div>
+                    
+                    <!-- Notification Bell -->
+                    <div class="notification-bell-container">
+                      <svg class="bell-icon" viewBox="0 0 24 24" width="18" height="18">
+                        <path fill="currentColor" d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
+                      </svg>
+                      <span class="bell-badge"></span>
+                    </div>
+                  </div>
+                </header>
+                
+                <!-- Dynamic Tab Views -->
+                <div class="dashboard-tab-container">
+                  
+                  <!-- TAB 1: HOME VIEW -->
+                  <div class="dashboard-tab-view active" id="tab-home">
+                    <!-- Welcome Text -->
+                    <div class="welcome-banner font-handwriting">
+                      <h2 class="welcome-title">Good Morning! <span class="highlight-stroke"></span></h2>
+                      <p class="welcome-desc">Here's your financial snapshot for today.</p>
+                    </div>
+                    
+                    <!-- Summary Cards Grid -->
+                    <div class="summary-cards-grid">
+                      <div class="summary-card card-income">
+                        <div class="summary-card-header">
+                          <div class="icon-circle circle-green">
+                            <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+                          </div>
+                          <div class="card-title-group">
+                            <span class="card-label">Total Income</span>
+                            <h3 class="card-amount green-ink" id="home-total-income">₹85,000.00</h3>
+                          </div>
+                        </div>
+                        <div class="summary-card-footer">
+                          <span class="card-subtext">This Month</span>
+                          <span class="card-comparison comparison-green" id="home-income-comparison">↗ 12% vs last month</span>
+                        </div>
+                      </div>
+                      
+                      <div class="summary-card card-expenses">
+                        <div class="summary-card-header">
+                          <div class="icon-circle circle-red">
+                            <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                          </div>
+                          <div class="card-title-group">
+                            <span class="card-label">Total Expenses</span>
+                            <h3 class="card-amount red-ink" id="home-total-expenses">₹42,500.00</h3>
+                          </div>
+                        </div>
+                        <div class="summary-card-footer">
+                          <span class="card-subtext">This Month</span>
+                          <span class="card-comparison comparison-red" id="home-expenses-comparison">↗ 8% vs last month</span>
+                        </div>
+                      </div>
+                      
+                      <div class="summary-card card-savings">
+                        <div class="summary-card-header">
+                          <div class="icon-circle circle-blue">
+                            <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z"/></svg>
+                          </div>
+                          <div class="card-title-group">
+                            <span class="card-label">Remaining to Save</span>
+                            <h3 class="card-amount blue-ink" id="home-remaining-save">₹42,500.00</h3>
+                          </div>
+                        </div>
+                        <div class="summary-card-footer">
+                          <span class="card-subtext">Left for your goals</span>
+                          <span class="card-comparison comparison-blue" id="home-savings-comparison">♡ On track!</span>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <!-- Content Grid -->
+                    <div class="home-content-grid">
+                      <!-- Left Column: Spending Overview & Quick Actions -->
+                      <div class="home-column">
+                        <!-- Spending Overview Card -->
+                        <div class="paper-card home-pie-card">
+                          <div class="card-header-with-actions">
+                            <h3 class="card-title font-handwriting">Spending Overview</h3>
+                            <span class="card-header-badge font-handwriting">This Month ∨</span>
+                          </div>
+                          <div class="home-pie-layout">
+                            <div class="home-pie-chart-graphic">
+                              <canvas id="home-spending-pie-canvas" style="width: 100%; height: 100%; display: block;"></canvas>
+                            </div>
+                            <div class="home-pie-labels font-handwriting">
+                              <ul class="home-pie-legend" id="home-pie-legend-list">
+                                <!-- Dynamic Legend -->
+                              </ul>
+                            </div>
+                          </div>
+                          <div class="star-alert-banner">
+                            <span class="star-icon">★</span>
+                            <span class="star-alert-text" id="home-star-alert-text">You're spending 5% less than last month. Great job! ☺</span>
+                          </div>
+                        </div>
+                        
+                        <!-- Quick Actions Card -->
+                        <div class="paper-card quick-actions-card">
+                          <h3 class="card-title font-handwriting">Quick Actions</h3>
+                          <div class="quick-actions-grid">
+                            <button class="quick-action-btn" id="action-add-transaction">
+                              <div class="action-icon-wrapper circle-grey">
+                                <span class="action-icon">+</span>
+                              </div>
+                              <span class="action-label">Add Transaction</span>
+                            </button>
+                            <button class="quick-action-btn" id="action-set-budget">
+                              <div class="action-icon-wrapper circle-grey">
+                                <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z"/></svg>
+                              </div>
+                              <span class="action-label">Set Budget</span>
+                            </button>
+                            <button class="quick-action-btn" id="action-add-goal">
+                              <div class="action-icon-wrapper circle-grey">
+                                <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"/></svg>
+                              </div>
+                              <span class="action-label">Add Goal</span>
+                            </button>
+                            <button class="quick-action-btn" id="action-view-reports">
+                              <div class="action-icon-wrapper circle-grey">
+                                <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg>
+                              </div>
+                              <span class="action-label">View Reports</span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <!-- Right Column: Recent Transactions -->
+                      <div class="home-column">
+                        <div class="paper-card recent-transactions-card">
+                          <div class="card-header-with-actions">
+                            <h3 class="card-title font-handwriting">Recent Transactions</h3>
+                            <button class="view-all-link font-handwriting" id="home-view-all-transactions">View All</button>
+                          </div>
+                          <ul class="recent-transactions-list" id="home-recent-transactions-list">
+                            <!-- Dynamic Transactions list -->
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <!-- Tip of the Day Banner -->
+                    <div class="tip-of-the-day-banner">
+                      <div class="tip-left-icon">
+                        <svg viewBox="0 0 24 24" width="28" height="28" style="color: #f59e0b;">
+                          <path fill="currentColor" d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
+                        </svg>
+                      </div>
+                      <div class="tip-text-content">
+                        <strong class="tip-title font-handwriting">Budgeting tip of the day</strong>
+                        <p class="tip-desc">Track your small expenses—they make a big difference!</p>
+                      </div>
+                      <div class="tip-right-illustration">
+                        <svg viewBox="0 0 60 50" width="50" height="40">
+                          <g stroke="#2B2118" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="10" y="5" width="35" height="40" rx="3" fill="#FFFDF9" />
+                            <line x1="18" y1="12" x2="38" y2="12" />
+                            <line x1="18" y1="20" x2="38" y2="20" />
+                            <line x1="18" y1="28" x2="30" y2="28" />
+                            <path d="M 40 25 L 52 10 L 56 14 L 44 29 Z" fill="#fff9db" />
+                          </g>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- TAB 2: TRANSACTIONS VIEW -->
+                  <div class="dashboard-tab-view" id="tab-transactions">
+                    <div class="transactions-actions-row">
+                      <button class="import-statement-btn" id="import-statement-btn" title="Import PDF transaction statement">
+                        <svg class="import-btn-icon" viewBox="0 0 24 24" width="16" height="16">
+                          <path fill="currentColor" d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+                        </svg>
+                        <span>Import PDF</span>
+                      </button>
+                      <input type="file" id="import-statement-file-input" accept="application/pdf" style="display: none;">
+                      
+                      <button class="reset-month-btn" id="reset-month-btn" title="Reset this month's finances to default">
+                        <svg class="reset-btn-icon" viewBox="0 0 24 24" width="16" height="16">
+                          <path fill="currentColor" d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+                        </svg>
+                        <span>Reset Month</span>
+                      </button>
+                      
+                      <div class="imported-statements-list" id="imported-statements-list"></div>
+                    </div>
+
+                    <!-- Ruled Notebook Paper for imported statements and transactions log -->
+                    <div class="ruled-paper-card">
+                      <div class="ruled-margin-line"></div>
+                      <div class="ruled-card-content">
+                        <h3 class="ruled-title font-handwriting">Latest Statement Transactions Log</h3>
+                        <table class="notebook-table" id="statement-transactions-log-table">
+                          <thead>
+                            <tr>
+                              <th>Date</th>
+                              <th>Description</th>
+                              <th>Category / Table</th>
+                              <th class="align-right">Amount</th>
+                            </tr>
+                          </thead>
+                          <tbody id="statement-transactions-log-body">
+                            <!-- Transactions list loaded here dynamically -->
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- TAB 3: BUDGET SPREADSHEETS VIEW -->
+                  <div class="dashboard-tab-view" id="tab-budget">
+                    <!-- Metric status cards originally in the header banner -->
+                    <div class="budget-status-row">
+                      <div class="status-card">
+                        <span class="status-label">Budgeted</span>
+                        <span class="status-value" id="header-budgeted">₹0.00</span>
+                      </div>
+                      <div class="status-card">
+                        <span class="status-label">Left to Budget</span>
+                        <span class="status-value" id="header-left-to-budget">₹0.00</span>
+                      </div>
+                      <div class="status-card">
+                        <span class="status-label">Income</span>
+                        <span class="status-value highlight-green" id="header-income">₹0.00</span>
+                      </div>
+                      <div class="status-card">
+                        <span class="status-label">Total Spent</span>
+                        <span class="status-value" id="header-total-spent">₹0.00</span>
+                      </div>
+                      <div class="status-card progress-container">
+                        <span class="status-label">Spent Ratio</span>
+                        <div class="progress-info">
+                          <span class="progress-text" id="header-progress-text">0%</span>
+                          <div class="progress-bar-outer">
+                            <div class="progress-bar-inner" id="header-progress-bar"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="status-card">
+                        <span class="status-label">Savings</span>
+                        <span class="status-value highlight-green" id="header-savings">₹0.00</span>
+                      </div>
+                      <div class="status-card">
+                        <span class="status-label">Left Over</span>
+                        <span class="status-value" id="header-left-over">₹0.00</span>
+                      </div>
+                    </div>
+
+                    <!-- Main Budget Tables Grid -->
+                    <div class="dashboard-grid">
+                      
+                      <!-- Column 1 -->
+                      <div class="dashboard-column">
+                        <!-- Overview Card -->
+                        <section class="sheet-card">
+                          <h2 class="sheet-card-title header-overview-style">Overview Metadata</h2>
+                          <table class="spreadsheet-table" id="overview-table">
+                            <tbody>
+                              <tr>
+                                <td>Currency</td>
+                                <td>
+                                  <select class="select-input" id="setting-currency">
+                                    <option value="₹" selected>₹ (INR)</option>
+                                    <option value="$">$ (USD)</option>
+                                    <option value="€">€ (EUR)</option>
+                                    <option value="£">£ (GBP)</option>
+                                    <option value="¥">¥ (JPY)</option>
+                                  </select>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>Start Date</td>
+                                <td><input type="date" class="date-input" id="setting-start-date" value="2026-01-01"></td>
+                              </tr>
+                              <tr>
+                                <td>End Date</td>
+                                <td><input type="date" class="date-input" id="setting-end-date" value="2026-01-31"></td>
+                              </tr>
+                              <tr>
+                                <td>Start Balance</td>
+                                <td class="editable-cell" data-type="number" id="setting-start-balance">0.00</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </section>
+
+                        <!-- Cash Flow Summary -->
+                        <section class="sheet-card">
+                          <h2 class="sheet-card-title header-summary-style">Cash Flow Summary</h2>
+                          <table class="spreadsheet-table" id="summary-table">
+                            <thead>
+                              <tr>
+                                <th>Name</th>
+                                <th class="align-right">Budget</th>
+                                <th class="align-right">Actual</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>Debts</td>
+                                <td class="align-right" id="summary-debts-budget">₹0.00</td>
+                                <td class="align-right" id="summary-debts-actual">₹0.00</td>
+                              </tr>
+                              <tr>
+                                <td>Savings</td>
+                                <td class="align-right" id="summary-savings-budget">₹0.00</td>
+                                <td class="align-right" id="summary-savings-actual">₹0.00</td>
+                              </tr>
+                              <tr>
+                                <td>Bills</td>
+                                <td class="align-right" id="summary-bills-budget">₹0.00</td>
+                                <td class="align-right" id="summary-bills-actual">₹0.00</td>
+                              </tr>
+                              <tr>
+                                <td>Expenses</td>
+                                <td class="align-right" id="summary-expenses-budget">₹0.00</td>
+                                <td class="align-right" id="summary-expenses-actual">₹0.00</td>
+                              </tr>
+                              <tr class="totals-row">
+                                <td>Total</td>
+                                <td class="align-right" id="summary-total-budget">₹0.00</td>
+                                <td class="align-right" id="summary-total-actual">₹0.00</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </section>
+
+                        <!-- Income Table -->
+                        <section class="sheet-card">
+                          <h2 class="sheet-card-title header-income-style">Income</h2>
+                          <table class="spreadsheet-table" id="income-table">
+                            <thead>
+                              <tr>
+                                <th>Description</th>
+                                <th class="align-right">Expected</th>
+                                <th class="align-right">Amount</th>
+                              </tr>
+                            </thead>
+                            <tbody class="table-body">
+                              <!-- Rows injected dynamically -->
+                            </tbody>
+                            <tfoot>
+                              <tr class="totals-row">
+                                <td>Totals</td>
+                                <td class="align-right" id="income-total-expected">₹0.00</td>
+                                <td class="align-right" id="income-total-actual">₹0.00</td>
+                              </tr>
+                            </tfoot>
+                          </table>
+                          <div class="table-actions">
+                            <button class="action-btn" id="add-income-row">+ Add Row</button>
+                            <button class="action-btn delete-btn" id="delete-income-row">- Remove Row</button>
+                          </div>
+                        </section>
+
+                        <!-- Portfolio / Holdings Allocation Table -->
+                        <section class="sheet-card">
+                          <h2 class="sheet-card-title header-overview-style">Asset Allocation (Income Wheel Data)</h2>
+                          <table class="spreadsheet-table" id="allocation-table">
+                            <thead>
+                              <tr>
+                                <th>Asset / Class</th>
+                                <th class="align-right" style="width: 80px;">Share %</th>
+                                <th class="align-center" style="width: 70px;">Color</th>
+                                <th>Pattern Style</th>
+                              </tr>
+                            </thead>
+                            <tbody class="table-body">
+                              <!-- Rows injected dynamically -->
+                            </tbody>
+                            <tfoot>
+                              <tr class="totals-row">
+                                <td>Total</td>
+                                <td class="align-right" id="allocation-total-percent">0%</td>
+                                <td colspan="2" style="font-size: 11px; color: var(--text-muted); font-style: italic;">Must equal 100%</td>
+                              </tr>
+                            </tfoot>
+                          </table>
+                          <div class="table-actions">
+                            <button class="action-btn" id="add-allocation-row">+ Add Row</button>
+                            <button class="action-btn delete-btn" id="delete-allocation-row">- Remove Row</button>
+                          </div>
+                        </section>
+                      </div>
+                      
+                      <!-- Column 2 -->
+                      <div class="dashboard-column">
+                        <!-- Bills Table -->
+                        <section class="sheet-card">
+                          <h2 class="sheet-card-title header-bills-style">Bills</h2>
+                          <table class="spreadsheet-table" id="bills-table">
+                            <thead>
+                              <tr>
+                                <th style="width: 40px;" class="align-center">✔</th>
+                                <th>Description</th>
+                                <th>Due Date</th>
+                                <th class="align-right">Budget</th>
+                                <th class="align-right">Actual</th>
+                              </tr>
+                            </thead>
+                            <tbody class="table-body">
+                              <!-- Rows injected dynamically -->
+                            </tbody>
+                            <tfoot>
+                              <tr class="totals-row">
+                                <td colspan="3">Totals</td>
+                                <td class="align-right" id="bills-total-budget">₹0.00</td>
+                                <td class="align-right" id="bills-total-actual">₹0.00</td>
+                              </tr>
+                            </tfoot>
+                          </table>
+                          <div class="table-actions">
+                            <button class="action-btn" id="add-bills-row">+ Add Row</button>
+                            <button class="action-btn delete-btn" id="delete-bills-row">- Remove Row</button>
+                          </div>
+                        </section>
+
+                        <!-- Debt Table -->
+                        <section class="sheet-card">
+                          <h2 class="sheet-card-title header-debt-style">Debt</h2>
+                          <table class="spreadsheet-table" id="debt-table">
+                            <thead>
+                              <tr>
+                                <th>Description</th>
+                                <th>Due Date</th>
+                                <th class="align-right">Budget</th>
+                                <th class="align-right">Paid</th>
+                              </tr>
+                            </thead>
+                            <tbody class="table-body">
+                              <!-- Rows injected dynamically -->
+                            </tbody>
+                            <tfoot>
+                              <tr class="totals-row">
+                                <td colspan="2">Totals</td>
+                                <td class="align-right" id="debt-total-budget">₹0.00</td>
+                                <td class="align-right" id="debt-total-actual">₹0.00</td>
+                              </tr>
+                            </tfoot>
+                          </table>
+                          <div class="table-actions">
+                            <button class="action-btn" id="add-debt-row">+ Add Row</button>
+                            <button class="action-btn delete-btn" id="delete-debt-row">- Remove Row</button>
+                          </div>
+                        </section>
+                      </div>
+                      
+                      <!-- Column 3 -->
+                      <div class="dashboard-column">
+                        <!-- Expenses Table -->
+                        <section class="sheet-card">
+                          <h2 class="sheet-card-title header-expenses-style">Expenses</h2>
+                          <table class="spreadsheet-table" id="expenses-table">
+                            <thead>
+                              <tr>
+                                <th>Category</th>
+                                <th class="align-right">Budget</th>
+                                <th class="align-right">Actual</th>
+                                <th class="align-right">Remaining</th>
+                              </tr>
+                            </thead>
+                            <tbody class="table-body">
+                              <!-- Rows injected dynamically -->
+                            </tbody>
+                            <tfoot>
+                              <tr class="totals-row">
+                                <td>Totals</td>
+                                <td class="align-right" id="expenses-total-budget">₹0.00</td>
+                                <td class="align-right" id="expenses-total-actual">₹0.00</td>
+                                <td class="align-right" id="expenses-total-remaining">₹0.00</td>
+                              </tr>
+                            </tfoot>
+                          </table>
+                          <div class="table-actions">
+                            <button class="action-btn" id="add-expenses-row">+ Add Row</button>
+                            <button class="action-btn delete-btn" id="delete-expenses-row">- Remove Row</button>
+                          </div>
+                        </section>
+                      </div>
+                      
+                    </div>
+                  </div>
+                  
+                  <!-- TAB 4: SAVINGS GOALS VIEW -->
+                  <div class="dashboard-tab-view" id="tab-goals">
+                    <div class="goals-banner font-handwriting">
+                      <h3 class="section-title-sketch">Savings & Dream Goals</h3>
+                      <p class="journal-desc">Set aside funds for your future milestones. Track your progress dynamically here.</p>
+                    </div>
+                    <div class="goals-grid">
+                      <div class="paper-card goal-card">
+                        <div class="goal-header font-handwriting">
+                          <h4>New Laptop Fund</h4>
+                          <span class="goal-amount">₹45k / ₹60k</span>
+                        </div>
+                        <p class="goal-desc">Target Date: December 2026</p>
+                        <div class="sketchy-progress-outer">
+                          <div class="sketchy-progress-inner fill-blue" style="width: 75%;">
+                            <div class="sketchy-progress-scribble"></div>
+                          </div>
+                        </div>
+                        <div class="goal-footer">
+                          <span>75% Saved</span>
+                          <span class="blue-ink">Almost there!</span>
+                        </div>
+                      </div>
+                      
+                      <div class="paper-card goal-card">
+                        <div class="goal-header font-handwriting">
+                          <h4>Emergency Safety Cushion</h4>
+                          <span class="goal-amount">₹50k / ₹100k</span>
+                        </div>
+                        <p class="goal-desc">Target Date: March 2027</p>
+                        <div class="sketchy-progress-outer">
+                          <div class="sketchy-progress-inner fill-green" style="width: 50%;">
+                            <div class="sketchy-progress-scribble"></div>
+                          </div>
+                        </div>
+                        <div class="goal-footer">
+                          <span>50% Saved</span>
+                          <span class="green-ink">Halfway point!</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- TAB 5: REPORTS / CHARTS VIEW -->
+                  <div class="dashboard-tab-view" id="tab-reports">
+                    <div class="reports-grid">
+                      <!-- Budget vs Actual Chart -->
+                      <section class="sheet-card">
+                        <h2 class="sheet-card-title font-handwriting" style="background-color: #f8fafc;">Budget vs. Actual Expenses</h2>
+                        <div class="chart-container">
+                          <canvas id="budget-vs-actual-canvas" class="chart-canvas"></canvas>
+                        </div>
+                      </section>
+
+                      <!-- Expense Category Breakdown -->
+                      <section class="sheet-card">
+                        <h2 class="sheet-card-title font-handwriting" style="background-color: #f8fafc;">Expense Category Breakdown</h2>
+                        <div class="chart-container">
+                          <canvas id="expense-breakdown-canvas" class="chart-canvas"></canvas>
+                        </div>
+                      </section>
+
+                      <!-- Hand-Drawn Income/Allocation Wheel Card -->
+                      <div class="parchment-card">
+                        <h2 class="parchment-title font-handwriting">Parchment Asset Allocation Wheel</h2>
+                        <div class="income-wheel-container">
+                          <canvas id="income-wheel-canvas" style="width: 100%; height: 100%; display: block; cursor: pointer;"></canvas>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- TAB 6: CATEGORIES VIEW -->
+                  <div class="dashboard-tab-view" id="tab-categories">
+                    <div class="categories-banner font-handwriting">
+                      <h3 class="section-title-sketch">Handwritten Sticky-Note Categories</h3>
+                      <p class="journal-desc">Vintage sticky planner notes representing your daily budget limits and category guidelines.</p>
+                    </div>
+                    <div class="sticky-notes-container">
+                      <div class="sticky-note note-pink">
+                        <div class="sticky-tape"></div>
+                        <div class="note-content">
+                          <h3 class="note-title">Bills</h3>
+                          <p class="note-amount">₹15,000 limit</p>
+                          <p class="note-body">Electricity, broadband, mobile, water, rent. Keep these constant.</p>
+                        </div>
+                      </div>
+                      
+                      <div class="sticky-note note-green">
+                        <div class="sticky-tape"></div>
+                        <div class="note-content">
+                          <h3 class="note-title">Food</h3>
+                          <p class="note-amount">₹12,000 limit</p>
+                          <p class="note-body">Zomato, Swiggy, grocery shopping, fresh veggies. Eat out less!</p>
+                        </div>
+                      </div>
+                      
+                      <div class="sticky-note note-blue">
+                        <div class="sticky-tape"></div>
+                        <div class="note-content">
+                          <h3 class="note-title">Travel</h3>
+                          <p class="note-amount">₹5,000 limit</p>
+                          <p class="note-body">Uber, auto rides, metro passes, train tickets, fuel. Walk when possible!</p>
+                        </div>
+                      </div>
+                      
+                      <div class="sticky-note note-purple">
+                        <div class="sticky-tape"></div>
+                        <div class="note-content">
+                          <h3 class="note-title">Entertainment</h3>
+                          <p class="note-amount">₹6,000 limit</p>
+                          <p class="note-body">Netflix, cinemas, cafe visits, weekend gig tickets, games.</p>
+                        </div>
+                      </div>
+                      
+                      <div class="sticky-note note-yellow">
+                        <div class="sticky-tape"></div>
+                        <div class="note-content">
+                          <h3 class="note-title">Shopping</h3>
+                          <p class="note-amount">₹4,500 limit</p>
+                          <p class="note-body">Clothes, gifts, home decor items, gadget upgrades.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- TAB 7: SETTINGS / PROFILE VIEW -->
+                  <div class="dashboard-tab-view" id="tab-settings">
+                    <div class="profile-layout">
+                      <aside class="profile-sidebar-tab">
+                        <div class="profile-avatar-card">
+                          <div class="avatar-upload-wrapper">
+                            <span class="profile-avatar-large" id="profile-avatar-img" style="display: none;"></span>
+                            <div class="avatar-placeholder-large" id="profile-avatar-placeholder">U</div>
+                            <label for="avatar-file-input" class="avatar-edit-badge" title="Upload avatar">
+                              <svg viewBox="0 0 24 24" width="16" height="16">
+                                <path fill="currentColor" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                              </svg>
+                            </label>
+                            <input type="file" id="avatar-file-input" accept="image/*" style="display: none;">
+                          </div>
+                          <h3 id="profile-card-name">User Name</h3>
+                          <p id="profile-card-email">user@example.com</p>
+                        </div>
+                        <button class="btn btn-outline logout-btn-full" id="profile-logout-btn" style="margin-top: 16px; width: 100%;">Sign Out</button>
+                      </aside>
+
+                      <main class="profile-main-content">
+                        <!-- Profile Form -->
+                        <section class="profile-section-card">
+                          <h2>Personal Information</h2>
+                          <form id="profile-info-form">
+                            <div class="form-group">
+                              <label for="profile-display-name">Display Name</label>
+                              <input type="text" id="profile-display-name" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save Profile</button>
+                          </form>
+                        </section>
+
+                        <!-- Password Reset Form -->
+                        <section class="profile-section-card">
+                          <h2>Security Settings</h2>
+                          <form id="profile-password-form">
+                            <div class="form-group">
+                              <label for="profile-new-password">New Password</label>
+                              <input type="password" id="profile-new-password" required placeholder="••••••••" minlength="6">
+                            </div>
+                            <div class="form-group">
+                              <label for="profile-confirm-password">Confirm Password</label>
+                              <input type="password" id="profile-confirm-password" required placeholder="••••••••" minlength="6">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Update Password</button>
+                          </form>
+                        </section>
+                      </main>
+                    </div>
+                  </div>
+                </div>
+              </main>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Statement Viewer Modal -->
+    <div id="statement-modal" class="modal-overlay">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 id="modal-statement-title">View PDF</h3>
+          <button class="modal-close-btn" id="modal-close-btn">&times;</button>
+        </div>
+        <div class="modal-body" id="modal-statement-body" style="gap: 16px;">
+          <!-- Accordion list will be injected here dynamically -->
+        </div>
+        <div class="modal-footer">
+          <button class="modal-btn" id="modal-close-footer-btn">Close</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Custom Confirm Dialog Modal -->
+    <div id="confirm-modal" class="modal-overlay">
+      <div class="modal-content confirm-modal-content">
+        <div class="modal-header confirm-modal-header">
+          <h3 id="confirm-modal-title">Confirm Action</h3>
+          <button class="modal-close-btn" id="confirm-modal-close-btn">&times;</button>
+        </div>
+        <div class="modal-body confirm-modal-body">
+          <p id="confirm-modal-message">Are you sure you want to proceed?</p>
+        </div>
+        <div class="modal-footer confirm-modal-footer">
+          <button class="modal-btn confirm-modal-btn-cancel" id="confirm-modal-cancel-btn">Cancel</button>
+          <button class="modal-btn confirm-modal-btn-confirm" id="confirm-modal-confirm-btn">Confirm</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container"></div>
+
+  </body>
+</html>

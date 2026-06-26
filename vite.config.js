@@ -8,8 +8,10 @@ export default defineConfig({
       configureServer(server) {
         server.middlewares.use((req, res, next) => {
           const url = req.url.split('?')[0];
-          // Rewrite SPA paths to dashboard.html
-          if (['/login', '/register', '/dashboard', '/profile'].includes(url)) {
+          // Rewrite SPA paths to dashboard.html / login.html
+          if (['/login', '/register', '/signup'].includes(url)) {
+            req.url = '/login.html';
+          } else if (['/dashboard', '/profile'].includes(url)) {
             req.url = '/dashboard.html';
           }
           next();
@@ -22,6 +24,7 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         dashboard: resolve(__dirname, 'dashboard.html'),
+        login: resolve(__dirname, 'login.html'),
       },
     },
   },

@@ -1,6 +1,6 @@
-# FinSprout
+# Piggy Planner
 
-FinSprout takes the dread out of budgeting. It splits the experience into a cozy, hand-drawn paper journal landing page and a high-fidelity, interactive modern spreadsheet dashboard.
+Piggy Planner takes the dread out of budgeting. It splits the experience into a cozy, hand-drawn paper journal landing page and a high-fidelity, interactive modern spreadsheet dashboard.
 
 ---
 

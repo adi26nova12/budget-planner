@@ -291,7 +291,7 @@ export class HandDrawnPieChart {
     // Circle configurations
     const cx = this.width / 2;
     const cy = this.height / 2;
-    const r = Math.min(this.width, this.height) * 0.26;
+    const r = Math.min(this.width, this.height) * 0.19;
     
     let currentAngle = -Math.PI / 2; // start from 12 o'clock
 
@@ -334,50 +334,145 @@ export class HandDrawnPieChart {
 
     // (Floating currency symbols removed for cleaner mobile layout and legibility)
 
-    // 5. Draw Slice Labels (Inside for large slices, outside with sketchy pointers for small ones)
+    // 5. Draw Slice Labels with anti-overlap positioning
+    const leftLabels = [];
+    const rightLabels = [];
+    
     currentAngle = -Math.PI / 2;
-    activeData.forEach(slice => {
+    activeData.forEach((slice, index) => {
       const sliceAngle = (slice.value / total) * Math.PI * 2;
       const endAngle = currentAngle + sliceAngle;
       const midAngle = currentAngle + sliceAngle / 2;
       const sharePercent = Math.round((slice.value / total) * 100);
       
-      // Draw outside with sketchy pointer lines for all slices to keep styling uniform and readable
-      ctx.font = '12px "Architects Daughter", cursive';
-      ctx.fillStyle = '#111111';
-
       const cos = Math.cos(midAngle);
       const sin = Math.sin(midAngle);
       
-      // Pointer start (inside slice slightly) and end
-      const px1 = cx + r * 0.85 * cos;
-      const py1 = cy + r * 0.85 * sin;
+      // Pointer start (inside slice slightly)
+      const px1 = cx + r * 0.88 * cos;
+      const py1 = cy + r * 0.88 * sin;
       
-      // Scale extLength shorter horizontally (based on absolute cos) to prevent boundary clipping
-      const baseExtLength = 15 + (Math.random() - 0.5) * 4;
-      const extLength = baseExtLength * (1 - Math.abs(cos) * 0.35);
+      // Stagger default extension length slightly to help separation
+      const baseExtLength = 16 + (index % 3) * 6;
+      const extLength = baseExtLength * (1 - Math.abs(cos) * 0.25);
       
       const px2 = cx + (r + extLength) * cos;
       const py2 = cy + (r + extLength) * sin;
       
-      // Draw the pointer line
-      this.drawSketchyLine(px1, py1, px2, py2, '#222222', 1.0);
+      const item = {
+        slice,
+        sharePercent,
+        cos,
+        sin,
+        px1,
+        py1,
+        px2,
+        py2,
+        y: py2,
+        isLeft: cos < 0
+      };
       
-      // Text alignment and coordinates
-      const isLeft = cos < 0;
-      ctx.textAlign = isLeft ? 'right' : 'left';
-      ctx.textBaseline = 'middle';
-      
-      const labelX = px2 + (isLeft ? -5 : 5);
-      const labelY = py2;
-
-      // Label: e.g., "Groceries 15%" (no redundant currency prefix)
-      const labelText = `${slice.label} ${sharePercent}%`;
-      
-      ctx.fillText(labelText, labelX, labelY);
+      if (item.isLeft) {
+        leftLabels.push(item);
+      } else {
+        rightLabels.push(item);
+      }
       
       currentAngle = endAngle;
     });
+
+    // Anti-overlap spacing function using iterative relaxation
+    const adjustSpacing = (labels) => {
+      const N = labels.length;
+      if (N <= 1) return;
+      
+      const minSpacing = 18; // 18px spacing for better legibility
+      const padding = 12;
+      const canvasHeight = this.height;
+
+      // Iterative relaxation to resolve top & bottom constraints perfectly
+      for (let iter = 0; iter < 10; iter++) {
+        // Pass 1: Top-down constraint check
+        if (labels[0].y < padding) {
+          labels[0].y = padding;
+        }
+        for (let i = 1; i < N; i++) {
+          if (labels[i].y < labels[i-1].y + minSpacing) {
+            labels[i].y = labels[i-1].y + minSpacing;
+          }
+        }
+
+        // Pass 2: Bottom-up constraint check
+        if (labels[N-1].y > canvasHeight - padding) {
+          labels[N-1].y = canvasHeight - padding;
+        }
+        for (let i = N - 2; i >= 0; i--) {
+          if (labels[i].y > labels[i+1].y - minSpacing) {
+            labels[i].y = labels[i+1].y - minSpacing;
+          }
+        }
+      }
+    };
+
+    // Sort top to bottom by target Y position
+    leftLabels.sort((a, b) => a.py2 - b.py2);
+    rightLabels.sort((a, b) => a.py2 - b.py2);
+
+    // Adjust spacing to prevent overlapping
+    adjustSpacing(leftLabels);
+    adjustSpacing(rightLabels);
+
+    // Draw both sets of labels
+    const drawSet = (labels) => {
+      labels.forEach(item => {
+        ctx.font = '12px "Architects Daughter", cursive';
+        ctx.fillStyle = '#111111';
+        
+        const isLeft = item.isLeft;
+        ctx.textAlign = isLeft ? 'right' : 'left';
+        ctx.textBaseline = 'bottom';
+
+        let displayLabel = item.slice.label;
+        if (displayLabel.length > 14) {
+          displayLabel = displayLabel.substring(0, 12) + '..';
+        }
+        const labelText = `${displayLabel} ${item.sharePercent}%`;
+        const textWidth = ctx.measureText(labelText).width;
+        
+        // Target y and intermediate bend point
+        const targetY = item.y;
+        
+        // Constrain X coordinate of label endpoint to avoid clipping off canvas edges
+        let labelX2 = item.px2;
+        if (isLeft) {
+          const minX2 = textWidth + 14; // textWidth + underline padding + safety margin
+          if (labelX2 < minX2) {
+            labelX2 = minX2;
+          }
+        } else {
+          const maxX2 = this.width - textWidth - 14;
+          if (labelX2 > maxX2) {
+            labelX2 = maxX2;
+          }
+        }
+
+        // Draw the pointer line from slice edge to the start of the label text
+        this.drawSketchyLine(item.px1, item.py1, labelX2, targetY, '#333333', 1.0);
+        
+        // Draw sketchy horizontal underline/anchor accent line under the text
+        const lineEndX = labelX2 + (isLeft ? -(textWidth + 8) : (textWidth + 8));
+        this.drawSketchyLine(labelX2, targetY, lineEndX, targetY, 'rgba(60, 60, 60, 0.45)', 0.85);
+
+        // Draw text slightly above the underline
+        const labelX = labelX2 + (isLeft ? -4 : 4);
+        const labelY = targetY - 1;
+        
+        ctx.fillText(labelText, labelX, labelY);
+      });
+    };
+
+    drawSet(leftLabels);
+    drawSet(rightLabels);
   }
 
   // Convert Hex color to RGB object

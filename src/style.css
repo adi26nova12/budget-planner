@@ -1,8 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Outfit:wght@300;400;500;600;700&display=swap');
 
+@font-face {
+  font-family: 'CabinSketch';
+  src: url('/fonts/CabinSketch-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'CabinSketch';
+  src: url('/fonts/CabinSketch-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
 :root {
   --font-main: 'Outfit', sans-serif;
-  --font-handdrawn: 'Architects Daughter', cursive;
+  --font-handdrawn: 'CabinSketch', 'Architects Daughter', cursive;
   
   --bg-app: #f4f5f8;
   --bg-card: #ffffff;
@@ -1299,8 +1313,9 @@ body {
 }
 
 .brand-name {
-  font-size: 20px;
-  font-weight: 700;
+  font-family: 'CabinSketch', sans-serif;
+  font-size: 22px;
+  font-weight: bold;
   letter-spacing: 0.5px;
   color: var(--text-dark);
 }
@@ -2187,3 +2202,859 @@ body.dark-mode .skeleton-column {
     grid-template-columns: 1fr;
   }
 }
+
+/* ==========================================
+   COZY JOURNAL DASHBOARD SIDEBAR & TAB VIEWS
+   ========================================== */
+
+/* Hide persistent top navbar on dashboard page */
+#dashboard-view ~ #app-navbar,
+.dashboard-view #app-navbar,
+body:has(#dashboard-view) #app-navbar {
+  display: none !important;
+}
+
+/* If body has dashboard-view active, let's style the body background */
+body:has(#dashboard-view.active) {
+  background-color: #F7F3EC !important;
+  background-image: radial-gradient(#d5cab7 1.5px, transparent 1.5px) !important;
+  background-size: 24px 24px !important;
+  padding: 16px !important;
+}
+
+.dashboard-journal-container {
+  padding: 0 !important;
+  min-height: calc(100vh - 32px) !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: stretch !important;
+  background: transparent !important;
+}
+
+.dashboard-paper {
+  max-width: 1440px !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  border: 3px solid #2B2118 !important;
+  border-radius: 12px !important;
+  box-shadow: 6px 6px 0px #DAC0A3, 0 10px 25px rgba(0, 0, 0, 0.05) !important;
+}
+
+.dashboard-journal-content {
+  padding: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.dashboard-split-layout {
+  display: flex !important;
+  min-height: 80vh !important;
+  width: 100% !important;
+}
+
+/* Sidebar Nav */
+.dashboard-sidebar {
+  width: 230px !important;
+  background-color: #F0EDE6 !important;
+  border-right: 3px solid #2B2118 !important;
+  padding: 24px 16px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  flex-shrink: 0 !important;
+}
+
+.sidebar-logo {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  margin-bottom: 24px !important;
+  padding-bottom: 12px !important;
+  border-bottom: 2px dashed #D3C7B5 !important;
+}
+
+.sidebar-logo-svg {
+  flex-shrink: 0 !important;
+}
+
+.sidebar-brand-name {
+  font-family: 'CabinSketch', 'Kalam', cursive !important;
+  font-size: 20px !important;
+  font-weight: 700 !important;
+  color: #2B2118 !important;
+}
+
+.sidebar-menu {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+  flex: 1 !important;
+}
+
+.menu-item {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  width: 100% !important;
+  padding: 8px 12px !important;
+  background: transparent !important;
+  border: 2px solid transparent !important;
+  color: #4D3E33 !important;
+  font-family: 'CabinSketch', 'Kalam', cursive !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  text-align: left !important;
+  cursor: pointer !important;
+  border-radius: 8px !important;
+  transition: all 0.2s ease !important;
+  outline: none !important;
+}
+
+.menu-item:hover {
+  background-color: rgba(26, 18, 11, 0.05) !important;
+  border-color: #2B2118 !important;
+  color: #2B2118 !important;
+}
+
+.menu-item.active {
+  background-color: #FFF9DB !important;
+  border: 2px solid #2B2118 !important;
+  color: #1A120B !important;
+  box-shadow: 2px 2px 0px #2B2118 !important;
+  transform: translateY(-1px) !important;
+}
+
+.menu-item .menu-icon {
+  width: 18px !important;
+  height: 18px !important;
+  color: currentColor !important;
+  flex-shrink: 0 !important;
+}
+
+.sidebar-footer {
+  margin-top: 16px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+  padding-top: 12px !important;
+  border-top: 2px dashed #D3C7B5 !important;
+}
+
+.sidebar-footer .sync-badge {
+  margin-left: 0 !important;
+  width: fit-content !important;
+  border: 2px solid #2B2118 !important;
+  box-shadow: 2px 2px 0px #2B2118 !important;
+  background-color: #FFFDF9 !important;
+  cursor: default !important;
+}
+
+.sidebar-plant-card {
+  background-color: #FFFDF9 !important;
+  border: 2px solid #2B2118 !important;
+  border-radius: 8px !important;
+  padding: 10px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  box-shadow: 2px 2px 0px #2B2118 !important;
+}
+
+.sidebar-plant-svg {
+  flex-shrink: 0 !important;
+}
+
+.plant-card-text {
+  font-family: 'Patrick Hand', cursive !important;
+  font-size: 13px !important;
+  line-height: 1.3 !important;
+  color: #4D3E33 !important;
+  margin: 0 !important;
+}
+
+/* Main Area */
+.dashboard-main-area {
+  flex: 1 !important;
+  background-color: #FAF8F5 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 600px !important;
+  overflow-y: auto !important;
+  padding-bottom: 40px !important;
+}
+
+.dashboard-shared-header {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding: 16px 24px !important;
+  border-bottom: 2px dashed #D3C7B5 !important;
+  background-color: #FAF8F5 !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 10 !important;
+}
+
+.header-tab-title {
+  font-size: 26px !important;
+  font-weight: 700 !important;
+  color: #2B2118 !important;
+  margin: 0 !important;
+}
+
+.header-selectors-group {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+
+.calendar-selector-container {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  background-color: #FFFDF9 !important;
+  border: 2px solid #2B2118 !important;
+  border-radius: 8px !important;
+  padding: 4px 8px !important;
+  box-shadow: 2px 2px 0px #2B2118 !important;
+}
+
+.calendar-selector-container .calendar-icon {
+  color: #2B2118 !important;
+  flex-shrink: 0 !important;
+}
+
+.calendar-selector-container select.month-select {
+  font-family: 'CabinSketch', 'Kalam', cursive !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  border: none !important;
+  background: transparent !important;
+  outline: none !important;
+  cursor: pointer !important;
+  padding: 0 !important;
+  color: #2B2118 !important;
+  margin-right: 4px !important;
+}
+
+.calendar-selector-container input.year-input {
+  font-family: 'CabinSketch', 'Kalam', cursive !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  border: none !important;
+  background: transparent !important;
+  outline: none !important;
+  width: 50px !important;
+  padding: 0 !important;
+  color: #2B2118 !important;
+}
+
+.notification-bell-container {
+  position: relative !important;
+  background-color: #FFFDF9 !important;
+  border: 2px solid #2B2118 !important;
+  border-radius: 8px !important;
+  padding: 6px !important;
+  cursor: pointer !important;
+  box-shadow: 2px 2px 0px #2B2118 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: transform 0.2s !important;
+}
+
+.notification-bell-container:hover {
+  transform: translateY(-1px) !important;
+}
+
+.bell-icon {
+  color: #2B2118 !important;
+  flex-shrink: 0 !important;
+}
+
+.bell-badge {
+  position: absolute !important;
+  top: 3px !important;
+  right: 3px !important;
+  width: 6px !important;
+  height: 6px !important;
+  background-color: #ff85a2 !important;
+  border-radius: 50% !important;
+  border: 1px solid #FFFDF9 !important;
+}
+
+/* Tab Containers */
+.dashboard-tab-container {
+  padding: 24px !important;
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.dashboard-tab-view {
+  display: none !important;
+  width: 100% !important;
+}
+
+.dashboard-tab-view.active {
+  display: block !important;
+  animation: fadeIn 0.25s ease-in-out !important;
+}
+
+/* ==========================================
+   TAB 1: HOME VIEW STYLING
+   ========================================== */
+
+.welcome-banner {
+  margin-bottom: 20px !important;
+  position: relative !important;
+}
+
+.welcome-title {
+  font-size: 32px !important;
+  font-weight: 700 !important;
+  color: #2B2118 !important;
+  display: inline-block !important;
+  position: relative !important;
+  margin: 0 0 8px 0 !important;
+}
+
+.welcome-title .highlight-stroke {
+  position: absolute !important;
+  left: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  height: 10px !important;
+  background-color: rgba(255, 249, 219, 0.7) !important;
+  z-index: -1 !important;
+  border-radius: 4px !important;
+}
+
+.welcome-desc {
+  font-size: 18px !important;
+  color: #4D3E33 !important;
+  margin: 0 !important;
+}
+
+/* Summary Metrics */
+.summary-cards-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 16px !important;
+  margin-bottom: 24px !important;
+}
+
+.summary-card {
+  background-color: #FFFDF9 !important;
+  border: 2px solid #2B2118 !important;
+  border-radius: 12px !important;
+  padding: 16px !important;
+  box-shadow: 4px 4px 0px #2B2118 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+  transition: transform 0.2s, box-shadow 0.2s !important;
+}
+
+.summary-card:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 6px 6px 0px #2B2118 !important;
+}
+
+.summary-card-header {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+
+.icon-circle {
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: 2px solid #2B2118 !important;
+  flex-shrink: 0 !important;
+}
+
+.circle-green { background-color: #e8f5e9 !important; color: #4b6b4e !important; }
+.circle-red { background-color: #ffebee !important; color: #b71c1c !important; }
+.circle-blue { background-color: #e3f2fd !important; color: #0d47a1 !important; }
+.circle-grey { background-color: #f1f5f9 !important; color: #475569 !important; }
+
+.card-title-group {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.card-label {
+  font-family: 'Patrick Hand', cursive !important;
+  font-size: 14px !important;
+  color: #718096 !important;
+}
+
+.card-amount {
+  font-family: 'CabinSketch', 'Kalam', cursive !important;
+  font-size: 22px !important;
+  font-weight: 700 !important;
+  margin: 0 !important;
+}
+
+.summary-card-footer {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  border-top: 1.5px dashed #D3C7B5 !important;
+  padding-top: 8px !important;
+}
+
+.card-subtext {
+  font-family: 'Patrick Hand', cursive !important;
+  font-size: 13px !important;
+  color: #718096 !important;
+}
+
+.card-comparison {
+  font-family: 'CabinSketch', 'Kalam', cursive !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+}
+
+.comparison-green { color: #4b6b4e !important; }
+.comparison-red { color: #b71c1c !important; }
+.comparison-blue { color: #0d47a1 !important; }
+
+/* Grid content */
+.home-content-grid {
+  display: grid !important;
+  grid-template-columns: 53fr 47fr !important;
+  gap: 20px !important;
+  margin-bottom: 20px !important;
+}
+
+.home-column {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 20px !important;
+}
+
+.card-header-with-actions {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin-bottom: 16px !important;
+  border-bottom: 2px dashed #D3C7B5 !important;
+  padding-bottom: 8px !important;
+}
+
+.card-title {
+  font-size: 20px !important;
+  font-weight: 700 !important;
+  color: #2B2118 !important;
+  margin: 0 !important;
+}
+
+.card-header-badge {
+  font-size: 13px !important;
+  background-color: #F0EDE6 !important;
+  border: 1.5px solid #2B2118 !important;
+  border-radius: 6px !important;
+  padding: 2px 6px !important;
+  cursor: pointer !important;
+}
+
+.home-pie-layout {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 16px !important;
+  margin-bottom: 12px !important;
+}
+
+.home-pie-chart-graphic {
+  width: 320px !important;
+  height: 200px !important;
+  flex-shrink: 0 !important;
+  position: relative !important;
+}
+
+.home-pie-labels {
+  width: 100% !important;
+}
+
+.home-pie-legend {
+  list-style: none !important;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+  gap: 8px 16px !important;
+  padding-left: 0 !important;
+}
+
+.home-pie-legend li {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  font-size: 13px !important;
+  color: #4D3E33 !important;
+}
+
+.home-legend-box {
+  width: 12px !important;
+  height: 12px !important;
+  border-radius: 3px !important;
+  border: 1.5px solid #2B2118 !important;
+  display: inline-block !important;
+  flex-shrink: 0 !important;
+}
+
+.star-alert-banner {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  background-color: #e8f5e9 !important;
+  border: 2px solid #2B2118 !important;
+  border-radius: 8px !important;
+  padding: 8px 12px !important;
+  margin-top: 12px !important;
+  box-shadow: 2px 2px 0px #2B2118 !important;
+}
+
+.star-icon {
+  color: #f59e0b !important;
+  font-size: 16px !important;
+}
+
+.star-alert-text {
+  font-family: 'Patrick Hand', cursive !important;
+  font-size: 14px !important;
+  color: #2e7d32 !important;
+}
+
+/* Quick Actions */
+.quick-actions-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 12px !important;
+}
+
+.quick-action-btn {
+  background: #FFFDF9 !important;
+  border: 2px solid #2B2118 !important;
+  border-radius: 8px !important;
+  padding: 10px 4px !important;
+  cursor: pointer !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 8px !important;
+  box-shadow: 2px 2px 0px #2B2118 !important;
+  transition: transform 0.2s, box-shadow 0.2s !important;
+  outline: none !important;
+}
+
+.quick-action-btn:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 4px 4px 0px #2B2118 !important;
+}
+
+.action-icon-wrapper {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: 2px solid #2B2118 !important;
+  flex-shrink: 0 !important;
+}
+
+.action-icon {
+  font-family: 'CabinSketch', 'Kalam', cursive !important;
+  font-size: 18px !important;
+  font-weight: bold !important;
+}
+
+.quick-action-btn svg {
+  color: #475569 !important;
+}
+
+.action-label {
+  font-family: 'CabinSketch', 'Kalam', cursive !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  text-align: center !important;
+  color: #2B2118 !important;
+  line-height: 1.1 !important;
+}
+
+/* Recent Transactions list */
+.recent-transactions-card {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.view-all-link {
+  font-size: 13px !important;
+  color: #0d47a1 !important;
+  background: transparent !important;
+  border: none !important;
+  cursor: pointer !important;
+  padding: 0 !important;
+  text-decoration: underline !important;
+  outline: none !important;
+}
+
+.recent-transactions-list {
+  list-style: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  flex: 1 !important;
+  padding-left: 0 !important;
+  margin: 0 !important;
+}
+
+.transaction-item {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding: 8px 0 !important;
+  border-bottom: 1.5px dashed #D3C7B5 !important;
+}
+
+.transaction-item:last-child {
+  border-bottom: none !important;
+}
+
+.transaction-item-left {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+}
+
+.tx-icon-circle {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: 2px solid #2B2118 !important;
+  flex-shrink: 0 !important;
+}
+
+.circle-pink { background-color: #ffdce5 !important; color: #a11333 !important; }
+.circle-purple { background-color: #f3e8ff !important; color: #6b21a8 !important; }
+.circle-yellow { background-color: #fff9db !important; color: #854d0e !important; }
+.circle-blue-grey { background-color: #e2eafc !important; color: #1e3a8a !important; }
+
+.tx-details {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.tx-title {
+  font-family: 'CabinSketch', 'Kalam', cursive !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  color: #1A120B !important;
+  margin: 0 !important;
+}
+
+.tx-category {
+  font-family: 'Patrick Hand', cursive !important;
+  font-size: 13px !important;
+  color: #718096 !important;
+}
+
+.transaction-item-right {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-end !important;
+}
+
+.tx-amount {
+  font-family: 'CabinSketch', 'Kalam', cursive !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+}
+
+.tx-date {
+  font-family: 'Patrick Hand', cursive !important;
+  font-size: 11px !important;
+  color: #a0aec0 !important;
+}
+
+/* Tip Banner */
+.tip-of-the-day-banner {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  background-color: #FFFDF9 !important;
+  border: 2px solid #2B2118 !important;
+  border-radius: 12px !important;
+  padding: 12px 16px !important;
+  box-shadow: 4px 4px 0px #2B2118 !important;
+  margin-top: 10px !important;
+}
+
+.tip-left-icon {
+  flex-shrink: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.tip-text-content {
+  flex: 1 !important;
+}
+
+.tip-title {
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  color: #2B2118 !important;
+}
+
+.tip-desc {
+  font-family: 'Patrick Hand', cursive !important;
+  font-size: 14px !important;
+  color: #4D3E33 !important;
+  margin: 0 !important;
+}
+
+.tip-right-illustration {
+  flex-shrink: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Transactions tab action row */
+.transactions-actions-row {
+  display: flex !important;
+  gap: 12px !important;
+  align-items: center !important;
+  margin-bottom: 20px !important;
+  flex-wrap: wrap !important;
+}
+
+/* Budget View Status Row */
+.budget-status-row {
+  display: grid !important;
+  grid-template-columns: repeat(7, 1fr) !important;
+  gap: 12px !important;
+  margin-bottom: 20px !important;
+  background-color: #FFFDF9 !important;
+  border: 2px solid #2B2118 !important;
+  border-radius: 12px !important;
+  padding: 12px !important;
+  box-shadow: 4px 4px 0px #2B2118 !important;
+}
+
+.status-card {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  text-align: center !important;
+}
+
+.status-label {
+  font-family: 'Patrick Hand', cursive !important;
+  font-size: 12px !important;
+  color: #718096 !important;
+}
+
+.status-value {
+  font-family: 'CabinSketch', 'Kalam', cursive !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  color: #2D3748 !important;
+}
+
+.status-card.progress-container {
+  min-width: 80px !important;
+}
+
+/* Reports view */
+.reports-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 20px !important;
+}
+
+.reports-grid .parchment-card {
+  grid-column: span 2 !important;
+  max-width: 550px !important;
+  margin: 0 auto !important;
+  width: 100% !important;
+}
+
+.profile-sidebar-tab {
+  width: 200px !important;
+  flex-shrink: 0 !important;
+  background-color: #FFFDF9 !important;
+  border: 2px solid #2B2118 !important;
+  border-radius: 12px !important;
+  padding: 16px !important;
+  box-shadow: 4px 4px 0px #2B2118 !important;
+  text-align: center !important;
+}
+
+/* Go Home Button on Dashboard Header */
+.go-home-btn {
+  color: #64748b !important;
+  font-family: var(--font-main) !important;
+  cursor: pointer !important;
+  background-color: #f1f5f9 !important;
+  border: 1.5px solid #cbd5e1 !important;
+  border-radius: 8px !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 8px 16px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  transition: all .2s cubic-bezier(.4,0,.2,1) !important;
+  display: inline-flex !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02) !important;
+  text-decoration: none !important;
+}
+
+.go-home-btn:hover {
+  color: var(--accent-pink) !important;
+  background-color: #fff0f3 !important;
+  border-color: #ffccd5 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(255, 133, 162, 0.15) !important;
+}
+
+body.dark-mode .go-home-btn {
+  color: #94a3b8 !important;
+  background-color: #1c253b !important;
+  border-color: #2d3958 !important;
+}
+
+body.dark-mode .go-home-btn:hover {
+  color: var(--accent-pink) !important;
+  background-color: #2b1721 !important;
+  border-color: #4f1d24 !important;
+}
+
+/* Responsive adjustment for cozy budget planner home spending overview pie chart */
+@media (max-width: 768px) {
+  .home-pie-layout {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 20px !important;
+  }
+  .home-pie-chart-graphic {
+    width: 280px !important;
+    height: 200px !important;
+    margin: 0 auto !important;
+  }
+  .home-pie-labels {
+    width: 100% !important;
+  }
+}
+

@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Piggy Planner</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Kalam:wght@300;400;700&family=Patrick+Hand&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <!-- Persistent Navigation Bar -->
+    <nav class="app-navbar" id="app-navbar">
+      <div class="navbar-brand">
+        <svg class="brand-logo" viewBox="0 0 24 24" width="28" height="28">
+          <path fill="currentColor" fill-rule="evenodd" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-3 8a1.5 2 0 1 0 0 4 1.5 2 0 0 0 0-4zm6 0a1.5 2 0 1 0 0 4 1.5 2 0 0 0 0-4z"/>
+        </svg>
+        <span class="brand-name">Piggy Planner</span>
+      </div>
+      <div class="navbar-links">
+        <a href="/dashboard" class="nav-link" id="nav-link-dashboard" style="display: none;">Dashboard</a>
+        <a href="/profile" class="nav-link" id="nav-link-profile" style="display: none;">Profile</a>
+        <a href="/login" class="nav-btn active" id="nav-btn-login">Login</a>
+      </div>
+      <div class="navbar-actions">
+        <button id="theme-toggle-btn" class="theme-toggle-btn" title="Toggle Dark/Light Mode">
+          <!-- Moon icon -->
+          <svg class="theme-icon moon-icon" viewBox="0 0 24 24" width="20" height="20">
+            <path fill="currentColor" d="M12.3 22h-.1c-5.5 0-10-4.5-10-10 0-4.8 3.5-8.9 8.2-9.8.5-.1 1 .2 1.2.7.2.5 0 1.1-.4 1.4-2.8 2-3.8 5.7-2.2 8.7 1.6 3 4.9 4.7 8.2 4.1.5-.1 1 .2 1.2.7.2.5 0 1.1-.4 1.4-1.7 1.8-4 2.8-6.2 2.8zm-6-10c0 3.3 2.7 6 6 6 1.4 0 2.7-.5 3.8-1.4-2.5-.2-4.7-1.6-5.9-3.8-1.5-2.9-1.2-6.4.8-9-3 .8-4.7 3.6-4.7 6.8z"/>
+          </svg>
+          <!-- Sun icon -->
+          <svg class="theme-icon sun-icon" viewBox="0 0 24 24" width="20" height="20" style="display:none;">
+            <path fill="currentColor" d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zm1.06-12.37c-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.39.39-1.03 0-1.41zm-12.37 12.37c-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.39.39-1.03 0-1.41z"/>
+          </svg>
+        </button>
+        
+        <!-- Profile shortcut dropdown / avatar -->
+        <div class="nav-profile-dropdown" id="nav-profile-dropdown" style="display: none;">
+          <button class="nav-avatar-btn" id="nav-avatar-btn">
+            <span class="user-avatar-small" id="nav-user-avatar-img" style="display: none;"></span>
+            <span class="user-initials" id="nav-user-initials">U</span>
+          </button>
+          <div class="dropdown-menu" id="avatar-dropdown-menu">
+            <div class="dropdown-header">
+              <p class="dropdown-name" id="dropdown-user-name">User</p>
+              <p class="dropdown-email" id="dropdown-user-email">user@example.com</p>
+            </div>
+            <hr class="dropdown-divider">
+            <a href="/profile" class="dropdown-item">Profile Settings</a>
+            <a href="/dashboard" class="dropdown-item">Dashboard</a>
+            <button class="dropdown-item logout-btn" id="dropdown-logout-btn">Log Out</button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="journal-home-container">
+      <div class="journal-paper">
+        <!-- Notebook Spiral Spine on the Left -->
+        <div class="journal-spiral">
+          <div class="spiral-loop"></div>
+          <div class="spiral-loop"></div>
+          <div class="spiral-loop"></div>
+          <div class="spiral-loop"></div>
+          <div class="spiral-loop"></div>
+          <div class="spiral-loop"></div>
+          <div class="spiral-loop"></div>
+          <div class="spiral-loop"></div>
+        </div>
+
+        <div class="journal-content">
+          <!-- Split Layout -->
+          <div class="login-layout">
+            
+            <!-- Left Illustration Section -->
+            <div class="login-left">
+              <h1>Piggy Planner</h1>
+              <p class="subtitle">Plan today, save tomorrow, achieve your dreams.</p>
+              
+              <div class="login-illustration-container">
+                <!-- Inline Cozy hand-drawn Illustration SVG with displacement map filter -->
+                <svg viewBox="0 0 320 240" class="login-illustration-svg" width="320" height="240">
+                  <defs>
+                    <filter id="sketch-blur" x="-10%" y="-10%" width="120%" height="120%">
+                      <feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="3" result="noise" />
+                      <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G" />
+                    </filter>
+                  </defs>
+                  
+                  <g filter="url(#sketch-blur)" stroke="#2B2118" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    
+                    <!-- Ground anchoring lines -->
+                    <path d="M 20 222 C 100 224, 200 221, 280 217" stroke="#c0b3a1" stroke-width="1.5" />
+                    <path d="M 50 225 C 120 227, 190 225, 250 222" stroke="#c0b3a1" stroke-width="1.2" />
+
+                    <!-- ==========================================
+                       MONTHLY PLAN NOTEBOOK (Rotated)
+                       ========================================== -->
+                    <g transform="rotate(-6, 90, 132)">
+                      <!-- Shadow beneath notebook -->
+                      <path d="M 23 222 C 60 223, 120 222, 157 222" stroke="#d5cab7" stroke-width="1.8" />
+                      
+                      <!-- Notebook Cover / Page background -->
+                      <path d="M 25 45 L 155 45 C 160 45, 162 48, 162 53 L 162 212 C 162 217, 160 220, 155 220 L 25 220 C 20 220, 18 217, 18 212 L 18 53 C 18 48, 20 45, 25 45 Z" fill="#FFFDF9" />
+                      <!-- Margin Red Line -->
+                      <path d="M 48 45 L 48 220" stroke="#ffb3c1" stroke-width="1.2" />
+                      
+                      <!-- Spiral loops on the notebook left edge -->
+                      <!-- 11 loops -->
+                      <path d="M 18 55 C 5 55, 5 62, 18 62" />
+                      <path d="M 18 70 C 5 70, 5 77, 18 77" />
+                      <path d="M 18 85 C 5 85, 5 92, 18 92" />
+                      <path d="M 18 100 C 5 100, 5 107, 18 107" />
+                      <path d="M 18 115 C 5 115, 5 122, 18 122" />
+                      <path d="M 18 130 C 5 130, 5 137, 18 137" />
+                      <path d="M 18 145 C 5 145, 5 152, 18 152" />
+                      <path d="M 18 160 C 5 160, 5 167, 18 167" />
+                      <path d="M 18 175 C 5 175, 5 182, 18 182" />
+                      <path d="M 18 190 C 5 190, 5 197, 18 197" />
+                      <path d="M 18 205 C 5 205, 5 212, 18 212" />
+
+                      <!-- Notebook Title -->
+                      <text x="56" y="68" font-family="'CabinSketch', cursive" font-size="15" font-weight="bold" fill="#2B2118" stroke="none">Monthly Plan</text>
+                      
+                      <!-- Checklist Item 1 (Checked) -->
+                      <rect x="56" y="82" width="11" height="11" rx="2" />
+                      <path d="M 58 87 L 61 90 L 67 81" stroke="#ff85a2" stroke-width="2" />
+                      <text x="74" y="92" font-family="'Patrick Hand', cursive" font-size="13" fill="#4D3E33" stroke="none">Budget</text>
+                      
+                      <!-- Checklist Item 2 (Checked) -->
+                      <rect x="56" y="100" width="11" height="11" rx="2" />
+                      <path d="M 58 105 L 61 108 L 67 99" stroke="#ff85a2" stroke-width="2" />
+                      <text x="74" y="110" font-family="'Patrick Hand', cursive" font-size="13" fill="#4D3E33" stroke="none">Track</text>
+                      
+                      <!-- Checklist Item 3 (Unchecked) -->
+                      <rect x="56" y="118" width="11" height="11" rx="2" />
+                      <text x="74" y="128" font-family="'Patrick Hand', cursive" font-size="13" fill="#4D3E33" stroke="none">Save</text>
+                      
+                      <!-- Checklist Item 4 (Unchecked) -->
+                      <rect x="56" y="136" width="11" height="11" rx="2" />
+                      <text x="74" y="146" font-family="'Patrick Hand', cursive" font-size="13" fill="#4D3E33" stroke="none">Grow</text>
+                      
+                      <!-- Hand-drawn Pie Chart on the Notebook Page -->
+                      <circle cx="128" cy="180" r="18" />
+                      <!-- Slice -->
+                      <path d="M 128 180 L 128 162 A 18 18 0 0 1 144 190 Z" fill="#ff85a2" />
+                      <path d="M 128 180 L 144 190" />
+                      <path d="M 128 180 L 112 188" />
+
+                      <!-- Mini Bar Chart on the Notebook Page -->
+                      <path d="M 56 195 L 96 195" />
+                      <rect x="60" y="180" width="6" height="15" fill="#e8f5e9" />
+                      <rect x="70" y="170" width="6" height="25" fill="#e8f5e9" />
+                      <rect x="80" y="160" width="6" height="35" fill="#ff85a2" />
+                    </g>
+                    
+                    <!-- ==========================================
+                       RUPEE COIN (Rotated)
+                       ========================================== -->
+                    <g transform="rotate(12, 210, 55)">
+                      <!-- Coin circles -->
+                      <circle cx="210" cy="55" r="17" fill="#FFFDF9" />
+                      <circle cx="210" cy="55" r="14" />
+                      <text x="204" y="61" font-family="'CabinSketch', cursive" font-size="18" font-weight="bold" fill="#2B2118" stroke="none">₹</text>
+                      <!-- Radiating shine lines -->
+                      <path d="M 188 48 L 183 45" />
+                      <path d="M 210 32 L 210 26" />
+                      <path d="M 230 45 L 235 42" />
+                      <path d="M 224 67 L 228 72" />
+                    </g>
+
+                    <!-- ==========================================
+                       CALCULATOR (Rotated)
+                       ========================================== -->
+                    <g transform="rotate(8, 220, 148)">
+                      <!-- Shadow beneath calculator -->
+                      <path d="M 188 207 C 205 208, 235 207, 252 207" stroke="#d5cab7" stroke-width="1.8" />
+                      
+                      <!-- Calculator Body -->
+                      <path d="M 190 92 L 250 92 C 255 92, 257 95, 257 99 L 257 198 C 257 202, 255 205, 250 205 L 190 205 C 185 205, 183 202, 183 198 L 183 99 C 183 95, 185 92, 190 92 Z" fill="#FFFDF9" />
+                      <!-- Calculator Screen -->
+                      <rect x="190" y="99" width="60" height="20" rx="3" fill="#E8EDE9" />
+                      <text x="228" y="114" font-family="'Patrick Hand', cursive" font-size="12" fill="#2B2118" stroke="none" text-anchor="end">12,345</text>
+                      
+                      <!-- Calculator Buttons (3x4 grid) -->
+                      <!-- Row 1 -->
+                      <rect x="191" y="127" width="11" height="9" rx="1.5" />
+                      <rect x="205" y="127" width="11" height="9" rx="1.5" />
+                      <rect x="219" y="127" width="11" height="9" rx="1.5" />
+                      <rect x="233" y="127" width="11" height="9" rx="1.5" fill="#ff85a2" />
+
+                      <!-- Row 2 -->
+                      <rect x="191" y="141" width="11" height="9" rx="1.5" />
+                      <rect x="205" y="141" width="11" height="9" rx="1.5" />
+                      <rect x="219" y="141" width="11" height="9" rx="1.5" />
+                      <rect x="233" y="141" width="11" height="9" rx="1.5" />
+
+                      <!-- Row 3 -->
+                      <rect x="191" y="155" width="11" height="9" rx="1.5" />
+                      <rect x="205" y="155" width="11" height="9" rx="1.5" />
+                      <rect x="219" y="155" width="11" height="9" rx="1.5" />
+                      <rect x="233" y="155" width="11" height="9" rx="1.5" />
+
+                      <!-- Row 4 -->
+                      <rect x="191" y="169" width="11" height="9" rx="1.5" />
+                      <rect x="205" y="169" width="11" height="9" rx="1.5" />
+                      <rect x="219" y="169" width="11" height="9" rx="1.5" />
+                      <rect x="233" y="169" width="11" height="9" rx="1.5" fill="#c8e6c9" />
+                    </g>
+                  </g>
+                </svg>
+              </div>
+            </div>
+            
+            <!-- Right Login Form Section -->
+            <div class="login-right">
+              
+              <!-- Cozy Hanging Paper Card -->
+              <div class="login-card-paper">
+                
+                <!-- Rings at the top -->
+                <div class="login-rings-header">
+                  <div class="login-ring"></div>
+                  <div class="login-ring"></div>
+                  <div class="login-ring"></div>
+                </div>
+
+                <!-- Views Container -->
+                <div class="auth-form-container">
+                  
+                  <!-- Form 1: SIGN IN -->
+                  <div id="form-login" class="auth-form-login active">
+                    <h2>Welcome Back!</h2>
+                    <p class="auth-subtitle">Sign in to continue to your budget dashboard.</p>
+                    
+                    <form id="login-form">
+                      <div class="sketch-input-group">
+                        <label for="login-email">Email</label>
+                        <div class="sketch-input-wrapper">
+                          <span class="sketch-input-icon">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                              <polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                          </span>
+                          <input type="email" id="login-email" class="sketch-input" required placeholder="Enter your email" />
+                        </div>
+                      </div>
+                      
+                      <div class="sketch-input-group">
+                        <label for="login-password">Password</label>
+                        <div class="sketch-input-wrapper">
+                          <span class="sketch-input-icon">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                            </svg>
+                          </span>
+                          <input type="password" id="login-password" class="sketch-input" required placeholder="Enter your password" />
+                          <button type="button" class="sketch-input-toggle toggle-password-btn" tabindex="-1">
+                            <!-- Eye icon -->
+                            <svg class="eye-open-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                              <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                      
+                      <a href="#" class="forgot-password-link" id="forgot-password-trigger">Forgot password?</a>
+                      
+                      <button type="submit" class="btn-sketch-green">
+                        <span>Sign In</span>
+                      </button>
+                    </form>
+                    
+                    <div class="sketch-separator">or</div>
+                    
+                    <button type="button" class="btn-google-sketch" id="btn-google-login">
+                      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'><path fill='%23EA4335' d='M5.266 9.765A7.077 7.077 0 0 1 12 4.909c1.69 0 3.218.6 4.418 1.582L19.91 3A11.94 11.94 0 0 0 12 0C7.309 0 3.255 2.536 1.055 6.282l4.21 3.483z'/><path fill='%23FBBC05' d='M1.055 6.282A11.95 11.95 0 0 0 0 12c0 2.055.382 4.018 1.055 5.718l4.21-3.483a7.042 7.042 0 0 1-.84-2.235H12v-4.482H4.425a7.073 7.073 0 0 1 .84-2.236l-4.21-3.482z'/><path fill='%234285F4' d='M12 24c3.245 0 6.218-1.073 8.482-2.918l-3.89-3.218a7.35 7.35 0 0 1-4.592 1.227 7.077 7.077 0 0 1-6.734-4.855l-4.21 3.483C3.255 21.464 7.309 24 12 24z'/><path fill='%2334A853' d='M19.718 14.855c.673-1.7.855-3.664.855-5.718h-8.573v4.482h4.592c-.673 1.7-1.855 3.127-3.482 3.891l3.89 3.218C19.718 20.318 24 16.664 24 12c0-1.127-.127-2.218-.327-3.273L19.718 14.855z'/></svg>" class="google-icon" alt="Google" />
+                      <span>Sign in with Google</span>
+                    </button>
+                    
+                    <p class="auth-switch-link">Don't have an account? <a href="#" id="switch-to-signup-trigger">Sign Up</a></p>
+                  </div>
+                  
+                  <!-- Form 2: SIGN UP -->
+                  <div id="form-signup" class="auth-form-signup">
+                    <h2>Welcome!</h2>
+                    <p class="auth-subtitle">Create a free secure account to start budgeting.</p>
+                    
+                    <form id="signup-form">
+                      <div class="sketch-input-group">
+                        <label for="signup-name">Full Name</label>
+                        <div class="sketch-input-wrapper">
+                          <span class="sketch-input-icon">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                              <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                          </span>
+                          <input type="text" id="signup-name" class="sketch-input" required placeholder="Enter your full name" />
+                        </div>
+                      </div>
+                      
+                      <div class="sketch-input-group">
+                        <label for="signup-email">Email</label>
+                        <div class="sketch-input-wrapper">
+                          <span class="sketch-input-icon">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                              <polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                          </span>
+                          <input type="email" id="signup-email" class="sketch-input" required placeholder="Enter your email" />
+                        </div>
+                      </div>
+                      
+                      <div class="sketch-input-group">
+                        <label for="signup-password">Password</label>
+                        <div class="sketch-input-wrapper">
+                          <span class="sketch-input-icon">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                            </svg>
+                          </span>
+                          <input type="password" id="signup-password" class="sketch-input" required placeholder="Create a password" minlength="6" />
+                          <button type="button" class="sketch-input-toggle toggle-password-btn" tabindex="-1">
+                            <!-- Eye icon -->
+                            <svg class="eye-open-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                              <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                      
+                      <button type="submit" class="btn-sketch-green">
+                        <span>Sign Up</span>
+                      </button>
+                    </form>
+                    
+                    <div class="sketch-separator">or</div>
+                    
+                    <button type="button" class="btn-google-sketch" id="btn-google-signup">
+                      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'><path fill='%23EA4335' d='M5.266 9.765A7.077 7.077 0 0 1 12 4.909c1.69 0 3.218.6 4.418 1.582L19.91 3A11.94 11.94 0 0 0 12 0C7.309 0 3.255 2.536 1.055 6.282l4.21 3.483z'/><path fill='%23FBBC05' d='M1.055 6.282A11.95 11.95 0 0 0 0 12c0 2.055.382 4.018 1.055 5.718l4.21-3.483a7.042 7.042 0 0 1-.84-2.235H12v-4.482H4.425a7.073 7.073 0 0 1 .84-2.236l-4.21-3.482z'/><path fill='%234285F4' d='M12 24c3.245 0 6.218-1.073 8.482-2.918l-3.89-3.218a7.35 7.35 0 0 1-4.592 1.227 7.077 7.077 0 0 1-6.734-4.855l-4.21 3.483C3.255 21.464 7.309 24 12 24z'/><path fill='%2334A853' d='M19.718 14.855c.673-1.7.855-3.664.855-5.718h-8.573v4.482h4.592c-.673 1.7-1.855 3.127-3.482 3.891l3.89 3.218C19.718 20.318 24 16.664 24 12c0-1.127-.127-2.218-.327-3.273L19.718 14.855z'/></svg>" class="google-icon" alt="Google" />
+                      <span>Sign up with Google</span>
+                    </button>
+                    
+                    <p class="auth-switch-link">Already have an account? <a href="#" id="switch-to-login-trigger">Sign In</a></p>
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Login JS Router & logic -->
+    <script type="module" src="/src/login.js"></script>
+  </body>
+</html>
