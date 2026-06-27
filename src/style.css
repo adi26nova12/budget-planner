@@ -2217,10 +2217,10 @@ body.dark-mode .skeleton-column {
    COZY JOURNAL DASHBOARD SIDEBAR & TAB VIEWS
    ========================================== */
 
-/* Hide persistent top navbar on dashboard page */
-#dashboard-view ~ #app-navbar,
-.dashboard-view #app-navbar,
-body:has(#dashboard-view) #app-navbar {
+/* Hide persistent top navbar on dashboard page when dashboard is active */
+#dashboard-view.active ~ #app-navbar,
+.dashboard-view.active #app-navbar,
+body:has(#dashboard-view.active) #app-navbar {
   display: none !important;
 }
 

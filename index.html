@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -611,12 +611,15 @@
                         <td>Bills & Utilities</td>
                         <td class="align-right red-ink">-₹649.00</td>
                       </tr>
-                 TAB 3: BUDGET (PREVIEW)
-                 ========================================== -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
               <!-- ==========================================
                  TAB 3: BUDGET
                  ========================================== -->
-               <div id="tab-view-budget" class="dashboard-tab-view" style="position: relative;">
+              <div id="tab-view-budget" class="dashboard-tab-view" style="position: relative;">
                  <div class="ruled-paper-card" style="padding: 24px 24px 24px 56px;">
                    <div class="ruled-margin-line" style="left: 40px;"></div>
                    <h3 class="ruled-title font-handwriting">Monthly Budget Envelope Sheets</h3>
@@ -914,7 +917,7 @@
                 <div class="ruled-paper-card" style="padding: 24px; min-height: 260px; display: flex; flex-direction: column; align-items: center;">
                   <h3 class="ruled-title font-handwriting">Handwritten Sticky-Note Envelopes</h3>
                   
-                  <div class="sticky-notes-container" style="margin-top: 10px; gap: 16px; display: flex; justify-content: center; flex-wrap: wrap;">
+                  <div class="sticky-notes-container" id="home-sticky-notes-container" style="margin-top: 10px; gap: 16px; display: flex; justify-content: center; flex-wrap: wrap;">
                     <div class="sticky-note note-pink" style="width: 140px; min-height: 140px; padding: 14px;">
                       <div class="sticky-tape"></div>
                       <div class="note-content">
@@ -942,6 +945,51 @@
                   </div>
                 </div>
 
+                <hr style="border: none; border-top: 2.5px dashed #2B2118; margin: 24px 0 20px 0;">
+
+                <div id="home-categories-editor-section" style="display: none; width: 100%; box-sizing: border-box; padding: 0 24px;">
+                  <h4 class="font-handwriting" style="font-size: 20px; color: #2B2118; margin: 0 0 12px 0;">Add / Update Category Envelope Note</h4>
+                  <form id="home-categories-form" style="display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-end; width: 100%;">
+                    <div style="flex: 1.2; min-width: 160px; display: flex; flex-direction: column; gap: 4px;">
+                      <label for="home-cat-name" style="font-family: 'Patrick Hand', cursive; font-size: 14px; color: #7A695C; font-weight: 600;">Category Envelope</label>
+                      <select id="home-cat-name" style="width: 100%; padding: 8px 12px; font-family: 'Patrick Hand', cursive; font-size: 15px; border: 2.5px solid #2B2118; border-radius: 8px; background-color: #FFFDF9; box-shadow: 3px 3px 0 #2B2118; color: #2B2118; outline: none;" required>
+                        <option value="" disabled selected>Select category...</option>
+                      </select>
+                    </div>
+
+                    <div id="home-cat-custom-wrapper" style="flex: 1.2; min-width: 160px; display: none; flex-direction: column; gap: 4px;">
+                      <label for="home-cat-custom-name" style="font-family: 'Patrick Hand', cursive; font-size: 14px; color: #7A695C; font-weight: 600;">Custom Envelope Name</label>
+                      <input type="text" id="home-cat-custom-name" placeholder="e.g. Shopping" style="width: 100%; padding: 8px 12px; font-family: 'Patrick Hand', cursive; font-size: 15px; border: 2.5px solid #2B2118; border-radius: 8px; background-color: #FFFDF9; box-shadow: 3px 3px 0 #2B2118; color: #2B2118; outline: none; box-sizing: border-box;">
+                    </div>
+
+                    <div style="flex: 1; min-width: 120px; display: flex; flex-direction: column; gap: 4px;">
+                      <label for="home-cat-limit" style="font-family: 'Patrick Hand', cursive; font-size: 14px; color: #7A695C; font-weight: 600;">Limit Target</label>
+                      <div style="position: relative; display: flex; align-items: center; width: 100%;">
+                        <span style="position: absolute; left: 10px; font-family: 'Patrick Hand', cursive; font-size: 16px; color: #2B2118; font-weight: 600;">&#8377;</span>
+                        <input type="number" id="home-cat-limit" placeholder="0.00" min="0" step="0.01" style="width: 100%; padding: 8px 12px 8px 24px; font-family: 'Patrick Hand', cursive; font-size: 15px; border: 2.5px solid #2B2118; border-radius: 8px; background-color: #FFFDF9; box-shadow: 3px 3px 0 #2B2118; color: #2B2118; outline: none; box-sizing: border-box;" required>
+                      </div>
+                    </div>
+
+                    <div style="flex: 1; min-width: 120px; display: flex; flex-direction: column; gap: 4px;">
+                      <label for="home-cat-color" style="font-family: 'Patrick Hand', cursive; font-size: 14px; color: #7A695C; font-weight: 600;">Sticky Note Color</label>
+                      <select id="home-cat-color" style="width: 100%; padding: 8px 12px; font-family: 'Patrick Hand', cursive; font-size: 15px; border: 2.5px solid #2B2118; border-radius: 8px; background-color: #FFFDF9; box-shadow: 3px 3px 0 #2B2118; color: #2B2118; outline: none;">
+                        <option value="note-pink" selected>Pink</option>
+                        <option value="note-green">Green</option>
+                        <option value="note-blue">Blue</option>
+                        <option value="note-yellow">Yellow</option>
+                        <option value="note-purple">Purple</option>
+                      </select>
+                    </div>
+
+                    <div style="flex: 1.8; min-width: 180px; display: flex; flex-direction: column; gap: 4px;">
+                      <label for="home-cat-description" style="font-family: 'Patrick Hand', cursive; font-size: 14px; color: #7A695C; font-weight: 600;">Notes / Description</label>
+                      <input type="text" id="home-cat-description" placeholder="e.g. Subscriptions, coffee, hobbies" style="width: 100%; padding: 8px 12px; font-family: 'Patrick Hand', cursive; font-size: 15px; border: 2.5px solid #2B2118; border-radius: 8px; background-color: #FFFDF9; box-shadow: 3px 3px 0 #2B2118; color: #2B2118; outline: none; box-sizing: border-box;">
+                    </div>
+
+                    <button type="submit" class="btn-sketch btn-primary-sketch" style="margin: 0; padding: 8px 20px; font-size: 15px; height: 42px; cursor: pointer; box-shadow: 3px 3px 0px #2B2118; border: 2.5px solid #2B2118;">Save Note</button>
+                  </form>
+                </div>
+
                 <!-- CTA Overlay -->
                 <div class="preview-cta-overlay" style="position: absolute; inset: 0; background: rgba(250, 248, 245, 0.7); backdrop-filter: blur(2px); display: flex; align-items: center; justify-content: center;">
                   <div class="summary-card text-center" style="max-width: 400px; padding: 28px; border: 2.5px solid #2B2118; box-shadow: 6px 6px 0px #2B2118; background-color: #FFFDF9;">
@@ -963,17 +1011,22 @@
                   <h3 class="ruled-title font-handwriting">Cozy Settings Sheet</h3>
                   
                   <div class="sketch-input-group" style="margin-bottom: 16px;">
-                    <label>Workspace Theme</label>
+                    <label style="font-family: 'Patrick Hand', cursive; font-size: 15px; color: #7A695C; font-weight: 600;">Workspace Theme</label>
                     <div style="display: flex; gap: 12px; margin-top: 6px;">
-                      <button class="btn-sketch btn-secondary-sketch" style="margin:0; padding: 6px 16px; font-size: 14px; flex: 1;" disabled>Cozy Light</button>
-                      <button class="btn-sketch btn-secondary-sketch" style="margin:0; padding: 6px 16px; font-size: 14px; flex: 1;" disabled>Cozy Dark</button>
+                      <button id="settings-theme-light" class="btn-sketch btn-secondary-sketch" style="margin:0; padding: 8px 16px; font-size: 14px; flex: 1;">Cozy Light</button>
+                      <button id="settings-theme-dark" class="btn-sketch btn-secondary-sketch" style="margin:0; padding: 8px 16px; font-size: 14px; flex: 1;">Cozy Dark</button>
                     </div>
                   </div>
                   
-                  <div class="sketch-input-group" style="margin-bottom: 16px;">
-                    <label>Preferred Currency</label>
-                    <select class="sketch-input" style="padding: 8px 14px; background: transparent; pointer-events: none;" disabled>
-                      <option>₹ (INR)</option>
+                  <div class="sketch-input-group" style="margin-bottom: 16px; display: flex; flex-direction: column; gap: 4px;">
+                    <label for="settings-currency" style="font-family: 'Patrick Hand', cursive; font-size: 15px; color: #7A695C; font-weight: 600;">Preferred Currency</label>
+                    <select id="settings-currency" style="width: 100%; padding: 8px 12px; font-family: 'Patrick Hand', cursive; font-size: 15px; border: 2.5px solid #2B2118; border-radius: 8px; background-color: #FFFDF9; box-shadow: 3px 3px 0 #2B2118; color: #2B2118; outline: none; box-sizing: border-box;">
+                      <option value="₹">₹ (INR)</option>
+                      <option value="$">$ (USD)</option>
+                      <option value="€">€ (EUR)</option>
+                      <option value="£">£ (GBP)</option>
+                      <option value="¥">¥ (JPY)</option>
+                      <option value="A$">A$ (AUD)</option>
                     </select>
                   </div>
                 </div>

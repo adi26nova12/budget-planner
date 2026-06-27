@@ -435,22 +435,38 @@ async function loadRealData(session) {
       totalExpensesSum += savingsActual;
     }
 
-    const realSpendingData = [];
     const colors = ['#fef08a', '#fbcfe8', '#e9d5ff', '#dcfce7', '#ffedd5', '#fed7aa', '#bfdbfe', '#c7d2fe', '#fbcfe8'];
     const patterns = ['none', 'dots', 'hatch-diagonal', 'hatch-vertical', 'hatch-cross', 'none', 'dots', 'hatch-diagonal', 'hatch-vertical'];
     
-    let colorIdx = 0;
+    let otherSum = 0;
+    const filteredSpendingData = [];
+    
     for (const [label, val] of Object.entries(categoryTotals)) {
-      realSpendingData.push({
-        label,
-        value: val,
-        color: colors[colorIdx % colors.length],
-        pattern: patterns[colorIdx % patterns.length]
-      });
-      colorIdx++;
+      const pct = totalExpensesSum > 0 ? (val / totalExpensesSum) : 0;
+      if (pct < 0.02) { // Aggregate categories representing less than 2%
+        otherSum += val;
+      } else {
+        filteredSpendingData.push({ label, value: val });
+      }
     }
-
-    realSpendingData.sort((a, b) => b.value - a.value);
+    
+    if (otherSum > 0) {
+      const existingOther = filteredSpendingData.find(item => item.label.toLowerCase() === 'others' || item.label.toLowerCase() === 'other');
+      if (existingOther) {
+        existingOther.value += otherSum;
+      } else {
+        filteredSpendingData.push({ label: 'Others', value: otherSum });
+      }
+    }
+    
+    filteredSpendingData.sort((a, b) => b.value - a.value);
+    
+    const realSpendingData = filteredSpendingData.map((item, idx) => ({
+      ...item,
+      color: colors[idx % colors.length],
+      pattern: patterns[idx % patterns.length]
+    }));
+    
     updatePieChartAndLegend(realSpendingData, totalExpensesSum);
 
     // Render Budget Envelopes table and status metrics
@@ -563,6 +579,59 @@ async function loadRealData(session) {
 
     // Render reports tab content
     renderReportsTab(budgetData);
+
+    // Render categories tab
+    renderCategoriesTab(budgetData);
+
+    // Hide categories guest overlay
+    const categoriesOverlay = document.querySelector('#tab-view-categories .preview-cta-overlay');
+    if (categoriesOverlay) {
+      categoriesOverlay.style.display = 'none';
+    }
+
+    // Show categories form section
+    const categoriesEditor = document.getElementById('home-categories-editor-section');
+    if (categoriesEditor) {
+      categoriesEditor.style.display = 'block';
+    }
+
+    // Dynamically populate Category select dropdown for Categories tab
+    const catSelect = document.getElementById('home-cat-name');
+    if (catSelect) {
+      const selectedValue = catSelect.value;
+      catSelect.innerHTML = '<option value="" disabled selected>Select category...</option>';
+      const allCategories = new Set(defaultCategories);
+      if (budgetData.expenses) {
+        budgetData.expenses.forEach(e => {
+          if (e.category) {
+            allCategories.add(e.category);
+          }
+        });
+      }
+      allCategories.forEach(cat => {
+        const opt = document.createElement('option');
+        opt.value = cat;
+        opt.textContent = cat;
+        catSelect.appendChild(opt);
+      });
+      const customOpt = document.createElement('option');
+      customOpt.value = '__CUSTOM__';
+      customOpt.textContent = '+ Add Custom Category...';
+      catSelect.appendChild(customOpt);
+      
+      if (selectedValue && [...allCategories].includes(selectedValue)) {
+        catSelect.value = selectedValue;
+      }
+    }
+
+    // Hide settings guest overlay
+    const settingsOverlay = document.querySelector('#tab-view-settings .preview-cta-overlay');
+    if (settingsOverlay) {
+      settingsOverlay.style.display = 'none';
+    }
+
+    // Update settings controls states
+    updateSettingsFields(budgetData);
 
   } catch (error) {
     console.error('[HOME] Error loading real budget data:', error);
@@ -1060,10 +1129,13 @@ function initHome() {
     updateNavbar(session);
     if (session) {
       loadRealData(session);
+    } else {
+      window.location.href = '/login';
     }
   }).catch(err => {
     console.warn('[AUTH] Failed to fetch session on landing load:', err);
     updateNavbar(null);
+    window.location.href = '/login';
   });
 
   // Keep checking auth status updates
@@ -1072,6 +1144,8 @@ function initHome() {
     updateNavbar(session);
     if (session) {
       loadRealData(session);
+    } else if (event === 'SIGNED_OUT') {
+      window.location.href = '/login';
     }
   });
 
@@ -1081,6 +1155,8 @@ function initHome() {
   initCTAListeners();
   initBudgetEditor();
   initGoalsEditor();
+  initCategoriesEditor();
+  initSettingsListeners();
 
   // "View All Goals" button on Home summary widget
   const gotoGoalsBtn = document.getElementById('home-goto-goals-btn');
@@ -1412,5 +1488,284 @@ function renderReportsTab(budgetData) {
         suggestionsList.appendChild(div);
       });
     }
+  }
+}
+
+// ── Categories Tab ──────────────────────────────────────────
+function renderCategoriesTab(budgetData) {
+  const container = document.getElementById('home-sticky-notes-container');
+  if (!container) return;
+  container.innerHTML = '';
+
+  const expenses = budgetData.expenses || [];
+  const currencySymbol = budgetData.settings?.currency || '₹';
+
+  const defaultColors = ['note-pink', 'note-green', 'note-blue', 'note-yellow', 'note-purple'];
+
+  if (expenses.length === 0) {
+    container.innerHTML = `
+      <div style="font-family: 'Patrick Hand', cursive; color: #7A695C; font-size: 16px; padding: 24px; text-align: center; width: 100%;">
+        No categories found. Add one below to see your cozy envelope sticky notes!
+      </div>
+    `;
+    return;
+  }
+
+  expenses.forEach((e, idx) => {
+    if (!e.category) return;
+
+    const limit = e.budget || 0;
+    const spent = e.actual || 0;
+    const colorClass = e.color || defaultColors[idx % defaultColors.length];
+    const desc = e.description || '';
+
+    // Calculate rotation and style nicely like hand-drawn sticky notes
+    const rotation = idx % 2 === 0 ? -1.5 + (idx % 3) * 0.5 : 1.5 - (idx % 3) * 0.5;
+
+    const note = document.createElement('div');
+    note.className = `sticky-note ${colorClass}`;
+    note.style.transform = `rotate(${rotation}deg)`;
+    note.style.margin = '8px';
+    note.style.width = '160px';
+    note.style.minHeight = '160px';
+    note.style.padding = '18px';
+
+    note.innerHTML = `
+      <div class="sticky-tape"></div>
+      <div class="note-content">
+        <h3 class="note-title" style="font-size: 18px; margin: 0 0 4px 0; font-family: 'CabinSketch', cursive; font-weight: 700;">${escapeHTML(e.category)}</h3>
+        <p class="note-amount" style="font-size: 16px; margin: 0 0 8px 0; font-family: 'Caveat', cursive; color: #5c4a3a; font-weight: 700;">
+          Limit: ${formatCurrency(limit, currencySymbol)}<br>
+          <span style="font-size: 14px; color: ${spent > limit ? '#c62828' : '#2e7d32'}; font-family: 'Patrick Hand', cursive;">
+            Spent: ${formatCurrency(spent, currencySymbol)}
+          </span>
+        </p>
+        ${desc ? `<p class="note-body" style="font-size: 13px; line-height: 1.2; margin: 0; color: #555;">${escapeHTML(desc)}</p>` : ''}
+      </div>
+    `;
+    container.appendChild(note);
+  });
+}
+
+function initCategoriesEditor() {
+  const categorySelect = document.getElementById('home-cat-name');
+  const limitInput = document.getElementById('home-cat-limit');
+  const customCategoryWrapper = document.getElementById('home-cat-custom-wrapper');
+  const customCategoryInput = document.getElementById('home-cat-custom-name');
+  const colorSelect = document.getElementById('home-cat-color');
+  const descriptionInput = document.getElementById('home-cat-description');
+  const categoriesForm = document.getElementById('home-categories-form');
+
+  if (categorySelect && limitInput && customCategoryWrapper && customCategoryInput) {
+    categorySelect.addEventListener('change', () => {
+      const val = categorySelect.value;
+      if (val === '__CUSTOM__') {
+        customCategoryWrapper.style.display = 'flex';
+        customCategoryInput.required = true;
+        limitInput.value = '';
+        if (descriptionInput) descriptionInput.value = '';
+      } else {
+        customCategoryWrapper.style.display = 'none';
+        customCategoryInput.required = false;
+        customCategoryInput.value = '';
+        
+        // Pre-fill existing limit target & description if found
+        if (currentBudgetData && currentBudgetData.expenses) {
+          const found = currentBudgetData.expenses.find(e => e.category === val);
+          if (found) {
+            limitInput.value = found.budget || 0;
+            if (descriptionInput) descriptionInput.value = found.description || '';
+            if (colorSelect) colorSelect.value = found.color || 'note-pink';
+          } else {
+            limitInput.value = '';
+            if (descriptionInput) descriptionInput.value = '';
+            if (colorSelect) colorSelect.value = 'note-pink';
+          }
+        }
+      }
+    });
+  }
+
+  if (categoriesForm) {
+    categoriesForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!currentSession || !currentBudgetData) {
+        showStickyNote('You must be logged in to manage category envelopes.');
+        return;
+      }
+
+      const categoryVal = categorySelect.value;
+      let targetCategory = '';
+      if (categoryVal === '__CUSTOM__') {
+        targetCategory = customCategoryInput.value.trim();
+      } else {
+        targetCategory = categoryVal;
+      }
+
+      if (!targetCategory) {
+        showStickyNote('Please specify a category envelope name.');
+        return;
+      }
+
+      const limitVal = parseFloat(limitInput.value);
+      if (isNaN(limitVal) || limitVal < 0) {
+        showStickyNote('Please enter a valid limit target.');
+        return;
+      }
+
+      const colorVal = colorSelect?.value || 'note-pink';
+      const descVal = descriptionInput?.value.trim() || '';
+
+      // Update state
+      if (!currentBudgetData.expenses) {
+        currentBudgetData.expenses = [];
+      }
+
+      let found = currentBudgetData.expenses.find(item => item.category && item.category.toLowerCase() === targetCategory.toLowerCase());
+      if (found) {
+        found.budget = limitVal;
+        found.color = colorVal;
+        found.description = descVal;
+      } else {
+        let emptySlot = currentBudgetData.expenses.find(item => !item.category);
+        if (emptySlot) {
+          emptySlot.category = targetCategory;
+          emptySlot.budget = limitVal;
+          emptySlot.actual = 0;
+          emptySlot.color = colorVal;
+          emptySlot.description = descVal;
+        } else {
+          currentBudgetData.expenses.push({
+            id: Date.now(),
+            category: targetCategory,
+            budget: limitVal,
+            actual: 0,
+            color: colorVal,
+            description: descVal
+          });
+        }
+      }
+
+      // Send the update to the backend
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/budget`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${currentSession.access_token}`
+          },
+          body: JSON.stringify({
+            month: currentBudgetData.settings.month.toUpperCase(),
+            year: currentBudgetData.settings.year.toString(),
+            data: currentBudgetData
+          })
+        });
+
+        if (response.ok) {
+          showStickyNote(`Success: Envelope "${targetCategory}" saved! ✉️`);
+          categoriesForm.reset();
+          if (customCategoryWrapper) {
+            customCategoryWrapper.style.display = 'none';
+            customCategoryInput.required = false;
+          }
+          loadRealData(currentSession);
+        } else {
+          throw new Error('Save budget envelope failed');
+        }
+      } catch (err) {
+        console.error('[HOME CATEGORIES SAVE] Error:', err);
+        showStickyNote('Failed to save category envelope. Please try again.');
+      }
+    });
+  }
+}
+
+// ── Settings Tab ─────────────────────────────────────────────
+function updateSettingsFields(budgetData) {
+  const isDark = document.body.classList.contains('dark-mode');
+  const lightBtn = document.getElementById('settings-theme-light');
+  const darkBtn = document.getElementById('settings-theme-dark');
+  
+  if (lightBtn && darkBtn) {
+    if (isDark) {
+      lightBtn.classList.remove('btn-primary-sketch');
+      lightBtn.classList.add('btn-secondary-sketch');
+      darkBtn.classList.remove('btn-secondary-sketch');
+      darkBtn.classList.add('btn-primary-sketch');
+    } else {
+      lightBtn.classList.remove('btn-secondary-sketch');
+      lightBtn.classList.add('btn-primary-sketch');
+      darkBtn.classList.remove('btn-primary-sketch');
+      darkBtn.classList.add('btn-secondary-sketch');
+    }
+  }
+
+  const currencySelect = document.getElementById('settings-currency');
+  if (currencySelect) {
+    currencySelect.value = budgetData.settings?.currency || '₹';
+  }
+}
+
+function initSettingsListeners() {
+  const lightBtn = document.getElementById('settings-theme-light');
+  const darkBtn = document.getElementById('settings-theme-dark');
+  const currencySelect = document.getElementById('settings-currency');
+
+  if (lightBtn && darkBtn) {
+    lightBtn.addEventListener('click', () => {
+      if (document.body.classList.contains('dark-mode')) {
+        toggleTheme();
+        if (currentBudgetData) updateSettingsFields(currentBudgetData);
+      }
+    });
+
+    darkBtn.addEventListener('click', () => {
+      if (!document.body.classList.contains('dark-mode')) {
+        toggleTheme();
+        if (currentBudgetData) updateSettingsFields(currentBudgetData);
+      }
+    });
+  }
+
+  if (currencySelect) {
+    currencySelect.addEventListener('change', async () => {
+      if (!currentSession || !currentBudgetData) {
+        showStickyNote('You must be logged in to modify settings.');
+        return;
+      }
+
+      const newCurrency = currencySelect.value;
+      if (!currentBudgetData.settings) {
+        currentBudgetData.settings = {};
+      }
+      
+      currentBudgetData.settings.currency = newCurrency;
+
+      // Save updated settings to backend
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/budget`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${currentSession.access_token}`
+          },
+          body: JSON.stringify({
+            month: currentBudgetData.settings.month.toUpperCase(),
+            year: currentBudgetData.settings.year.toString(),
+            data: currentBudgetData
+          })
+        });
+
+        if (response.ok) {
+          showStickyNote(`Currency changed to ${newCurrency}!`);
+          loadRealData(currentSession);
+        } else {
+          throw new Error('Save settings failed');
+        }
+      } catch (err) {
+        console.error('[HOME SETTINGS SAVE] Error:', err);
+        showStickyNote('Failed to save preferred currency.');
+      }
+    });
   }
 }

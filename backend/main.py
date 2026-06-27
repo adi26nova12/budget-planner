@@ -172,17 +172,17 @@ if env_origins:
     cors_origins.extend([origin.strip() for origin in env_origins.split(",") if origin.strip()])
 
 app.add_middleware(
+    RateLimitMiddleware,
+    max_requests=60,
+    window_seconds=60
+)
+
+app.add_middleware(
     CORSMiddleware,
     allow_origins=cors_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
-)
-
-app.add_middleware(
-    RateLimitMiddleware,
-    max_requests=60,
-    window_seconds=60
 )
 
 

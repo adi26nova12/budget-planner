@@ -38,7 +38,7 @@ function toggleThemeIcons(theme) {
 function checkSessionAndRedirect() {
   supabase.auth.getSession().then(({ data: { session } }) => {
     if (session) {
-      window.location.replace('/dashboard');
+      window.location.replace('/');
     }
   }).catch(err => {
     console.warn('[AUTH] Session check error:', err);
@@ -107,7 +107,7 @@ function initAuthHandlers() {
         if (error) throw error;
         
         // Success -> redirect
-        window.location.replace('/dashboard');
+        window.location.replace('/');
       } catch (err) {
         alert('Login Error: ' + err.message);
       } finally {
@@ -158,7 +158,7 @@ function initAuthHandlers() {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: window.location.origin + '/dashboard'
+          redirectTo: window.location.origin + '/'
         }
       });
       if (error) throw error;
@@ -229,7 +229,7 @@ function init() {
   // Session listener redirect
   supabase.auth.onAuthStateChange((event, session) => {
     if (session) {
-      window.location.replace('/dashboard');
+      window.location.replace('/');
     }
   });
 }
