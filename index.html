@@ -613,6 +613,57 @@
                       </tr>
                     </tbody>
                   </table>
+
+                  <hr style="border: none; border-top: 2.5px dashed #2B2118; margin: 24px 0 20px 0;">
+
+                  <div id="home-transactions-editor-section" style="display: none;">
+                    <h4 class="font-handwriting" style="font-size: 20px; color: #2B2118; margin: 0 0 12px 0;">&#10022; Add a New Transaction</h4>
+                    <form id="home-transaction-form" style="display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-end;">
+                      
+                      <!-- Date Input -->
+                      <div style="flex: 1; min-width: 120px; display: flex; flex-direction: column; gap: 4px;">
+                        <label for="home-tx-date" style="font-family: 'Patrick Hand', cursive; font-size: 14px; color: #7A695C; font-weight: 600;">Date</label>
+                        <input type="date" id="home-tx-date" style="width: 100%; padding: 8px 12px; font-family: 'Patrick Hand', cursive; font-size: 15px; border: 2.5px solid #2B2118; border-radius: 8px; background-color: #FFFDF9; box-shadow: 3px 3px 0 #2B2118; color: #2B2118; outline: none; box-sizing: border-box;" required>
+                      </div>
+
+                      <!-- Description Input -->
+                      <div style="flex: 1.5; min-width: 160px; display: flex; flex-direction: column; gap: 4px;">
+                        <label for="home-tx-desc" style="font-family: 'Patrick Hand', cursive; font-size: 14px; color: #7A695C; font-weight: 600;">Description</label>
+                        <input type="text" id="home-tx-desc" placeholder="e.g. Grocery Store" style="width: 100%; padding: 8px 12px; font-family: 'Patrick Hand', cursive; font-size: 15px; border: 2.5px solid #2B2118; border-radius: 8px; background-color: #FFFDF9; box-shadow: 3px 3px 0 #2B2118; color: #2B2118; outline: none; box-sizing: border-box;" required>
+                      </div>
+
+                      <!-- Type Select -->
+                      <div style="flex: 1; min-width: 120px; display: flex; flex-direction: column; gap: 4px;">
+                        <label for="home-tx-type" style="font-family: 'Patrick Hand', cursive; font-size: 14px; color: #7A695C; font-weight: 600;">Type</label>
+                        <select id="home-tx-type" style="width: 100%; padding: 8px 12px; font-family: 'Patrick Hand', cursive; font-size: 15px; border: 2.5px solid #2B2118; border-radius: 8px; background-color: #FFFDF9; box-shadow: 3px 3px 0 #2B2118; color: #2B2118; outline: none;" required>
+                          <option value="expense">Expense (Paid)</option>
+                          <option value="income">Income (Received)</option>
+                          <option value="bill">Bill Payment</option>
+                          <option value="debt">Debt / Loan</option>
+                        </select>
+                      </div>
+
+                      <!-- Category Select -->
+                      <div style="flex: 1.2; min-width: 140px; display: flex; flex-direction: column; gap: 4px;">
+                        <label for="home-tx-category" style="font-family: 'Patrick Hand', cursive; font-size: 14px; color: #7A695C; font-weight: 600;">Category</label>
+                        <select id="home-tx-category" style="width: 100%; padding: 8px 12px; font-family: 'Patrick Hand', cursive; font-size: 15px; border: 2.5px solid #2B2118; border-radius: 8px; background-color: #FFFDF9; box-shadow: 3px 3px 0 #2B2118; color: #2B2118; outline: none;" required>
+                          <!-- Populated by JS -->
+                        </select>
+                      </div>
+
+                      <!-- Amount Input -->
+                      <div style="flex: 1; min-width: 110px; display: flex; flex-direction: column; gap: 4px;">
+                        <label for="home-tx-amount" style="font-family: 'Patrick Hand', cursive; font-size: 14px; color: #7A695C; font-weight: 600;">Amount</label>
+                        <div style="position: relative; display: flex; align-items: center; width: 100%;">
+                          <span style="position: absolute; left: 10px; font-family: 'Patrick Hand', cursive; font-size: 16px; color: #2B2118; font-weight: 600;">&#8377;</span>
+                          <input type="number" id="home-tx-amount" placeholder="0.00" min="0.01" step="0.01" style="width: 100%; padding: 8px 12px 8px 24px; font-family: 'Patrick Hand', cursive; font-size: 15px; border: 2.5px solid #2B2118; border-radius: 8px; background-color: #FFFDF9; box-shadow: 3px 3px 0 #2B2118; color: #2B2118; outline: none; box-sizing: border-box;" required>
+                        </div>
+                      </div>
+
+                      <!-- Submit Button -->
+                      <button type="submit" class="btn-sketch btn-primary-sketch" style="margin: 0; padding: 8px 20px; font-size: 15px; height: 42px; cursor: pointer; box-shadow: 3px 3px 0px #2B2118; border: 2.5px solid #2B2118;">Add Transaction</button>
+                    </form>
+                  </div>
                 </div>
               </div>
 

@@ -595,6 +595,13 @@ async function loadRealData(session) {
       categoriesEditor.style.display = 'block';
     }
 
+    // Show transactions editor section
+    const txEditor = document.getElementById('home-transactions-editor-section');
+    if (txEditor) {
+      txEditor.style.display = 'block';
+    }
+    updateTransactionCategoryDropdown();
+
     // Dynamically populate Category select dropdown for Categories tab
     const catSelect = document.getElementById('home-cat-name');
     if (catSelect) {
@@ -1173,6 +1180,7 @@ function initHome() {
   initGoalsEditor();
   initCategoriesEditor();
   initSettingsListeners();
+  initTransactionEditor();
 
   // "View All Goals" button on Home summary widget
   const gotoGoalsBtn = document.getElementById('home-goto-goals-btn');
@@ -1781,6 +1789,231 @@ function initSettingsListeners() {
       } catch (err) {
         console.error('[HOME SETTINGS SAVE] Error:', err);
         showStickyNote('Failed to save preferred currency.');
+      }
+    });
+  }
+}
+
+// ── Transactions Editor ──────────────────────────────────────
+function updateTransactionCategoryDropdown() {
+  const typeSelect = document.getElementById('home-tx-type');
+  const catSelect = document.getElementById('home-tx-category');
+  if (!typeSelect || !catSelect) return;
+
+  const type = typeSelect.value;
+  catSelect.innerHTML = '';
+
+  let options = [];
+  if (type === 'expense') {
+    const expenseCats = new Set();
+    if (currentBudgetData && currentBudgetData.expenses) {
+      currentBudgetData.expenses.forEach(e => {
+        if (e.category) expenseCats.add(e.category);
+      });
+    }
+    defaultCategories.forEach(c => expenseCats.add(c));
+    options = Array.from(expenseCats);
+  } else if (type === 'income') {
+    const incomeCats = new Set(['Income', 'Paycheck', 'Side Hustle']);
+    if (currentBudgetData && currentBudgetData.income) {
+      currentBudgetData.income.forEach(i => {
+        if (i.description) incomeCats.add(i.description);
+      });
+    }
+    options = Array.from(incomeCats);
+  } else if (type === 'bill') {
+    const billCats = new Set(['Bills']);
+    if (currentBudgetData && currentBudgetData.bills) {
+      currentBudgetData.bills.forEach(b => {
+        if (b.description) billCats.add(b.description);
+      });
+    }
+    options = Array.from(billCats);
+  } else if (type === 'debt') {
+    const debtCats = new Set(['Debt / Loans']);
+    if (currentBudgetData && currentBudgetData.debt) {
+      currentBudgetData.debt.forEach(d => {
+        if (d.description) debtCats.add(d.description);
+      });
+    }
+    options = Array.from(debtCats);
+  }
+
+  options.forEach(optVal => {
+    const opt = document.createElement('option');
+    opt.value = optVal;
+    opt.textContent = optVal;
+    catSelect.appendChild(opt);
+  });
+}
+
+function initTransactionEditor() {
+  const typeSelect = document.getElementById('home-tx-type');
+  const txForm = document.getElementById('home-transaction-form');
+  const dateInput = document.getElementById('home-tx-date');
+
+  if (dateInput) {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    dateInput.value = `${yyyy}-${mm}-${dd}`;
+  }
+
+  if (typeSelect) {
+    typeSelect.addEventListener('change', updateTransactionCategoryDropdown);
+  }
+
+  if (txForm) {
+    txForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!currentSession || !currentBudgetData) {
+        showStickyNote('You must be logged in to add a transaction.');
+        return;
+      }
+
+      const descInput = document.getElementById('home-tx-desc');
+      const catInput = document.getElementById('home-tx-category');
+      const amountInput = document.getElementById('home-tx-amount');
+
+      if (!dateInput || !descInput || !typeSelect || !catInput || !amountInput) return;
+
+      const dateVal = dateInput.value;
+      const descVal = descInput.value.trim();
+      const typeVal = typeSelect.value;
+      const catVal = catInput.value;
+      const amountVal = parseFloat(amountInput.value);
+
+      if (!dateVal || !descVal || isNaN(amountVal) || amountVal <= 0) {
+        showStickyNote('Please enter valid transaction details.');
+        return;
+      }
+
+      const dateObj = new Date(dateVal);
+      const monthNamesShort = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      const formattedDate = `${dateObj.getDate()} ${monthNamesShort[dateObj.getMonth()]} ${dateObj.getFullYear()}`;
+
+      const newTx = {
+        id: Date.now().toString(),
+        date: formattedDate,
+        description: descVal,
+        category: catVal,
+        amount: amountVal,
+        type: typeVal === 'income' ? 'received' : 'sent',
+        table: typeVal
+      };
+
+      if (!currentBudgetData.settings) currentBudgetData.settings = {};
+      if (!currentBudgetData.settings.importedStatements) {
+        currentBudgetData.settings.importedStatements = [];
+      }
+
+      let manualStmt = currentBudgetData.settings.importedStatements.find(s => s.filename === "Manual Transactions");
+      if (!manualStmt) {
+        manualStmt = {
+          id: "manual_stmt_" + Date.now(),
+          filename: "Manual Transactions",
+          transactions: []
+        };
+        currentBudgetData.settings.importedStatements.push(manualStmt);
+      }
+      manualStmt.transactions.push(newTx);
+
+      if (typeVal === 'income') {
+        let incRow = currentBudgetData.income.find(i => i.description === catVal);
+        if (!incRow) {
+          incRow = currentBudgetData.income.find(i => i.description === '');
+        }
+        if (incRow) {
+          incRow.description = catVal;
+          incRow.actual = (incRow.actual || 0) + amountVal;
+        } else {
+          currentBudgetData.income.push({
+            id: Date.now(),
+            description: catVal,
+            expected: 0,
+            actual: amountVal
+          });
+        }
+      } else if (typeVal === 'bill') {
+        let billRow = currentBudgetData.bills.find(b => b.description === catVal);
+        if (!billRow) {
+          billRow = currentBudgetData.bills.find(b => b.description === '');
+        }
+        if (billRow) {
+          billRow.description = catVal;
+          billRow.actual = (billRow.actual || 0) + amountVal;
+          billRow.checked = true;
+        } else {
+          currentBudgetData.bills.push({
+            id: Date.now(),
+            checked: true,
+            description: catVal,
+            dueDate: formattedDate,
+            budget: 0,
+            actual: amountVal
+          });
+        }
+      } else if (typeVal === 'debt') {
+        let debtRow = currentBudgetData.debt.find(d => d.description === catVal);
+        if (!debtRow) {
+          debtRow = currentBudgetData.debt.find(d => d.description === '');
+        }
+        if (debtRow) {
+          debtRow.description = catVal;
+          debtRow.actual = (debtRow.actual || 0) + amountVal;
+        } else {
+          currentBudgetData.debt.push({
+            id: Date.now(),
+            description: catVal,
+            dueDate: formattedDate,
+            budget: 0,
+            actual: amountVal
+          });
+        }
+      } else if (typeVal === 'expense') {
+        let expRow = currentBudgetData.expenses.find(e => e.category && e.category.toLowerCase() === catVal.toLowerCase());
+        if (!expRow) {
+          expRow = currentBudgetData.expenses.find(e => !e.category);
+        }
+        if (expRow) {
+          expRow.category = catVal;
+          expRow.actual = (expRow.actual || 0) + amountVal;
+        } else {
+          currentBudgetData.expenses.push({
+            id: Date.now(),
+            category: catVal,
+            budget: 0,
+            actual: amountVal
+          });
+        }
+      }
+
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/budget`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${currentSession.access_token}`
+          },
+          body: JSON.stringify({
+            month: currentBudgetData.settings.month.toUpperCase(),
+            year: currentBudgetData.settings.year.toString(),
+            data: currentBudgetData
+          })
+        });
+
+        if (response.ok) {
+          showStickyNote('Success: Transaction added successfully!');
+          descInput.value = '';
+          amountInput.value = '';
+          loadRealData(currentSession);
+        } else {
+          throw new Error('Save transaction failed');
+        }
+      } catch (err) {
+        console.error('[HOME ADD TRANSACTION SAVE] Error:', err);
+        showStickyNote('Failed to add transaction. Please try again.');
       }
     });
   }
