@@ -716,7 +716,7 @@ function initTabSwitching() {
 // Setup redirection for Call-To-Actions (CTAs)
 function initCTAListeners() {
   // Bind any button with cta-btn or within the tab previews or quick actions
-  const ctaButtons = document.querySelectorAll('.cta-btn, .quick-action-btn, .preview-cta-overlay a, #home-bell-btn');
+  const ctaButtons = document.querySelectorAll('.cta-btn, .preview-cta-overlay a, #home-bell-btn');
   ctaButtons.forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
@@ -725,6 +725,22 @@ function initCTAListeners() {
         window.location.href = '/dashboard';
       } else {
         window.location.href = '/login';
+      }
+    });
+  });
+
+  // Bind quick action buttons to switch tabs
+  const quickActionButtons = document.querySelectorAll('.quick-action-btn');
+  quickActionButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const tabId = btn.getAttribute('data-tab');
+      if (tabId) {
+        const menuItem = document.querySelector(`.dashboard-sidebar .menu-item[data-tab="${tabId}"]`);
+        if (menuItem) {
+          menuItem.click();
+        }
       }
     });
   });
