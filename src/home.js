@@ -7,6 +7,7 @@ let currentSession = null;
 let currentBudgetData = null;
 let homePieChartInstance = null;
 let reportsDonutChartInstance = null;
+let isTransactionsExpanded = false;
 const defaultCategories = ["Personal Care", "Travel", "Home", "Groceries", "Pets", "Education", "Food", "Entertainment", "Fuel"];
 const API_BASE_URL = 'http://localhost:8000';
 
@@ -361,6 +362,9 @@ async function loadRealData(session) {
 
     // Populate full Transactions Ledger page tab
     const fullTxTbody = document.getElementById('home-transactions-tbody');
+    const viewMoreContainer = document.getElementById('home-tx-view-more-container');
+    const viewMoreBtn = document.getElementById('home-tx-view-more-btn');
+
     if (fullTxTbody) {
       fullTxTbody.innerHTML = '';
       if (txList.length === 0) {
@@ -372,8 +376,11 @@ async function loadRealData(session) {
             </td>
           </tr>
         `;
+        if (viewMoreContainer) viewMoreContainer.style.display = 'none';
       } else {
-        txList.forEach(tx => {
+        const visibleTxs = isTransactionsExpanded ? txList : txList.slice(0, 5);
+
+        visibleTxs.forEach(tx => {
           const displayAmount = tx.type === 'received' 
             ? `+${formatCurrency(tx.amount, currencySymbol)}` 
             : `-${formatCurrency(tx.amount, currencySymbol)}`;
@@ -390,6 +397,17 @@ async function loadRealData(session) {
           `;
           fullTxTbody.appendChild(tr);
         });
+
+        if (viewMoreContainer) {
+          if (txList.length > 5) {
+            viewMoreContainer.style.display = 'block';
+            if (viewMoreBtn) {
+              viewMoreBtn.textContent = isTransactionsExpanded ? 'View Less' : 'View More';
+            }
+          } else {
+            viewMoreContainer.style.display = 'none';
+          }
+        }
       }
     }
 
@@ -1862,6 +1880,16 @@ function initTransactionEditor() {
 
   if (typeSelect) {
     typeSelect.addEventListener('change', updateTransactionCategoryDropdown);
+  }
+
+  const viewMoreBtn = document.getElementById('home-tx-view-more-btn');
+  if (viewMoreBtn) {
+    viewMoreBtn.addEventListener('click', () => {
+      isTransactionsExpanded = !isTransactionsExpanded;
+      if (currentSession) {
+        loadRealData(currentSession);
+      }
+    });
   }
 
   if (txForm) {
