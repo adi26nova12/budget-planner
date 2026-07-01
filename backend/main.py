@@ -481,6 +481,7 @@ async def import_statement(
     month: str = Form(...),
     year: str = Form(...),
     current_data: str = Form(...),
+    password: str = Form(None),
     current_user: Dict[str, Any] = Depends(get_current_user)
 ):
     # Security input validation
@@ -516,7 +517,7 @@ async def import_statement(
         if not contents.startswith(b"%PDF-"):
             raise HTTPException(status_code=400, detail="Invalid PDF file format signature.")
 
-        transactions = parse_transactions_from_pdf(contents)
+        transactions = parse_transactions_from_pdf(contents, password)
         if not transactions:
             raise HTTPException(status_code=400, detail="No transactions detected in the PDF statement.")
             
@@ -562,6 +563,10 @@ async def import_statement(
     except Exception as e:
         import traceback
         traceback.print_exc()
+        # Return 401 Unauthorized for password errors
+        err_msg = str(e)
+        if "password" in err_msg.lower() or "decrypt" in err_msg.lower() or "encrypted" in err_msg.lower():
+            raise HTTPException(status_code=401, detail=err_msg)
         raise HTTPException(status_code=500, detail=f"Import error: {str(e)}")
 
 if __name__ == "__main__":

@@ -212,7 +212,127 @@ def parse_paytm_text(text: str) -> list:
             
     return transactions
 
-def parse_transactions_from_pdf(pdf_bytes: bytes) -> list:
+def parse_hdfc_bank_statement(text: str) -> list:
+    lines = [line.strip() for line in text.split('\n')]
+    transactions = []
+    
+    # Try to find Opening/Previous Balance in statement summary
+    opening_balance = None
+    for line in lines:
+        ob_match = re.search(r"(?:opening|previous)\s+balance\s*(?::|-)?\s*([\d,]+\.\d{2})", line, re.IGNORECASE)
+        if ob_match:
+            opening_balance = float(ob_match.group(1).replace(",", ""))
+            break
+            
+    # Pattern to match line ending with [Optional Ref] [Value Date] [Amount] [Balance]
+    # e.g.: "000063896360953 02/01/26 1,800.00 11,741.59"
+    row_pattern = re.compile(r"(\d+)?\s+(\d{2}/\d{2}/\d{2,4})\s+([\d,]+\.\d{2})\s+([\d,]+\.\d{2})$")
+    
+    raw_rows = []
+    for idx, line in enumerate(lines):
+        match = row_pattern.search(line)
+        if match:
+            ref_no = match.group(1) or ""
+            value_date = match.group(2)
+            amount = float(match.group(3).replace(",", ""))
+            balance = float(match.group(4).replace(",", ""))
+            leftover_text = line[:match.start()].strip()
+            
+            raw_rows.append({
+                "line_idx": idx,
+                "ref_no": ref_no,
+                "value_date": value_date,
+                "amount": amount,
+                "balance": balance,
+                "leftover_text": leftover_text
+            })
+            
+    # Trace upwards to extract full narration & transaction date
+    for i, row in enumerate(raw_rows):
+        line_idx = row["line_idx"]
+        tx_date = None
+        narration_parts = []
+        
+        start_idx = raw_rows[i-1]["line_idx"] + 1 if i > 0 else 0
+        for j in range(line_idx, start_idx - 1, -1):
+            curr_line = lines[j]
+            date_match = re.match(r"^(\d{2}/\d{2}/\d{2,4})\b", curr_line)
+            if date_match:
+                tx_date = date_match.group(1)
+                narr_part = curr_line[date_match.end():].strip()
+                if j == line_idx:
+                    narr_part = row["leftover_text"]
+                if narr_part:
+                    narration_parts.insert(0, narr_part)
+                break
+            else:
+                if j == line_idx:
+                    if row["leftover_text"]:
+                        narration_parts.insert(0, row["leftover_text"])
+                else:
+                    if not any(header_kw in curr_line.lower() for header_kw in ["page no", "statement of account", "date", "narration", "closing balance"]):
+                        narration_parts.insert(0, curr_line)
+                        
+        full_narration = " ".join(narration_parts).strip()
+        full_narration = re.sub(r"\s+", " ", full_narration)
+        
+        if not tx_date:
+            tx_date = row["value_date"]
+            
+        months_long = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+        tx_month = None
+        tx_year = None
+        date_parts = tx_date.split('/')
+        if len(date_parts) == 3:
+            try:
+                m_val = int(date_parts[1])
+                y_val = date_parts[2]
+                if len(y_val) == 2:
+                    y_val = "20" + y_val
+                if 1 <= m_val <= 12:
+                    tx_month = months_long[m_val - 1].upper()
+                    tx_year = y_val
+            except ValueError:
+                pass
+                
+        row["tx_date"] = tx_date
+        row["narration"] = full_narration
+        row["month"] = tx_month
+        row["year"] = tx_year
+
+    # Determine type of each row (deposit/withdrawal) using balance difference checks
+    for i in range(len(raw_rows)):
+        row = raw_rows[i]
+        is_deposit = True
+        
+        if i > 0:
+            prev_balance = raw_rows[i-1]["balance"]
+            diff = row["balance"] - prev_balance
+            if diff < 0:
+                is_deposit = False
+        else:
+            if opening_balance is not None:
+                diff = row["balance"] - opening_balance
+                if diff < 0:
+                    is_deposit = False
+            else:
+                # Heuristics based on keywords if we don't have previous balance context
+                narr_lower = row["narration"].lower()
+                if any(kw in narr_lower for kw in ["charges", "payment", "debit", "withdrawal", "transfer to", "dr", "sent", "rent"]):
+                    is_deposit = False
+                    
+        transactions.append({
+            "type": "received" if is_deposit else "sent",
+            "description": row["narration"] or "Transaction",
+            "amount": row["amount"],
+            "date": row["tx_date"],
+            "month": row["month"],
+            "year": row["year"]
+        })
+        
+    return transactions
+
+def parse_transactions_from_pdf(pdf_bytes: bytes, password: str = None) -> list:
     try:
         from pypdf import PdfReader
     except ImportError:
@@ -220,6 +340,13 @@ def parse_transactions_from_pdf(pdf_bytes: bytes) -> list:
         return []
         
     reader = PdfReader(io.BytesIO(pdf_bytes))
+    if reader.is_encrypted:
+        if not password:
+            raise Exception("PDF is password-protected. Please enter a password.")
+        decryption_result = reader.decrypt(password)
+        if decryption_result == 0:
+            raise Exception("Incorrect password. Failed to decrypt PDF.")
+            
     text = ""
     for page in reader.pages:
         page_text = page.extract_text()
@@ -228,6 +355,8 @@ def parse_transactions_from_pdf(pdf_bytes: bytes) -> list:
             
     if "paytm" in text.lower() or "money sent to" in text.lower():
         return parse_paytm_text(text)
+    elif "statement of account" in text.lower() or "narration" in text.lower() or "withdrawal" in text.lower():
+        return parse_hdfc_bank_statement(text)
     else:
         return parse_gpay_text(text)
 

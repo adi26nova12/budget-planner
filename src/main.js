@@ -809,6 +809,92 @@ async function initApp() {
     if (incomeWheelChart) incomeWheelChart.draw();
   });
 
+  function showPasswordPromptModal(errorMessage = '') {
+    return new Promise((resolve) => {
+      let modal = document.getElementById('password-prompt-modal');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'password-prompt-modal';
+        modal.className = 'modal-overlay';
+        modal.innerHTML = `
+          <div class="modal-content confirm-modal-content">
+            <div class="modal-header confirm-modal-header">
+              <h3 id="pwd-prompt-title">Protected Statement</h3>
+              <button class="modal-close-btn" id="pwd-prompt-close-btn">&times;</button>
+            </div>
+            <div class="modal-body confirm-modal-body" style="text-align: left;">
+              <p style="margin-bottom: 12px; color: #4D3E33; font-weight: 500; font-family: 'Patrick Hand', cursive; font-size: 16px;">This PDF is password-protected. Please enter the decryption password:</p>
+              <div id="pwd-prompt-error" style="color: #ef4444; font-size: 14px; font-family: 'Patrick Hand', cursive; font-weight: bold; margin-bottom: 12px; display: none;"></div>
+              <input type="password" id="pwd-prompt-input" class="sketch-input" style="width: 100%; box-sizing: border-box; padding: 8px 12px; border: 2.5px solid #2B2118; border-radius: 4px; font-family: 'Patrick Hand', cursive; font-size: 16px; margin-bottom: 4px; background: transparent; color: #2B2118;" placeholder="Enter PDF password..." autocomplete="new-password">
+            </div>
+            <div class="modal-footer confirm-modal-footer">
+              <button class="modal-btn confirm-modal-btn-cancel" id="pwd-prompt-cancel-btn">Cancel</button>
+              <button class="modal-btn confirm-modal-btn-confirm" id="pwd-prompt-submit-btn">Unlock</button>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(modal);
+      }
+
+      const input = document.getElementById('pwd-prompt-input');
+      const errorDiv = document.getElementById('pwd-prompt-error');
+      const submitBtn = document.getElementById('pwd-prompt-submit-btn');
+      const cancelBtn = document.getElementById('pwd-prompt-cancel-btn');
+      const closeBtn = document.getElementById('pwd-prompt-close-btn');
+
+      input.value = '';
+      if (errorMessage) {
+        errorDiv.textContent = errorMessage;
+        errorDiv.style.display = 'block';
+      } else {
+        errorDiv.style.display = 'none';
+      }
+
+      const cleanupAndClose = (passwordVal) => {
+        modal.classList.remove('show');
+        setTimeout(() => {
+          if (!modal.classList.contains('show')) {
+            modal.style.display = 'none';
+          }
+        }, 250);
+        submitBtn.removeEventListener('click', handleSubmit);
+        cancelBtn.removeEventListener('click', handleCancel);
+        closeBtn.removeEventListener('click', handleCancel);
+        document.removeEventListener('keydown', handleKeydown);
+        resolve(passwordVal);
+      };
+
+      const handleSubmit = () => {
+        const val = input.value.trim();
+        if (val) {
+          cleanupAndClose(val);
+        } else {
+          errorDiv.textContent = 'Password cannot be empty.';
+          errorDiv.style.display = 'block';
+        }
+      };
+
+      const handleCancel = () => cleanupAndClose(null);
+      const handleKeydown = (e) => {
+        if (e.key === 'Enter') {
+          handleSubmit();
+        } else if (e.key === 'Escape') {
+          handleCancel();
+        }
+      };
+
+      submitBtn.addEventListener('click', handleSubmit);
+      cancelBtn.addEventListener('click', handleCancel);
+      closeBtn.addEventListener('click', handleCancel);
+      document.addEventListener('keydown', handleKeydown);
+
+      modal.style.display = 'flex';
+      modal.offsetHeight; // force reflow
+      modal.classList.add('show');
+      input.focus();
+    });
+  }
+
   // Wire up PDF Import elements
   const importBtn = document.getElementById('import-statement-btn');
   const fileInput = document.getElementById('import-statement-file-input');
@@ -824,42 +910,61 @@ async function initApp() {
 
       showToast('Importing statement...', 'info');
 
-      const formData = new FormData();
-      formData.append('file', file);
-      formData.append('month', state.settings.month);
-      formData.append('year', state.settings.year);
-      formData.append('current_data', JSON.stringify(state));
-
-      try {
-        const response = await fetchWithAuth(`${API_BASE_URL}/api/import-statement`, {
-          method: 'POST',
-          body: formData
-        });
-
-        if (response.ok) {
-          const result = await response.json();
-          state = result.data;
-
-          // Sync UI elements to new state
-          document.getElementById('month-select-input').value = state.settings.month;
-          document.getElementById('year-input-field').value = state.settings.year || '2026';
-          document.getElementById('setting-currency').value = state.settings.currency || '₹';
-          document.getElementById('setting-start-date').value = state.settings.startDate;
-          document.getElementById('setting-end-date').value = state.settings.endDate;
-          document.getElementById('setting-start-balance').textContent = formatNumber(state.settings.startBalance);
-
-          recalculateAll();
-          showToast(`Successfully imported ${result.imported_count} transactions!`, 'success');
-        } else {
-          const errorData = await response.json();
-          showToast(errorData.detail || 'Failed to import transaction statement.', 'error');
+      const uploadWithPassword = async (password = null) => {
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('month', state.settings.month);
+        formData.append('year', state.settings.year);
+        formData.append('current_data', JSON.stringify(state));
+        if (password) {
+          formData.append('password', password);
         }
-      } catch (error) {
-        console.error('Error importing statement:', error);
-        showToast('Error connecting to backend server.', 'error');
-      } finally {
-        fileInput.value = ''; // clear input
-      }
+
+        try {
+          const response = await fetchWithAuth(`${API_BASE_URL}/api/import-statement`, {
+            method: 'POST',
+            body: formData
+          });
+
+          if (response.ok) {
+            const result = await response.json();
+            state = result.data;
+
+            // Sync UI elements to new state
+            document.getElementById('month-select-input').value = state.settings.month;
+            document.getElementById('year-input-field').value = state.settings.year || '2026';
+            document.getElementById('setting-currency').value = state.settings.currency || '₹';
+            document.getElementById('setting-start-date').value = state.settings.startDate;
+            document.getElementById('setting-end-date').value = state.settings.endDate;
+            document.getElementById('setting-start-balance').textContent = formatNumber(state.settings.startBalance);
+
+            recalculateAll();
+            showToast(`Successfully imported ${result.imported_count} transactions!`, 'success');
+            fileInput.value = '';
+          } else if (response.status === 401) {
+            const errResult = await response.json();
+            const detail = errResult.detail || 'Password incorrect or required.';
+            const newPassword = await showPasswordPromptModal(detail);
+            if (newPassword) {
+              showToast('Retrying import with password...', 'info');
+              await uploadWithPassword(newPassword);
+            } else {
+              showToast('Import cancelled: statement is password protected.', 'warning');
+              fileInput.value = '';
+            }
+          } else {
+            const errorData = await response.json();
+            showToast(errorData.detail || 'Failed to import transaction statement.', 'error');
+            fileInput.value = '';
+          }
+        } catch (error) {
+          console.error('Error importing statement:', error);
+          showToast('Error connecting to backend server.', 'error');
+          fileInput.value = '';
+        }
+      };
+
+      await uploadWithPassword();
     });
   }
 
