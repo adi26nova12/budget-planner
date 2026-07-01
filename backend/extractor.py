@@ -360,6 +360,71 @@ def parse_transactions_from_pdf(pdf_bytes: bytes, password: str = None) -> list:
     else:
         return parse_gpay_text(text)
 
+def normalize_date(date_str: str) -> str:
+    if not date_str:
+        return ""
+    # 1. dd/mm/yy or dd/mm/yyyy
+    match = re.match(r"^(\d{1,2})/(\d{1,2})/(\d{2,4})$", date_str)
+    if match:
+        d, m, y = int(match.group(1)), int(match.group(2)), match.group(3)
+        if len(y) == 2:
+            y = "20" + y
+        return f"{y}-{m:02d}-{d:02d}"
+        
+    # 2. dd Month, yyyy (e.g. "02 Jan, 2026")
+    months_short = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    months_long = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    
+    match2 = re.search(r"(\d{1,2})\s+([A-Za-z]+),?\s+(\d{4})", date_str)
+    if match2:
+        d = int(match2.group(1))
+        m_name = match2.group(2)[:3].title()
+        y = match2.group(3)
+        try:
+            m = months_short.index(m_name) + 1
+            return f"{y}-{m:02d}-{d:02d}"
+        except ValueError:
+            pass
+            
+    return date_str.strip()
+
+def is_same_transaction(tx1: dict, tx2: dict) -> bool:
+    if abs(tx1["amount"] - tx2["amount"]) > 0.01:
+        return False
+        
+    d1 = normalize_date(tx1.get("date", ""))
+    d2 = normalize_date(tx2.get("date", ""))
+    if d1 and d2 and d1 != d2:
+        return False
+        
+    desc1 = tx1.get("description", "").lower()
+    desc2 = tx2.get("description", "").lower()
+    
+    def clean_desc(d: str) -> str:
+        d = re.sub(r"\b\d{12,}\b", "", d) # remove 12+ digit ref numbers
+        d = re.sub(r"upi-", "", d)
+        d = re.sub(r"-upi", "", d)
+        d = re.sub(r"[^\w\s]", "", d)
+        return " ".join(d.split())
+        
+    c1 = clean_desc(desc1)
+    c2 = clean_desc(desc2)
+    
+    words1 = set(c1.split())
+    words2 = set(c2.split())
+    
+    if not words1 or not words2:
+        return c1 == c2
+        
+    intersection = words1.intersection(words2)
+    union = words1.union(words2)
+    jaccard = len(intersection) / len(union) if union else 0
+    
+    if jaccard >= 0.4 or c1 in c2 or c2 in c1:
+        return True
+        
+    return False
+
 def merge_transactions_into_budget(state: dict, transactions: list, target_month: str, target_year: str, statement_id: str, filename: str) -> dict:
     from datetime import datetime
     target_month_upper = target_month.upper()
@@ -380,6 +445,34 @@ def merge_transactions_into_budget(state: dict, transactions: list, target_month
                 matching_txs.append(tx)
         else:
             matching_txs.append(tx)
+            
+    # Gather all existing transactions already merged in budget
+    existing_transactions = []
+    if "settings" in state and "importedStatements" in state["settings"]:
+        for stmt in state["settings"]["importedStatements"]:
+            if "transactions" in stmt:
+                for t in stmt["transactions"]:
+                    tx_type = t.get("type", "sent")
+                    existing_transactions.append({
+                        "description": t.get("description", ""),
+                        "amount": t.get("amount", 0.0),
+                        "date": t.get("date", ""),
+                        "type": tx_type
+                    })
+                    
+    # Filter matching_txs to remove duplicates
+    filtered_matching_txs = []
+    for tx in matching_txs:
+        is_dup = False
+        for ex_tx in existing_transactions:
+            if is_same_transaction(tx, ex_tx):
+                is_dup = True
+                break
+        if not is_dup:
+            filtered_matching_txs.append(tx)
+            existing_transactions.append(tx)
+            
+    matching_txs = filtered_matching_txs
             
     if "settings" not in state:
         state["settings"] = {}
