@@ -1319,9 +1319,14 @@ body {
 }
 
 .accordion-item.expanded .accordion-content {
-  max-height: 420px; /* Taller than table container max-height to avoid overlap clipping */
+  max-height: 450px;
   border-top-color: var(--border-color);
-  overflow: hidden; /* Prevent parent-level double scrollbars */
+  overflow-y: auto;
+}
+
+.modal-table-container {
+  overflow-x: auto;
+  width: 100%;
 }
 
 .accordion-item.expanded .accordion-header {
