@@ -560,6 +560,8 @@ async def import_statement(
             "imported_count": matched_tx_count,
             "data": updated_state
         }
+    except HTTPException:
+        raise
     except Exception as e:
         import traceback
         traceback.print_exc()

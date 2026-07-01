@@ -353,10 +353,19 @@ def parse_transactions_from_pdf(pdf_bytes: bytes, password: str = None) -> list:
         if page_text:
             text += page_text + "\n"
             
-    if "paytm" in text.lower() or "money sent to" in text.lower():
-        return parse_paytm_text(text)
-    elif "statement of account" in text.lower() or "narration" in text.lower() or "withdrawal" in text.lower():
+    # Write to debug file for layout inspection
+    try:
+        debug_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "extracted_pdf_text_debug.txt")
+        with open(debug_path, "w", encoding="utf-8") as f:
+            f.write(text)
+        print(f"[DEBUG] Wrote PDF text to debug file: {debug_path}")
+    except Exception as e:
+        print(f"[DEBUG] Failed to write PDF debug file: {e}")
+            
+    if "statement of account" in text.lower() or "closing balance" in text.lower() or "withdrawal amt" in text.lower() or "deposit amt" in text.lower():
         return parse_hdfc_bank_statement(text)
+    elif "paytm" in text.lower() or "money sent to" in text.lower():
+        return parse_paytm_text(text)
     else:
         return parse_gpay_text(text)
 
