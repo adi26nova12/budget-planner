@@ -1341,43 +1341,104 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 14px 28px;
-  background-color: var(--bg-card);
-  border-bottom: 1px solid var(--border-color);
+  padding: 10px 24px;
+  background-color: #FFF9DB !important; /* Yellow sticky note background */
+  border: 2.5px solid #2B2118 !important;
+  box-shadow: 5px 5px 0px #2B2118 !important;
+  border-radius: 4px !important;
   position: sticky;
-  top: 0;
+  top: 10px;
   z-index: 1000;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-  margin-bottom: 24px;
-  border-radius: 0 0 12px 12px;
+  margin-top: 10px;
+  margin-bottom: 28px;
   max-width: 1480px;
   margin-left: auto;
   margin-right: auto;
+  transform: rotate(-0.3deg);
+  font-family: 'Patrick Hand', cursive;
+}
+
+/* Tape on top of the navbar */
+.app-navbar::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 15%;
+  width: 70px;
+  height: 20px;
+  background-color: rgba(245, 240, 210, 0.8);
+  border-left: 1px dashed rgba(43, 33, 24, 0.15);
+  border-right: 1px dashed rgba(43, 33, 24, 0.15);
+  transform: rotate(-3deg);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+}
+
+.app-navbar::after {
+  content: "";
+  position: absolute;
+  top: -10px;
+  right: 15%;
+  width: 70px;
+  height: 20px;
+  background-color: rgba(245, 240, 210, 0.8);
+  border-left: 1px dashed rgba(43, 33, 24, 0.15);
+  border-right: 1px dashed rgba(43, 33, 24, 0.15);
+  transform: rotate(3deg);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.02);
 }
 
 .navbar-brand {
   display: flex;
   align-items: center;
   gap: 10px;
-  color: var(--accent-pink);
+  color: #2B2118 !important;
 }
 
 .brand-logo {
-  color: var(--accent-pink);
+  color: #2B2118 !important;
 }
 
 .brand-name {
-  font-family: 'CabinSketch', sans-serif;
-  font-size: 22px;
+  font-family: 'CabinSketch', 'Kalam', cursive;
+  font-size: 24px;
   font-weight: bold;
   letter-spacing: 0.5px;
-  color: var(--text-dark);
+  color: #2B2118 !important;
 }
 
 .navbar-links {
   display: flex;
   align-items: center;
   gap: 20px;
+}
+
+.navbar-links .nav-link {
+  font-family: 'CabinSketch', 'Kalam', cursive;
+  font-size: 17px;
+  font-weight: 700;
+  color: #2B2118 !important;
+  padding: 6px 12px;
+  border-radius: 4px;
+  transition: transform 0.15s, background-color 0.15s;
+}
+
+.navbar-links .nav-link:hover, 
+.navbar-links .nav-link.active {
+  background-color: rgba(43, 33, 24, 0.05);
+  transform: translateY(-1.5px) rotate(1deg);
+}
+
+/* Dark mode adjustment for sticky-note navbar */
+body.dark-mode .app-navbar {
+  background-color: #FFF9DB !important;
+  border-color: #2B2118 !important;
+  color: #2B2118 !important;
+}
+
+body.dark-mode .navbar-links .nav-link,
+body.dark-mode .brand-name,
+body.dark-mode .navbar-brand {
+  color: #2B2118 !important;
 }
 
 .nav-link {
