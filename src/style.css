@@ -1042,77 +1042,118 @@ body {
 
 /* Confirm Modal Custom styles */
 .confirm-modal-content {
-  max-width: 420px;
-  background: rgba(255, 255, 255, 0.85) !important;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 133, 162, 0.2);
-  box-shadow: 
-    0 4px 30px rgba(0, 0, 0, 0.03),
-    0 20px 40px rgba(255, 133, 162, 0.08),
-    inset 0 1px 1px rgba(255, 255, 255, 0.6);
-  border-radius: 16px;
+  max-width: 380px !important;
+  background-color: #FFF9DB !important; /* Cozy Yellow sticky note background */
+  background-image: none !important;
+  border: 2.5px solid #2B2118 !important;
+  box-shadow: 6px 6px 0px #2B2118 !important;
+  border-radius: 4px !important;
+  transform: rotate(-1deg);
+  font-family: 'Patrick Hand', cursive;
+  position: relative;
+  overflow: visible !important;
+}
+
+/* Insert pushpin dynamically at the top */
+.confirm-modal-content::before {
+  content: "";
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 24px;
+  z-index: 10;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232B2118' stroke-width='2.5'><line x1='12' y1='2' x2='12' y2='12' stroke-linecap='round'/><circle cx='12' cy='14' r='3' fill='%23ff4d6d' stroke='%232B2118' stroke-width='2.5'/><line x1='8' y1='8' x2='16' y2='8' stroke-linecap='round'/></svg>");
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .confirm-modal-header {
-  background-color: rgba(255, 240, 243, 0.6) !important;
-  border-bottom: 1px solid rgba(255, 204, 213, 0.4) !important;
-  padding: 18px 24px;
+  background: transparent !important;
+  border-bottom: 2.5px dashed rgba(43, 33, 24, 0.2) !important;
+  padding: 16px 20px 8px 20px !important;
+  position: relative;
 }
 
 .confirm-modal-header h3 {
-  font-size: 15px;
-  letter-spacing: 0.8px;
+  font-family: 'CabinSketch', 'Kalam', cursive;
+  font-size: 22px !important;
+  font-weight: 700;
+  color: #2B2118 !important;
+  text-align: center;
+  width: 100%;
+  letter-spacing: 0.5px;
+  margin-top: 8px;
+}
+
+.confirm-modal-header .modal-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  color: #7A695C !important;
+  font-size: 24px;
 }
 
 .confirm-modal-body {
-  padding: 24px;
-  font-size: 14px;
-  line-height: 1.6;
-  color: var(--text-dark);
+  padding: 16px 20px !important;
+  font-size: 16px !important;
+  line-height: 1.45 !important;
+  color: #4D3E33 !important;
+  text-align: center;
+  font-weight: 500;
+}
+
+.confirm-modal-body strong {
+  color: #ef4444;
 }
 
 .confirm-modal-footer {
-  background-color: rgba(248, 250, 252, 0.6) !important;
-  border-top: 1px solid rgba(226, 232, 240, 0.4) !important;
-  padding: 16px 24px;
+  background: transparent !important;
+  border-top: none !important;
+  padding: 8px 20px 20px 20px !important;
   display: flex;
-  justify-content: flex-end;
-  gap: 12px;
+  justify-content: center !important;
+  gap: 16px !important;
 }
 
+/* Redesign dialog buttons as custom sketchy buttons */
 .confirm-modal-footer .modal-btn {
   margin: 0;
+  font-family: 'CabinSketch', 'Kalam', cursive;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 8px 20px;
+  border-radius: 255px 15px 225px/15px 225px 15px 255px !important;
+  transition: transform 0.15s, box-shadow 0.15s;
 }
 
 .confirm-modal-btn-cancel {
-  border: 1px solid #cbd5e1;
-  background-color: #ffffff;
-  color: #64748b;
-  font-size: 13px;
-  transition: all 0.2s ease;
+  color: #2B2118 !important;
+  background-color: #faf8f5 !important;
+  border: 2.5px solid #2B2118 !important;
+  box-shadow: 3px 3px 0px #2B2118 !important;
 }
 
 .confirm-modal-btn-cancel:hover {
-  background-color: #f1f5f9;
-  color: #334155;
-  border-color: #94a3b8;
-  transform: translateY(-1px);
+  transform: translateY(-1px) rotate(1deg);
+  box-shadow: 4px 4px 0px #2B2118 !important;
+  background-color: #faf8f5 !important;
+  border-color: #2B2118 !important;
 }
 
 .confirm-modal-btn-confirm {
-  background: linear-gradient(135deg, #ff85a2, #ff5c8a);
-  color: white;
-  border: none;
-  font-size: 13px;
-  box-shadow: 0 4px 10px rgba(255, 133, 162, 0.2);
-  transition: all 0.2s ease;
+  color: #2B2118 !important;
+  background: #ff85a2 !important; /* Pink sketch accent */
+  border: 2.5px solid #2B2118 !important;
+  box-shadow: 3px 3px 0px #2B2118 !important;
 }
 
 .confirm-modal-btn-confirm:hover {
-  background: linear-gradient(135deg, #ff5c8a, #ff3366);
-  box-shadow: 0 6px 14px rgba(255, 133, 162, 0.35);
-  transform: translateY(-1px);
+  transform: translateY(-1px) rotate(-1deg);
+  box-shadow: 4px 4px 0px #2B2118 !important;
+  background: #ff5c8a !important;
 }
 
 .confirm-modal-btn-confirm:active {
@@ -1120,13 +1161,16 @@ body {
 }
 
 .confirm-modal-btn-confirm.destructive {
-  background: linear-gradient(135deg, #ff4d6d, #c9184a);
-  box-shadow: 0 4px 10px rgba(201, 24, 74, 0.2);
+  color: #2B2118 !important;
+  background: #ff85a2 !important;
+  border: 2.5px solid #2B2118 !important;
+  box-shadow: 3px 3px 0px #2B2118 !important;
 }
 
 .confirm-modal-btn-confirm.destructive:hover {
-  background: linear-gradient(135deg, #ff0f43, #a4133c);
-  box-shadow: 0 6px 14px rgba(201, 24, 74, 0.35);
+  transform: translateY(-1px) rotate(-1deg);
+  box-shadow: 4px 4px 0px #2B2118 !important;
+  background: #ff5c8a !important;
 }
 
 /* Chart Tooltip custom styling */
@@ -3066,5 +3110,41 @@ body.dark-mode .go-home-btn:hover {
   .home-pie-labels {
     width: 100% !important;
   }
+}
+
+/* Onboarding Help Button styling next to Reset Month */
+.onboarding-help-btn {
+  color: #5c4a3a;
+  font-family: var(--font-main);
+  cursor: pointer;
+  background-color: #fff9db;
+  border: 1.5px solid #f1e3ad;
+  border-radius: 8px;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+.onboarding-help-btn:hover {
+  background-color: #fff3bf;
+  border-color: #f5e08c;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(245, 224, 140, 0.2);
+}
+.onboarding-help-btn:active {
+  transform: translateY(1px);
+}
+body.dark-mode .onboarding-help-btn {
+  color: #fff9db;
+  background-color: #3d3515;
+  border-color: #5c4c1a;
+}
+body.dark-mode .onboarding-help-btn:hover {
+  background-color: #4f4417;
+  border-color: #735e1d;
 }
 

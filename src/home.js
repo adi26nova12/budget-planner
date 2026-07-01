@@ -32,6 +32,176 @@ function escapeHTML(str) {
             .replace(/'/g, '&#039;');
 }
 
+function showConfirmDialog({ title, message, isDestructive = false }) {
+  return new Promise((resolve) => {
+    let modal = document.getElementById('confirm-modal');
+    if (!modal) {
+      modal = document.createElement('div');
+      modal.id = 'confirm-modal';
+      modal.className = 'modal-overlay';
+      modal.innerHTML = `
+        <div class="modal-content confirm-modal-content">
+          <div class="modal-header confirm-modal-header">
+            <h3 id="confirm-modal-title">Confirm Action</h3>
+            <button class="modal-close-btn" id="confirm-modal-close-btn">&times;</button>
+          </div>
+          <div class="modal-body confirm-modal-body">
+            <p id="confirm-modal-message">Are you sure you want to proceed?</p>
+          </div>
+          <div class="modal-footer confirm-modal-footer">
+            <button class="modal-btn confirm-modal-btn-cancel" id="confirm-modal-cancel-btn">Cancel</button>
+            <button class="modal-btn confirm-modal-btn-confirm" id="confirm-modal-confirm-btn">Confirm</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+    }
+
+    const titleEl = document.getElementById('confirm-modal-title');
+    const messageEl = document.getElementById('confirm-modal-message');
+    const confirmBtn = document.getElementById('confirm-modal-confirm-btn');
+    const cancelBtn = document.getElementById('confirm-modal-cancel-btn');
+    const closeBtn = document.getElementById('confirm-modal-close-btn');
+
+    if (titleEl) titleEl.textContent = title;
+    if (messageEl) messageEl.innerHTML = message;
+
+    if (confirmBtn) {
+      if (isDestructive) {
+        confirmBtn.classList.add('destructive');
+      } else {
+        confirmBtn.classList.remove('destructive');
+      }
+    }
+
+    const newConfirmBtn = confirmBtn ? confirmBtn.cloneNode(true) : null;
+    const newCancelBtn = cancelBtn ? cancelBtn.cloneNode(true) : null;
+    const newCloseBtn = closeBtn ? closeBtn.cloneNode(true) : null;
+
+    if (confirmBtn && newConfirmBtn) confirmBtn.parentNode.replaceChild(newConfirmBtn, confirmBtn);
+    if (cancelBtn && newCancelBtn) cancelBtn.parentNode.replaceChild(newCancelBtn, cancelBtn);
+    if (closeBtn && newCloseBtn) closeBtn.parentNode.replaceChild(newCloseBtn, closeBtn);
+
+    const cleanupAndClose = (result) => {
+      modal.classList.remove('show');
+      setTimeout(() => {
+        if (!modal.classList.contains('show')) {
+          modal.style.display = 'none';
+        }
+      }, 250);
+      if (newConfirmBtn) newConfirmBtn.removeEventListener('click', handleConfirm);
+      if (newCancelBtn) newCancelBtn.removeEventListener('click', handleCancel);
+      if (newCloseBtn) newCloseBtn.removeEventListener('click', handleCancel);
+      modal.removeEventListener('click', handleOverlayClick);
+      document.removeEventListener('keydown', handleEsc);
+      resolve(result);
+    };
+
+    const handleConfirm = () => cleanupAndClose(true);
+    const handleCancel = () => cleanupAndClose(false);
+    const handleOverlayClick = (e) => { if (e.target === modal) cleanupAndClose(false); };
+    const handleEsc = (e) => { if (e.key === 'Escape') cleanupAndClose(false); };
+
+    if (newConfirmBtn) newConfirmBtn.addEventListener('click', handleConfirm);
+    if (newCancelBtn) newCancelBtn.addEventListener('click', handleCancel);
+    if (newCloseBtn) newCloseBtn.addEventListener('click', handleCancel);
+    modal.addEventListener('click', handleOverlayClick);
+    document.addEventListener('keydown', handleEsc);
+
+    modal.style.display = 'flex';
+    modal.offsetHeight; // force reflow
+    modal.classList.add('show');
+  });
+}
+
+function showAlertDialog({ title, message }) {
+  return new Promise((resolve) => {
+    let modal = document.getElementById('alert-modal');
+    if (!modal) {
+      modal = document.createElement('div');
+      modal.id = 'alert-modal';
+      modal.className = 'modal-overlay';
+      modal.innerHTML = `
+        <div class="modal-content confirm-modal-content">
+          <div class="modal-header confirm-modal-header">
+            <h3 id="alert-modal-title">Attention</h3>
+            <button class="modal-close-btn" id="alert-modal-close-btn">&times;</button>
+          </div>
+          <div class="modal-body confirm-modal-body">
+            <p id="alert-modal-message">Notification message here</p>
+          </div>
+          <div class="modal-footer confirm-modal-footer">
+            <button class="modal-btn confirm-modal-btn-confirm" id="alert-modal-ok-btn">OK</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+    }
+
+    const titleEl = document.getElementById('alert-modal-title');
+    const messageEl = document.getElementById('alert-modal-message');
+    const okBtn = document.getElementById('alert-modal-ok-btn');
+    const closeBtn = document.getElementById('alert-modal-close-btn');
+
+    if (titleEl) titleEl.textContent = title;
+    if (messageEl) messageEl.innerHTML = message;
+
+    const newOkBtn = okBtn ? okBtn.cloneNode(true) : null;
+    const newCloseBtn = closeBtn ? closeBtn.cloneNode(true) : null;
+
+    if (okBtn && newOkBtn) okBtn.parentNode.replaceChild(newOkBtn, okBtn);
+    if (closeBtn && newCloseBtn) closeBtn.parentNode.replaceChild(newCloseBtn, closeBtn);
+
+    const cleanupAndClose = () => {
+      modal.classList.remove('show');
+      setTimeout(() => {
+        if (!modal.classList.contains('show')) {
+          modal.style.display = 'none';
+        }
+      }, 250);
+      if (newOkBtn) newOkBtn.removeEventListener('click', cleanupAndClose);
+      if (newCloseBtn) newCloseBtn.removeEventListener('click', cleanupAndClose);
+      modal.removeEventListener('click', handleOverlayClick);
+      document.removeEventListener('keydown', handleEsc);
+      resolve();
+    };
+
+    const handleOverlayClick = (e) => { if (e.target === modal) cleanupAndClose(); };
+    const handleEsc = (e) => { if (e.key === 'Escape') cleanupAndClose(); };
+
+    if (newOkBtn) newOkBtn.addEventListener('click', cleanupAndClose);
+    if (newCloseBtn) newCloseBtn.addEventListener('click', cleanupAndClose);
+    modal.addEventListener('click', handleOverlayClick);
+    document.addEventListener('keydown', handleEsc);
+
+    modal.style.display = 'flex';
+    modal.offsetHeight; // force reflow
+    modal.classList.add('show');
+  });
+}
+
+function showOnboardingModal() {
+  const onboardingModal = document.getElementById('onboarding-modal');
+  if (onboardingModal) {
+    onboardingModal.style.display = 'flex';
+    // Force reflow
+    onboardingModal.offsetHeight;
+    onboardingModal.classList.add('show');
+  }
+}
+
+function closeOnboardingModal() {
+  const onboardingModal = document.getElementById('onboarding-modal');
+  if (onboardingModal) {
+    onboardingModal.classList.remove('show');
+    setTimeout(() => {
+      if (!onboardingModal.classList.contains('show')) {
+        onboardingModal.style.display = 'none';
+      }
+    }, 250);
+  }
+}
+
 function showStickyNote(message) {
   const modal = document.getElementById('sticky-note-modal');
   const msgEl = document.getElementById('sticky-note-message');
@@ -93,12 +263,14 @@ function updateNavbar(session) {
   const profileLink = document.getElementById('nav-link-profile');
   const loginBtn = document.getElementById('nav-btn-login');
   const profileDropdown = document.getElementById('nav-profile-dropdown');
+  const onboardingHelpBtn = document.getElementById('onboarding-help-btn');
   
   if (session) {
     if (dashboardLink) dashboardLink.style.display = 'inline-flex';
     if (profileLink) profileLink.style.display = 'inline-flex';
     if (loginBtn) loginBtn.style.display = 'none';
     if (profileDropdown) profileDropdown.style.display = 'inline-flex';
+    if (onboardingHelpBtn) onboardingHelpBtn.style.display = 'inline-flex';
     
     const user = session.user;
     const email = user.email;
@@ -118,15 +290,19 @@ function updateNavbar(session) {
     if (profileLink) profileLink.style.display = 'none';
     if (loginBtn) loginBtn.style.display = 'inline-flex';
     if (profileDropdown) profileDropdown.style.display = 'none';
+    if (onboardingHelpBtn) onboardingHelpBtn.style.display = 'none';
   }
 }
 
 async function handleLogout() {
-  const confirmLogout = confirm('Are you sure you want to sign out?');
+  const confirmLogout = await showConfirmDialog({
+    title: 'Sign Out',
+    message: 'Are you sure you want to sign out from Piggy Planner?'
+  });
   if (confirmLogout) {
     const { error } = await supabase.auth.signOut();
     if (error) {
-      alert(error.message);
+      await showAlertDialog({ title: 'Error', message: error.message });
     } else {
       localStorage.removeItem('last_opened_month');
       localStorage.removeItem('last_opened_year');
@@ -140,16 +316,10 @@ function initPieChart() {
   const canvas = document.getElementById('home-spending-pie-canvas');
   if (!canvas) return;
 
-  const spendingData = [
-    { label: 'Rent / Living', value: 19125, color: '#fef08a', pattern: 'none' },
-    { label: 'Food & Groceries', value: 10625, color: '#fbcfe8', pattern: 'dots' },
-    { label: 'Bills & Utilities', value: 6375, color: '#e9d5ff', pattern: 'hatch-diagonal' },
-    { label: 'Transport', value: 4250, color: '#dcfce7', pattern: 'hatch-vertical' },
-    { label: 'Others', value: 2125, color: '#ffedd5', pattern: 'hatch-cross' }
-  ];
+  const spendingData = [];
 
   try {
-    const chart = new HandDrawnPieChart(canvas, spendingData);
+    const chart = new HandDrawnPieChart(canvas, spendingData.length > 0 ? spendingData : [{ label: 'No expenses', value: 1, color: '#f3f4f6', pattern: 'none' }]);
     homePieChartInstance = chart;
     chart.draw();
   } catch (e) {
@@ -658,6 +828,14 @@ async function loadRealData(session) {
     // Update settings controls states
     updateSettingsFields(budgetData);
 
+    // Trigger onboarding check for first-time user on landing page
+    if (session && session.user) {
+      const onboardingSeen = localStorage.getItem(`onboarding_seen_${session.user.id}`);
+      if (!onboardingSeen) {
+        showOnboardingModal();
+      }
+    }
+
   } catch (error) {
     console.error('[HOME] Error loading real budget data:', error);
   }
@@ -969,7 +1147,12 @@ function renderGoalsTab(goals) {
 
     // Wire delete
     card.querySelector('.goal-delete-btn').addEventListener('click', async () => {
-      if (!confirm(`Delete goal "${goal.name}"?`)) return;
+      const confirmDelete = await showConfirmDialog({
+        title: 'Delete Goal',
+        message: `Are you sure you want to delete goal "<strong>${escapeHTML(goal.name)}</strong>"?`,
+        isDestructive: true
+      });
+      if (!confirmDelete) return;
       if (!currentBudgetData) return;
       currentBudgetData.goals = (currentBudgetData.goals || []).filter((_, i) => i !== idx);
       await saveGoals(currentBudgetData);
@@ -1135,6 +1318,34 @@ function initHome() {
   // Logout Button
   const logoutBtn = document.getElementById('dropdown-logout-btn');
   if (logoutBtn) logoutBtn.addEventListener('click', handleLogout);
+
+  // Wire up Onboarding Modal elements
+  const onboardingCloseBtn = document.getElementById('onboarding-close-btn');
+  const onboardingHelpBtn = document.getElementById('onboarding-help-btn');
+  const onboardingModal = document.getElementById('onboarding-modal');
+
+  if (onboardingCloseBtn) {
+    onboardingCloseBtn.addEventListener('click', () => {
+      closeOnboardingModal();
+      if (currentSession && currentSession.user) {
+        localStorage.setItem(`onboarding_seen_${currentSession.user.id}`, 'true');
+      }
+    });
+  }
+
+  if (onboardingHelpBtn) {
+    onboardingHelpBtn.addEventListener('click', () => {
+      showOnboardingModal();
+    });
+  }
+
+  if (onboardingModal) {
+    onboardingModal.addEventListener('click', (e) => {
+      if (e.target === onboardingModal) {
+        closeOnboardingModal();
+      }
+    });
+  }
 
   // Initialize month select and year input values from localStorage or current date
   const monthSelect = document.getElementById('home-month-select');

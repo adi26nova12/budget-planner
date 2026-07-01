@@ -1,4 +1,5 @@
 import './style.css';
+import './journal.css';
 import { HandDrawnPieChart } from './hand-drawn-chart.js';
 import { supabase } from './supabase.js';
 
@@ -54,6 +55,29 @@ const API_BASE_URL = 'http://localhost:8000';
 
 // Canvas instance
 let incomeWheelChart = null;
+
+// Onboarding Modal Helpers
+function showOnboardingModal() {
+  const onboardingModal = document.getElementById('onboarding-modal');
+  if (onboardingModal) {
+    onboardingModal.style.display = 'flex';
+    // Force reflow
+    onboardingModal.offsetHeight;
+    onboardingModal.classList.add('show');
+  }
+}
+
+function closeOnboardingModal() {
+  const onboardingModal = document.getElementById('onboarding-modal');
+  if (onboardingModal) {
+    onboardingModal.classList.remove('show');
+    setTimeout(() => {
+      if (!onboardingModal.classList.contains('show')) {
+        onboardingModal.style.display = 'none';
+      }
+    }, 250);
+  }
+}
 
 // Routing rules
 const routes = {
@@ -461,6 +485,14 @@ async function loadState(month, year) {
   // Save selected month and year to localStorage for persistence across reloads
   localStorage.setItem('last_opened_month', monthUpper);
   localStorage.setItem('last_opened_year', year.toString());
+
+  // Trigger onboarding check for first-time user
+  if (currentSession && currentSession.user) {
+    const onboardingSeen = localStorage.getItem(`onboarding_seen_${currentSession.user.id}`);
+    if (!onboardingSeen) {
+      showOnboardingModal();
+    }
+  }
 }
 
 
@@ -873,6 +905,34 @@ async function initApp() {
   if (modal) {
     modal.addEventListener('click', (e) => {
       if (e.target === modal) closeModal();
+    });
+  }
+
+  // Wire up Onboarding Modal elements
+  const onboardingCloseBtn = document.getElementById('onboarding-close-btn');
+  const onboardingHelpBtn = document.getElementById('onboarding-help-btn');
+  const onboardingModal = document.getElementById('onboarding-modal');
+
+  if (onboardingCloseBtn) {
+    onboardingCloseBtn.addEventListener('click', () => {
+      closeOnboardingModal();
+      if (currentSession && currentSession.user) {
+        localStorage.setItem(`onboarding_seen_${currentSession.user.id}`, 'true');
+      }
+    });
+  }
+
+  if (onboardingHelpBtn) {
+    onboardingHelpBtn.addEventListener('click', () => {
+      showOnboardingModal();
+    });
+  }
+
+  if (onboardingModal) {
+    onboardingModal.addEventListener('click', (e) => {
+      if (e.target === onboardingModal) {
+        closeOnboardingModal();
+      }
     });
   }
 

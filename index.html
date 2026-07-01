@@ -25,6 +25,14 @@
         <a href="/login" class="nav-btn" id="nav-btn-login">Login</a>
       </div>
       <div class="navbar-actions">
+        <button class="onboarding-help-btn" id="onboarding-help-btn" title="Show dashboard tutorial" style="display: none; margin-right: 8px;">
+          <svg class="help-btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+          <span>How it Works</span>
+        </button>
         <button id="theme-toggle-btn" class="theme-toggle-btn" title="Toggle Dark/Light Mode">
           <!-- Moon icon -->
           <svg class="theme-icon moon-icon" viewBox="0 0 24 24" width="20" height="20">
@@ -263,12 +271,12 @@
                       </div>
                       <div class="card-title-group">
                         <span class="card-label">Total Income</span>
-                        <h3 class="card-amount green-ink" id="home-total-income">₹85,000.00</h3>
+                        <h3 class="card-amount green-ink" id="home-total-income">₹0.00</h3>
                       </div>
                     </div>
                     <div class="summary-card-footer">
                       <span class="card-subtext">This Month</span>
-                      <span class="card-comparison comparison-green">↗ 12% vs last month</span>
+                      <span class="card-comparison comparison-green">0% vs last month</span>
                     </div>
                   </div>
 
@@ -286,12 +294,12 @@
                       </div>
                       <div class="card-title-group">
                         <span class="card-label">Total Expenses</span>
-                        <h3 class="card-amount red-ink" id="home-total-expenses">₹42,500.00</h3>
+                        <h3 class="card-amount red-ink" id="home-total-expenses">₹0.00</h3>
                       </div>
                     </div>
                     <div class="summary-card-footer">
                       <span class="card-subtext">This Month</span>
-                      <span class="card-comparison comparison-red">↗ 8% vs last month</span>
+                      <span class="card-comparison comparison-red">0% vs last month</span>
                     </div>
                   </div>
 
@@ -308,12 +316,12 @@
                       </div>
                       <div class="card-title-group">
                         <span class="card-label">Remaining to Save</span>
-                        <h3 class="card-amount blue-ink" id="home-total-savings">₹42,500.00</h3>
+                        <h3 class="card-amount blue-ink" id="home-total-savings">₹0.00</h3>
                       </div>
                     </div>
                     <div class="summary-card-footer">
                       <span class="card-subtext">Left for your goals</span>
-                      <span class="card-comparison comparison-blue">♡ On track!</span>
+                      <span class="card-comparison comparison-blue">—</span>
                     </div>
                   </div>
                 </div>
@@ -335,19 +343,15 @@
                         <!-- Legend container -->
                         <div class="home-pie-labels">
                           <ul class="home-pie-legend">
-                            <li><span class="home-legend-box" style="background-color: #fef08a;"></span> <span>Rent / Living (45%)</span></li>
-                            <li><span class="home-legend-box" style="background-color: #fbcfe8;"></span> <span>Food & Groceries (25%)</span></li>
-                            <li><span class="home-legend-box" style="background-color: #e9d5ff;"></span> <span>Bills & Utilities (15%)</span></li>
-                            <li><span class="home-legend-box" style="background-color: #dcfce7;"></span> <span>Transport (10%)</span></li>
-                            <li><span class="home-legend-box" style="background-color: #ffedd5;"></span> <span>Others (5%)</span></li>
+                            <li><span class="home-legend-box" style="background-color: #f3f4f6;"></span> <span>No expenses recorded</span></li>
                           </ul>
                         </div>
                       </div>
                       
                       <!-- Alert Banner -->
-                      <div class="star-alert-banner">
+                      <div class="star-alert-banner" style="background-color: #f3f4f6;">
                         <span class="star-icon">★</span>
-                        <span class="star-alert-text">You're spending 5% less than last month. Great job! 😊</span>
+                        <span class="star-alert-text" style="color: #7A695C;">No spending recorded for this month.</span>
                       </div>
                     </div>
                   </div>
@@ -360,98 +364,9 @@
                         <button class="view-all-link cta-btn">View All</button>
                       </div>
                       <ul class="recent-transactions-list" id="home-recent-transactions-list">
-                        <li class="transaction-item">
-                          <div class="transaction-item-left">
-                            <div class="tx-icon-circle circle-pink">
-                              <!-- Home icon -->
-                              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                              </svg>
-                            </div>
-                            <div class="tx-details">
-                              <span class="tx-title">House Rent</span>
-                              <span class="tx-category">Rent / Living</span>
-                            </div>
-                          </div>
-                          <div class="transaction-item-right">
-                            <span class="tx-amount red-ink">-₹18,000.00</span>
-                            <span class="tx-date">May 20, 2024</span>
-                          </div>
-                        </li>
-                        <li class="transaction-item">
-                          <div class="transaction-item-left">
-                            <div class="tx-icon-circle circle-green">
-                              <!-- Cart icon -->
-                              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="9" cy="21" r="1"/>
-                                <circle cx="20" cy="21" r="1"/>
-                                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
-                              </svg>
-                            </div>
-                            <div class="tx-details">
-                              <span class="tx-title">BigBasket</span>
-                              <span class="tx-category">Food & Groceries</span>
-                            </div>
-                          </div>
-                          <div class="transaction-item-right">
-                            <span class="tx-amount red-ink">-₹1,250.00</span>
-                            <span class="tx-date">May 19, 2024</span>
-                          </div>
-                        </li>
-                        <li class="transaction-item">
-                          <div class="transaction-item-left">
-                            <div class="tx-icon-circle circle-purple">
-                              <!-- Bolt icon -->
-                              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
-                                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
-                              </svg>
-                            </div>
-                            <div class="tx-details">
-                              <span class="tx-title">Electricity Bill</span>
-                              <span class="tx-category">Bills & Utilities</span>
-                            </div>
-                          </div>
-                          <div class="transaction-item-right">
-                            <span class="tx-amount red-ink">-₹2,150.00</span>
-                            <span class="tx-date">May 18, 2024</span>
-                          </div>
-                        </li>
-                        <li class="transaction-item">
-                          <div class="transaction-item-left">
-                            <div class="tx-icon-circle circle-yellow">
-                              <!-- Car/Gas icon -->
-                              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M3 18h18V6H3v12z M12 6v12 M3 12h18"/>
-                              </svg>
-                            </div>
-                            <div class="tx-details">
-                              <span class="tx-title">Uber Ride</span>
-                              <span class="tx-category">Transport</span>
-                            </div>
-                          </div>
-                          <div class="transaction-item-right">
-                            <span class="tx-amount red-ink">-₹450.00</span>
-                            <span class="tx-date">May 17, 2024</span>
-                          </div>
-                        </li>
-                        <li class="transaction-item">
-                          <div class="transaction-item-left">
-                            <div class="tx-icon-circle circle-blue-grey">
-                              <!-- Briefcase icon -->
-                              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
-                                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
-                              </svg>
-                            </div>
-                            <div class="tx-details">
-                              <span class="tx-title">Freelance Work</span>
-                              <span class="tx-category">Income</span>
-                            </div>
-                          </div>
-                          <div class="transaction-item-right">
-                            <span class="tx-amount green-ink">+₹25,000.00</span>
-                            <span class="tx-date">May 16, 2024</span>
-                          </div>
+                        <li style="text-align: center; padding: 32px 16px; font-family: 'Patrick Hand', cursive; color: #7A695C;">
+                          No transactions found for this month.<br>
+                          <span style="font-size: 13px; color: #a0aec0;">Import statements in the <a href="/dashboard" style="color: #ff85a2; text-decoration: underline;">Dashboard</a> to see them here!</span>
                         </li>
                       </ul>
                     </div>
@@ -1107,6 +1022,68 @@
     </div>
 
         </div>
+      </div>
+    </div>
+
+    <!-- Onboarding Tutorial Modal -->
+    <div id="onboarding-modal" class="modal-overlay" style="display: none; position: fixed; inset: 0; background: rgba(30, 20, 10, 0.45); backdrop-filter: blur(5px); z-index: 10000; justify-content: center; align-items: center; padding: 20px;">
+      <div class="onboarding-board" style="position: relative; background-color: #f4eee1; background-image: radial-gradient(#d5cab7 1.5px, transparent 1.5px); background-size: 16px 16px; border: 3px solid #2B2118; border-radius: 16px; box-shadow: 8px 8px 0px #2B2118; max-width: 900px; width: 100%; max-height: 90vh; overflow-y: auto; padding: 36px 24px; display: flex; flex-direction: column; align-items: center; gap: 24px;">
+        
+        <!-- Hanging Pushpin for the board -->
+        <div style="position: absolute; top: -16px; left: 50%; transform: translateX(-50%); z-index: 10;">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2B2118" stroke-width="3">
+            <line x1="12" y1="2" x2="12" y2="14" stroke-linecap="round"/>
+            <circle cx="12" cy="16" r="4" fill="#ef4444" stroke="#2B2118" stroke-width="3"/>
+            <line x1="7" y1="8" x2="17" y2="8" stroke-linecap="round"/>
+          </svg>
+        </div>
+
+        <div style="text-align: center;">
+          <h2 style="font-family: 'CabinSketch', 'Kalam', cursive; font-size: 32px; color: #2B2118; margin: 0 0 8px 0; font-weight: 700; letter-spacing: 0.5px;">Welcome to Piggy Planner! 🐷</h2>
+          <p style="font-family: 'Patrick Hand', cursive; font-size: 18px; color: #7A695C; margin: 0; line-height: 1.4;">Here is how your cozy finance journal works. Let's get your budget started!</p>
+        </div>
+
+        <div class="sticky-notes-container" style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; width: 100%; margin-top: 10px;">
+          
+          <!-- Sticky Note 1: Welcome -->
+          <div class="sticky-note note-yellow" style="width: 195px; min-height: 210px; padding: 20px; transform: rotate(-1.5deg); font-family: 'Patrick Hand', cursive; position: relative;">
+            <div class="sticky-tape" style="background-color: rgba(245, 240, 210, 0.75);"></div>
+            <div class="note-content">
+              <h3 class="note-title" style="font-family: 'CabinSketch', 'Kalam', cursive; font-size: 18px; color: #2B2118; margin: 0 0 6px 0; border-bottom: 1.5px dashed rgba(43,33,24,0.15); padding-bottom: 4px;">1. The Concept</h3>
+              <p class="note-body" style="font-size: 14.5px; color: #4D3E33; line-height: 1.35; margin: 0;">Think of this as your physical paper planner. Everything saves automatically so you can safely log and allocate your funds offline or in the cloud.</p>
+            </div>
+          </div>
+
+          <!-- Sticky Note 2: Expected Income -->
+          <div class="sticky-note note-green" style="width: 195px; min-height: 210px; padding: 20px; transform: rotate(1deg); font-family: 'Patrick Hand', cursive; position: relative;">
+            <div class="sticky-tape" style="background-color: rgba(227, 249, 229, 0.8);"></div>
+            <div class="note-content">
+              <h3 class="note-title" style="font-family: 'CabinSketch', 'Kalam', cursive; font-size: 18px; color: #2B2118; margin: 0 0 6px 0; border-bottom: 1.5px dashed rgba(43,33,24,0.15); padding-bottom: 4px;">2. Add Income</h3>
+              <p class="note-body" style="font-size: 14.5px; color: #4D3E33; line-height: 1.35; margin: 0;">Set your starting balance and list paychecks or gigs under <strong>Income</strong>. Click any cell to type. This defines your monthly budget pool!</p>
+            </div>
+          </div>
+
+          <!-- Sticky Note 3: Bills & Debt -->
+          <div class="sticky-note note-pink" style="width: 195px; min-height: 210px; padding: 20px; transform: rotate(-1deg); font-family: 'Patrick Hand', cursive; position: relative;">
+            <div class="sticky-tape" style="background-color: rgba(255, 227, 227, 0.85);"></div>
+            <div class="note-content">
+              <h3 class="note-title" style="font-family: 'CabinSketch', 'Kalam', cursive; font-size: 18px; color: #2B2118; margin: 0 0 6px 0; border-bottom: 1.5px dashed rgba(43,33,24,0.15); padding-bottom: 4px;">3. Log Obligations</h3>
+              <p class="note-body" style="font-size: 14.5px; color: #4D3E33; line-height: 1.35; margin: 0;">Add monthly bills and debt obligations in the middle column. Type due dates and budgets, then check them off as they are paid off!</p>
+            </div>
+          </div>
+
+          <!-- Sticky Note 4: Expenses & Wheel -->
+          <div class="sticky-note note-blue" style="width: 195px; min-height: 210px; padding: 20px; transform: rotate(1.5deg); font-family: 'Patrick Hand', cursive; position: relative;">
+            <div class="sticky-tape" style="background-color: rgba(227, 250, 249, 0.8);"></div>
+            <div class="note-content">
+              <h3 class="note-title" style="font-family: 'CabinSketch', 'Kalam', cursive; font-size: 18px; color: #2B2118; margin: 0 0 6px 0; border-bottom: 1.5px dashed rgba(43,33,24,0.15); padding-bottom: 4px;">4. Track & Allocate</h3>
+              <p class="note-body" style="font-size: 14.5px; color: #4D3E33; line-height: 1.35; margin: 0;">Distribute the rest to <strong>Expenses</strong>. Set your asset allocation percentages to draw the hand-drawn wheel in the right column!</p>
+            </div>
+          </div>
+
+        </div>
+
+        <button id="onboarding-close-btn" class="btn-sketch btn-primary-sketch" style="margin: 10px 0 0 0; padding: 10px 32px; font-size: 16px; cursor: pointer; box-shadow: 4px 4px 0px #2B2118; border: 3.5px solid #2B2118;">Got it, let's go! 🚀</button>
       </div>
     </div>
 
