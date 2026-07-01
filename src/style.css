@@ -1342,7 +1342,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 10px 24px;
-  background-color: #FFF9DB !important; /* Yellow sticky note background */
+  background-color: #D8C3A5 !important; /* Light brown old book aesthetic */
   border: 2.5px solid #2B2118 !important;
   box-shadow: 5px 5px 0px #2B2118 !important;
   border-radius: 4px !important;
@@ -1430,7 +1430,7 @@ body {
 
 /* Dark mode adjustment for sticky-note navbar */
 body.dark-mode .app-navbar {
-  background-color: #FFF9DB !important;
+  background-color: #D8C3A5 !important;
   border-color: #2B2118 !important;
   color: #2B2118 !important;
 }
