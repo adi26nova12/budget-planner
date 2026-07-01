@@ -1314,14 +1314,13 @@ body {
 .accordion-content {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border-top: 1px solid transparent;
 }
 
 .accordion-item.expanded .accordion-content {
-  max-height: 450px;
+  max-height: none;
   border-top-color: var(--border-color);
-  overflow-y: auto;
+  overflow: visible;
 }
 
 .modal-table-container {
