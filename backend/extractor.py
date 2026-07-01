@@ -3,7 +3,7 @@ import re
 import os
 
 # Category keywords mapping
-DEBT_KEYWORDS = ["hdfc", "sbi", "icici", "loan", "credit card", "cc", "card", "axis", "amex", "snapmint"]
+DEBT_KEYWORDS = ["loan", "credit card", "creditcard", "emi", "mortgage", "repayment", "snapmint"]
 BILL_KEYWORDS = ["rent", "internet", "airtel", "jio", "electricity", "gym", "netflix", "phone", "cable", "spotify", "broadband", "water bill", "insurance", "apple"]
 EXPENSE_CATEGORY_MAPPINGS = {
     "Food": ["chef", "food", "rest", "cafe", "bakery", "sweets", "swiggy", "zomato", "dining", "hotel", "kitchen", "biryani", "dhaba", "pizza", "maggie hotspot", "hotspot", "southern", "calcutta", "cuisine", "coffee", "subway", "culinary ", "quench", "snapeats" , "chatpata", "snap eats"],
