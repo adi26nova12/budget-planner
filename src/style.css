@@ -983,8 +983,9 @@ body {
 .modal-table-container {
   border: 1px solid var(--border-color);
   border-radius: 8px;
-  max-height: 340px; /* Fits comfortably inside the accordion content height limit */
-  overflow: auto; /* Enable both vertical and horizontal scrollbars */
+  max-height: none;
+  overflow-x: auto;
+  overflow-y: visible;
 }
 
 .modal-table-container .spreadsheet-table {
@@ -1317,15 +1318,14 @@ body {
   border-top: 1px solid transparent;
 }
 
+.accordion-item.expanded {
+  overflow: visible;
+}
+
 .accordion-item.expanded .accordion-content {
   max-height: none;
   border-top-color: var(--border-color);
   overflow: visible;
-}
-
-.modal-table-container {
-  overflow-x: auto;
-  width: 100%;
 }
 
 .accordion-item.expanded .accordion-header {
