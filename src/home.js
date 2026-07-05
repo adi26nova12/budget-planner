@@ -402,7 +402,7 @@ async function loadRealData(session) {
 
     const savingsActual = (budgetData.cashFlowSummary && budgetData.cashFlowSummary.savingsActual) || 0;
     const totalOutflow = totalBillsActual + totalExpensesActual + totalDebtActual + savingsActual;
-    const remainingToSave = savingsActual;
+    const remainingToSave = totalIncomeActual - totalOutflow;
 
     const incomeEl = document.getElementById('home-total-income');
     const expensesEl = document.getElementById('home-total-expenses');
@@ -412,7 +412,14 @@ async function loadRealData(session) {
 
     if (incomeEl) incomeEl.textContent = formatCurrency(totalIncomeActual, currencySymbol);
     if (expensesEl) expensesEl.textContent = formatCurrency(totalOutflow, currencySymbol);
-    if (savingsEl) savingsEl.textContent = formatCurrency(remainingToSave, currencySymbol);
+    if (savingsEl) {
+      savingsEl.textContent = formatCurrency(remainingToSave, currencySymbol);
+      if (remainingToSave < 0) {
+        savingsEl.className = 'card-amount red-ink';
+      } else {
+        savingsEl.className = 'card-amount blue-ink';
+      }
+    }
 
     const txList = [];
     if (budgetData.settings?.importedStatements) {
@@ -1343,6 +1350,60 @@ function initHome() {
     onboardingModal.addEventListener('click', (e) => {
       if (e.target === onboardingModal) {
         closeOnboardingModal();
+      }
+    });
+  }
+
+  // Wire up Privacy Policy and Terms Modals
+  const privacyLink = document.getElementById('privacy-policy-link');
+  const termsLink = document.getElementById('terms-conditions-link');
+  const privacyModal = document.getElementById('privacy-modal');
+  const termsModal = document.getElementById('terms-modal');
+  const privacyCloseBtn = document.getElementById('privacy-close-btn');
+  const termsCloseBtn = document.getElementById('terms-close-btn');
+
+  if (privacyLink) {
+    privacyLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (privacyModal) {
+        privacyModal.style.display = 'flex';
+      }
+    });
+  }
+
+  if (termsLink) {
+    termsLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (termsModal) {
+        termsModal.style.display = 'flex';
+      }
+    });
+  }
+
+  if (privacyCloseBtn) {
+    privacyCloseBtn.addEventListener('click', () => {
+      if (privacyModal) privacyModal.style.display = 'none';
+    });
+  }
+
+  if (termsCloseBtn) {
+    termsCloseBtn.addEventListener('click', () => {
+      if (termsModal) termsModal.style.display = 'none';
+    });
+  }
+
+  if (privacyModal) {
+    privacyModal.addEventListener('click', (e) => {
+      if (e.target === privacyModal) {
+        privacyModal.style.display = 'none';
+      }
+    });
+  }
+
+  if (termsModal) {
+    termsModal.addEventListener('click', (e) => {
+      if (e.target === termsModal) {
+        termsModal.style.display = 'none';
       }
     });
   }

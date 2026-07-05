@@ -3213,3 +3213,148 @@ body.dark-mode .onboarding-help-btn:hover {
   border-color: #735e1d;
 }
 
+/* Mobile responsive styles for Cozy Journal Layout */
+@media (max-width: 768px) {
+  body:has(#dashboard-view.active) {
+    padding: 8px !important;
+  }
+  
+  /* Split layout collapses to vertical */
+  .dashboard-split-layout {
+    flex-direction: column !important;
+    min-height: auto !important;
+  }
+  
+  /* Sidebar stacks on top, full width, bottom border is handled by tabs container */
+  .dashboard-sidebar {
+    width: 100% !important;
+    border-right: none !important;
+    border-bottom: none !important;
+    padding: 16px 16px 0 16px !important;
+    gap: 12px !important;
+    background-color: #F0EDE6 !important;
+  }
+  
+  /* Logo and brand centering */
+  .sidebar-logo {
+    margin-bottom: 12px !important;
+    padding-bottom: 8px !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 12px !important;
+    border-bottom: 2px dashed #D3C7B5 !important;
+  }
+  
+  /* Make menu items display as a scrollable horizontal tab bar */
+  .sidebar-menu {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    justify-content: flex-start !important;
+    align-items: flex-end !important;
+    gap: 4px !important;
+    margin-bottom: 0 !important;
+    border-bottom: 3.5px solid #2B2118 !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scrollbar-width: none !important;
+    padding-bottom: 0 !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  
+  .sidebar-menu::-webkit-scrollbar {
+    display: none !important;
+  }
+  
+  /* Index tab items */
+  .menu-item {
+    width: auto !important;
+    flex-shrink: 0 !important;
+    padding: 8px 12px !important;
+    font-size: 13px !important;
+    font-family: 'CabinSketch', 'Kalam', cursive !important;
+    font-weight: 700 !important;
+    border: 2px solid #2B2118 !important;
+    border-bottom: none !important;
+    border-radius: 6px 6px 0 0 !important;
+    background-color: #E0DBD0 !important;
+    color: #7A695C !important;
+    margin-bottom: -3.5px !important;
+    transition: none !important;
+    box-shadow: none !important;
+    transform: none !important;
+  }
+  
+  .menu-item:hover {
+    background-color: #D6CFC3 !important;
+    color: #2B2118 !important;
+  }
+  
+  .menu-item.active {
+    background-color: #FAF8F5 !important;
+    color: #1A120B !important;
+    border-bottom: 3.5px solid #FAF8F5 !important;
+    z-index: 10 !important;
+    box-shadow: none !important;
+    transform: none !important;
+  }
+  
+  /* Hide plant card and offline sync badge on mobile sidebar to save vertical space */
+  .sidebar-footer {
+    display: none !important;
+  }
+
+  /* Main area content padding */
+  .dashboard-main-area {
+    padding: 16px !important;
+    min-height: auto !important;
+  }
+  
+  /* Welcome header text scale */
+  .welcome-title {
+    font-size: 24px !important;
+  }
+  
+  .welcome-desc {
+    font-size: 15px !important;
+  }
+  
+  /* Summary cards stack vertically */
+  .summary-cards-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  
+  /* Content grid stacks vertically */
+  .home-content-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  
+  /* Quick actions grid collapses to 2 columns */
+  .quick-actions-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+
+  /* Shared header responsive styling for mobile month bar */
+  .dashboard-shared-header {
+    position: relative !important;
+    top: auto !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+    padding: 12px 16px !important;
+  }
+  
+  .header-selectors-group {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+  }
+}
+
+

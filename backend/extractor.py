@@ -88,12 +88,22 @@ def parse_gpay_text(text: str) -> list:
                 year_match = re.search(r"\b(20\d{2})\b", date_str)
                 if year_match:
                     tx_year = year_match.group(1)
+            # 4. Extract Time
+            tx_time = ""
+            for offset in [0, -1, -2, -3, 1, 2]:
+                check_idx = i + offset
+                if 0 <= check_idx < len(lines):
+                    time_match = re.search(r"\b\d{1,2}:\d{2}\s*(?:AM|PM|am|pm)?\b", lines[check_idx])
+                    if time_match:
+                        tx_time = time_match.group(0)
+                        break
             
             transactions.append({
                 "type": "received" if is_received else "sent",
                 "description": desc or "Transaction",
                 "amount": amount,
                 "date": date_str,
+                "time": tx_time,
                 "month": tx_month,
                 "year": tx_year
             })
@@ -201,11 +211,23 @@ def parse_paytm_text(text: str) -> list:
                                 break
                     break
             
+            # Extract Time
+            tx_time = ""
+            for k in range(1, 10):
+                if idx + k >= len(lines):
+                    break
+                curr = lines[idx + k]
+                time_match = re.search(r"\b\d{1,2}:\d{2}\s*(?:AM|PM|am|pm)?\b", curr)
+                if time_match:
+                    tx_time = time_match.group(0)
+                    break
+            
             transactions.append({
                 "type": tx_type,
                 "description": desc or "Transaction",
                 "amount": amount,
                 "date": date_str,
+                "time": tx_time,
                 "month": tx_month,
                 "year": tx_year
             })
@@ -326,6 +348,7 @@ def parse_hdfc_bank_statement(text: str) -> list:
             "description": row["narration"] or "Transaction",
             "amount": row["amount"],
             "date": row["tx_date"],
+            "time": "",
             "month": row["month"],
             "year": row["year"]
         })
@@ -405,6 +428,26 @@ def is_same_transaction(tx1: dict, tx2: dict) -> bool:
     d2 = normalize_date(tx2.get("date", ""))
     if d1 and d2 and d1 != d2:
         return False
+
+    # Compare times (if both have time)
+    t1 = tx1.get("time", "").strip().lower()
+    t2 = tx2.get("time", "").strip().lower()
+    def normalize_time(t_str: str) -> str:
+        if not t_str:
+            return ""
+        t_str = t_str.replace(" ", "")
+        match = re.match(r"^(\d):(\d{2})([a-z]{2})?$", t_str)
+        if match:
+            h = "0" + match.group(1)
+            m = match.group(2)
+            suffix = match.group(3) or ""
+            return f"{h}:{m}{suffix}"
+        return t_str
+
+    nt1 = normalize_time(t1)
+    nt2 = normalize_time(t2)
+    if nt1 and nt2 and nt1 != nt2:
+        return False
         
     desc1 = tx1.get("description", "").lower()
     desc2 = tx2.get("description", "").lower()
@@ -466,6 +509,7 @@ def merge_transactions_into_budget(state: dict, transactions: list, target_month
                         "description": t.get("description", ""),
                         "amount": t.get("amount", 0.0),
                         "date": t.get("date", ""),
+                        "time": t.get("time", ""),
                         "type": tx_type
                     })
                     
@@ -527,7 +571,8 @@ def merge_transactions_into_budget(state: dict, transactions: list, target_month
                 "description": desc,
                 "amount": amount,
                 "type": "received",
-                "date": tx_date
+                "date": tx_date,
+                "time": tx.get("time", "")
             })
             
         elif tx_type == "cashback":
@@ -567,7 +612,8 @@ def merge_transactions_into_budget(state: dict, transactions: list, target_month
                     "id": row_id,
                     "description": desc,
                     "amount": amount,
-                    "date": tx_date
+                    "date": tx_date,
+                    "time": tx.get("time", "")
                 })
             elif is_bill:
                 added = False
@@ -599,7 +645,8 @@ def merge_transactions_into_budget(state: dict, transactions: list, target_month
                     "id": row_id,
                     "description": desc,
                     "amount": amount,
-                    "date": tx_date
+                    "date": tx_date,
+                    "time": tx.get("time", "")
                 })
             else: # general expense category
                 matched_category = "Other"
@@ -636,7 +683,8 @@ def merge_transactions_into_budget(state: dict, transactions: list, target_month
                     "category": matched_category,
                     "description": desc,
                     "amount": amount,
-                    "date": tx_date
+                    "date": tx_date,
+                    "time": tx.get("time", "")
                 })
                 
     # 3. Add consolidated cashback entry to Income table if present
@@ -668,7 +716,8 @@ def merge_transactions_into_budget(state: dict, transactions: list, target_month
             "description": "Cashback Total",
             "amount": total_cashback_amount,
             "type": "cashback",
-            "date": "Multiple"
+            "date": "Multiple",
+            "time": ""
         })
         # Also log individual cashback details for user viewing
         for tx in matching_txs:
@@ -679,7 +728,8 @@ def merge_transactions_into_budget(state: dict, transactions: list, target_month
                     "description": tx["description"],
                     "amount": tx["amount"],
                     "type": "cashback",
-                    "date": tx.get("date", "") or "Imported"
+                    "date": tx.get("date", "") or "Imported",
+                    "time": tx.get("time", "")
                 })
                 
     # Save the statement entry metadata

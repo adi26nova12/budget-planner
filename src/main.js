@@ -2232,7 +2232,8 @@ function openViewPdfModal() {
         
         const tdType = document.createElement('td');
         const displayType = tx.type ? tx.type.toUpperCase() : 'SENT';
-        const dateStr = tx.date ? ` (${tx.date})` : '';
+        const timeStr = tx.time ? ` ${tx.time}` : '';
+        const dateStr = tx.date ? ` (${tx.date}${timeStr})` : '';
         tdType.textContent = displayType + dateStr;
         tr.appendChild(tdType);
 

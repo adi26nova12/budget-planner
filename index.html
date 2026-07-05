@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Piggy Planner - Finance Dashboard & Asset Allocation Wheel</title>
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/jpeg" href="/favicon.jpg" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Kalam:wght@300;400;700&family=Patrick+Hand&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -13,9 +13,7 @@
     <!-- Persistent Navigation Bar -->
     <nav class="app-navbar" id="app-navbar">
       <div class="navbar-brand">
-        <svg class="brand-logo" viewBox="0 0 24 24" width="28" height="28">
-          <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.75z"/>
-        </svg>
+        <img class="brand-logo" src="/logo.jpg" width="28" height="28" style="border-radius: 50%; object-fit: cover;" />
         <span class="brand-name">Piggy Planner</span>
       </div>
       <div class="navbar-links">
@@ -25,14 +23,6 @@
         <a href="/login" class="nav-btn" id="nav-btn-login">Login</a>
       </div>
       <div class="navbar-actions">
-        <button class="onboarding-help-btn" id="onboarding-help-btn" title="Show dashboard tutorial" style="display: none; margin-right: 8px;">
-          <svg class="help-btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/>
-            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
-            <line x1="12" y1="17" x2="12.01" y2="17"/>
-          </svg>
-          <span>How it Works</span>
-        </button>
         <button id="theme-toggle-btn" class="theme-toggle-btn" title="Toggle Dark/Light Mode">
           <!-- Moon icon -->
           <svg class="theme-icon moon-icon" viewBox="0 0 24 24" width="20" height="20">
@@ -92,26 +82,7 @@
           <aside class="dashboard-sidebar" style="width: 230px; padding: 24px 12px;">
             <!-- Brand / Logo as custom SVG Notebook -->
             <div class="sidebar-logo" style="margin-bottom: 20px; border-bottom: 2px dashed #D3C7B5; padding-bottom: 16px; flex-direction: column; align-items: center; gap: 8px;">
-              <svg viewBox="0 0 80 90" width="70" height="80" stroke="#2B2118" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" class="sidebar-logo-svg">
-                <!-- Outer notebook border -->
-                <path d="M 20 10 L 70 10 A 5 5 0 0 1 75 15 L 75 80 A 5 5 0 0 1 70 85 L 20 85 C 17 85, 15 83, 15 80 L 15 15 C 15 12, 17 10, 20 10 Z" fill="#FFFDF9" />
-                <path d="M 15 20 L 75 20" stroke-dasharray="2 3" />
-                <!-- Rupee Circle -->
-                <circle cx="47" cy="52" r="14" stroke="#2B2118" stroke-width="2" />
-                <text x="47" y="58" font-family="'CabinSketch', cursive" font-size="18" font-weight="bold" fill="#2B2118" stroke="none" text-anchor="middle">₹</text>
-                <!-- Notebook writing Lines -->
-                <line x1="22" y1="28" x2="38" y2="28" stroke-width="1.5" />
-                <line x1="22" y1="36" x2="32" y2="36" stroke-width="1.5" />
-                <!-- Spiral loops on left -->
-                <path d="M 15 16 C 8 16, 8 20, 15 20" />
-                <path d="M 15 28 C 8 28, 8 32, 15 32" />
-                <path d="M 15 40 C 8 40, 8 44, 15 44" />
-                <path d="M 15 52 C 8 52, 8 56, 15 56" />
-                <path d="M 15 64 C 8 64, 8 68, 15 68" />
-                <path d="M 15 76 C 8 76, 8 80, 15 80" />
-                <!-- Text on cover -->
-                <text x="47" y="32" font-family="'CabinSketch', cursive" font-size="10" font-weight="bold" fill="#2B2118" stroke="none" text-anchor="middle">BUDGET</text>
-              </svg>
+              <img src="/logo.jpg" width="70" height="70" style="border-radius: 50%; border: 2.5px solid #2B2118; box-shadow: 3px 3px 0px #2B2118; object-fit: cover; margin-bottom: 4px;" class="sidebar-logo-img" />
               <span class="sidebar-brand-name" style="font-size: 18px; margin-top: 4px;">Piggy Planner</span>
             </div>
 
@@ -1019,6 +990,25 @@
         </div>
       </div>
       
+      <style>
+        .cozy-footer a:hover {
+          color: #ff5c8a !important;
+          border-bottom-color: #ff5c8a !important;
+        }
+      </style>
+      
+      <!-- Cozy Footer -->
+      <footer class="cozy-footer" style="margin-top: 30px; width: 100%; max-width: 1300px; display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; border-top: 2.5px dashed #2B2118; font-family: 'Patrick Hand', cursive; font-size: 15px; color: #7A695C; box-sizing: border-box;">
+        <div>
+          <span>© 2026 Piggy Planner. Crafted with care.</span>
+        </div>
+        <div style="display: flex; gap: 20px;">
+          <a href="#" id="onboarding-help-btn" onclick="event.preventDefault();" style="color: #ff85a2; text-decoration: none; border-bottom: 1.5px dashed #ff85a2; transition: color 0.2s, border-color 0.2s;">How it Works</a>
+          <a href="#" id="privacy-policy-link" style="color: #ff85a2; text-decoration: none; border-bottom: 1.5px dashed #ff85a2; transition: color 0.2s, border-color 0.2s;">Privacy Policy</a>
+          <a href="#" id="terms-conditions-link" style="color: #ff85a2; text-decoration: none; border-bottom: 1.5px dashed #ff85a2; transition: color 0.2s, border-color 0.2s;">Terms & Conditions</a>
+        </div>
+      </footer>
+
     </div>
 
         </div>
@@ -1115,6 +1105,54 @@
         </p>
         
         <button id="sticky-note-close-btn" class="btn-sketch btn-primary-sketch" style="margin: 0 auto; padding: 6px 20px; font-size: 14px; cursor: pointer; box-shadow: 3px 3px 0px #2B2118; border: 2.5px solid #2B2118; width: fit-content; align-self: center;">OK</button>
+      </div>
+    </div>
+
+    <!-- Privacy Policy Modal Overlay -->
+    <div id="privacy-modal" style="display: none; position: fixed; inset: 0; background: rgba(30, 20, 10, 0.4); backdrop-filter: blur(4px); z-index: 10000; justify-content: center; align-items: center;">
+      <div class="sticky-note-card" style="position: relative; background: #FFF9DB; border: 2.5px solid #2B2118; box-shadow: 6px 6px 0px #2B2118; width: 420px; max-width: 90%; padding: 24px; font-family: 'Patrick Hand', cursive; transform: rotate(1deg); display: flex; flex-direction: column; gap: 16px; border-radius: 4px;">
+        <!-- Pushpin icon -->
+        <div style="position: absolute; top: -14px; left: 50%; transform: translateX(-50%); z-index: 10;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2B2118" stroke-width="2.5">
+            <line x1="12" y1="2" x2="12" y2="12" stroke-linecap="round"/>
+            <circle cx="12" cy="14" r="3" fill="#3b82f6" stroke="#2B2118" stroke-width="2.5"/>
+            <line x1="8" y1="8" x2="16" y2="8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        
+        <h4 style="font-family: 'CabinSketch', cursive; font-size: 24px; color: #2B2118; margin: 8px 0 0 0; text-align: center; border-bottom: 2.5px dashed rgba(43, 33, 24, 0.2); padding-bottom: 8px; letter-spacing: 0.5px;">Privacy Policy</h4>
+        
+        <div style="font-size: 15px; color: #4D3E33; line-height: 1.5; margin: 0; display: flex; flex-direction: column; gap: 10px;">
+          <p><strong>Your data belongs to you.</strong> Piggy Planner values your privacy and stores all your data directly on your local device (via browser local storage) or safely securely in Supabase Cloud depending on your account choice.</p>
+          <p><strong>No Selling or Sharing:</strong> We do not monitor, track, sell, or disclose your financial transactions or account details to any third parties.</p>
+          <p><strong>Full Control:</strong> You can completely clear your locally cached data or request complete account deletion at any time from your Profile settings page.</p>
+        </div>
+        
+        <button id="privacy-close-btn" class="btn-sketch btn-primary-sketch" style="margin: 8px auto 0; padding: 6px 20px; font-size: 14px; cursor: pointer; box-shadow: 3px 3px 0px #2B2118; border: 2.5px solid #2B2118; width: fit-content; align-self: center;">Understood</button>
+      </div>
+    </div>
+
+    <!-- Terms & Conditions Modal Overlay -->
+    <div id="terms-modal" style="display: none; position: fixed; inset: 0; background: rgba(30, 20, 10, 0.4); backdrop-filter: blur(4px); z-index: 10000; justify-content: center; align-items: center;">
+      <div class="sticky-note-card" style="position: relative; background: #FFF9DB; border: 2.5px solid #2B2118; box-shadow: 6px 6px 0px #2B2118; width: 420px; max-width: 90%; padding: 24px; font-family: 'Patrick Hand', cursive; transform: rotate(-1deg); display: flex; flex-direction: column; gap: 16px; border-radius: 4px;">
+        <!-- Pushpin icon -->
+        <div style="position: absolute; top: -14px; left: 50%; transform: translateX(-50%); z-index: 10;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2B2118" stroke-width="2.5">
+            <line x1="12" y1="2" x2="12" y2="12" stroke-linecap="round"/>
+            <circle cx="12" cy="14" r="3" fill="#10b981" stroke="#2B2118" stroke-width="2.5"/>
+            <line x1="8" y1="8" x2="16" y2="8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        
+        <h4 style="font-family: 'CabinSketch', cursive; font-size: 24px; color: #2B2118; margin: 8px 0 0 0; text-align: center; border-bottom: 2.5px dashed rgba(43, 33, 24, 0.2); padding-bottom: 8px; letter-spacing: 0.5px;">Terms & Conditions</h4>
+        
+        <div style="font-size: 15px; color: #4D3E33; line-height: 1.5; margin: 0; display: flex; flex-direction: column; gap: 10px;">
+          <p><strong>Personal Estimation Tool:</strong> Piggy Planner is a personal budget journal intended for financial planning and visual tracking purposes only. It is not an official tax, accounting, or investment tool.</p>
+          <p><strong>Provided As-Is:</strong> The service is provided "as is" and "as available". We do not guarantee continuous error-free operation or accuracy of automatic PDF statements.</p>
+          <p><strong>Account Security:</strong> You are responsible for keeping your login credentials safe. Please use a strong, unique password for cloud sync accounts.</p>
+        </div>
+        
+        <button id="terms-close-btn" class="btn-sketch btn-primary-sketch" style="margin: 8px auto 0; padding: 6px 20px; font-size: 14px; cursor: pointer; box-shadow: 3px 3px 0px #2B2118; border: 2.5px solid #2B2118; width: fit-content; align-self: center;">I Agree</button>
       </div>
     </div>
 
