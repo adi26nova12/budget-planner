@@ -1350,8 +1350,7 @@ body {
   border: 2.5px solid #2B2118 !important;
   box-shadow: 5px 5px 0px #2B2118 !important;
   border-radius: 4px !important;
-  position: sticky;
-  top: 10px;
+  position: relative;
   z-index: 1000;
   margin-top: 10px;
   margin-bottom: 28px;
