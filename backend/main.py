@@ -388,13 +388,20 @@ def get_budget(
         raise HTTPException(status_code=400, detail="Invalid year format.")
     
     user_id = current_user["id"]
+
+    print("===================================")
+    print("JWT User ID:", user_id)
+    print("Month:", month_upper)
+    print("Year:", year)
+    print("===================================")
     
     if use_supabase:
         try:
             token = credentials.credentials if credentials else None
             client = get_supabase_client(token)
             if client:
-                response = client.table("monthly_budgets").select("data").eq("month", month_upper).eq("year", year).eq("user_id", user_id).execute()
+                response = client.table("monthly_budgets").select("data, user_id, month, year").eq("month", month_upper).eq("year", year).execute()
+                print("Rows found:", response.data)
                 if response.data and len(response.data) > 0:
                     budget_data = response.data[0]["data"]
                     if is_valid_budget(budget_data):
