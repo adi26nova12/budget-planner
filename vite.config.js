@@ -1,7 +1,11 @@
 import { defineConfig } from 'vite';
-import { resolve } from 'path';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+const projectRoot = dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
+  root: projectRoot,
   plugins: [
     {
       name: 'html-fallback',
@@ -22,9 +26,9 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'index.html'),
-        dashboard: resolve(__dirname, 'dashboard.html'),
-        login: resolve(__dirname, 'login.html'),
+        main: 'index.html',
+        dashboard: 'dashboard.html',
+        login: 'login.html',
       },
     },
   },

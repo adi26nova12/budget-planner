@@ -3,9 +3,12 @@ import './journal.css';
 import { HandDrawnPieChart } from './hand-drawn-chart.js';
 import { supabase } from './supabase.js';
 
+// Base API URL
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://piggy-planner-api.onrender.com';
+
 // Remote logger for developer debugging
 function logToBackend(type, data) {
-  fetch('http://localhost:8000/api/log-error', {
+  fetch(`${API_BASE_URL}/api/log-error`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ type, data, timestamp: new Date().toISOString() })
@@ -49,9 +52,6 @@ if (initialCachedData) {
 } else {
   state = getDefaultState(initialMonthFallback, initialYearFallback);
 }
-
-// Base API URL
-const API_BASE_URL = 'http://localhost:8000';
 
 // Canvas instance
 let incomeWheelChart = null;

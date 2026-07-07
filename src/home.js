@@ -9,7 +9,7 @@ let homePieChartInstance = null;
 let reportsDonutChartInstance = null;
 let isTransactionsExpanded = false;
 const defaultCategories = ["Personal Care", "Travel", "Home", "Groceries", "Pets", "Education", "Food", "Entertainment", "Fuel"];
-const API_BASE_URL = 'http://localhost:8000';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://piggy-planner-api.onrender.com';
 
 function formatNumber(num) {
   if (num === undefined || num === null) return '0.00';
